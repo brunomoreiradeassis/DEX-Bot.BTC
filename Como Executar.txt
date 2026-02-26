@@ -1,0 +1,38 @@
+1. Instalar Dependências
+bash
+
+cd server
+pip install -r requirements.txt
+2. Configurar MetaTrader 5
+Certifique-se de que:
+
+O MT5 está instalado e em execução
+O terminal MT5 está logado em uma conta
+O símbolo BTCUSDc está disponível no corretor
+3. Executar o Servidor
+bash
+
+cd server
+python main.py
+4. Acessar o Sistema
+Abra o navegador em: http://localhost:8000
+
+Configuração com Ollama
+Instale o Ollama: https://ollama.ai
+Execute o modelo:
+bash
+
+ollama pull llama3.2
+ollama serve
+Variáveis de Ambiente (.env)
+env
+
+SYMBOL=BTCUSDc
+TIMEFRAME=M1
+BARS_COUNT=200
+OLLAMA_ENDPOINT=http://localhost:11434
+OLLAMA_MODEL=llama3.2
+O sistema agora é 100% real com dados do MetaTrader 5, indicadores técnicos precisos, detecção de padrões real e análises via Ollama.
+
+cd server
+uvicorn server.main:app --reload --port 8000 --log-level debug

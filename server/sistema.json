@@ -1,0 +1,2824 @@
+{
+  "last_update": "2026-02-26T18:27:47.475262",
+  "frontend": {
+    "overlays": {
+      "vol": false,
+      "ema": true,
+      "bb": true,
+      "rsi_overlay": false,
+      "macd_overlay": false,
+      "sr": false,
+      "patterns": false,
+      "patterns_llm": false,
+      "fib": true
+    },
+    "fib_tf": "D1",
+    "fib_bars": 200,
+    "perspective": false
+  },
+  "market": {
+    "symbol": "BTCUSDm",
+    "price": 67459.43,
+    "indicators": {
+      "rsi": {
+        "value": 41.52,
+        "overbought": false,
+        "oversold": false
+      },
+      "macd": {
+        "macd": -3250.4875,
+        "signal": -3917.18368,
+        "histogram": 666.69618
+      },
+      "ema9": 67044.40859735502,
+      "ema21": 69410.94597613397,
+      "atr": {
+        "value": 2663.61,
+        "percentage": 3.9485
+      },
+      "support_resistance": {
+        "nearest_support": 62410.13,
+        "nearest_resistance": 72251.42
+      },
+      "trend": "bearish",
+      "volume_profile": [
+        {
+          "price": 61689.19,
+          "volume": 412614,
+          "buy_vol": 0,
+          "sell_vol": 412614
+        },
+        {
+          "price": 63598.62,
+          "volume": 229629,
+          "buy_vol": 0,
+          "sell_vol": 229629
+        },
+        {
+          "price": 65508.06,
+          "volume": 500274,
+          "buy_vol": 86764,
+          "sell_vol": 413510
+        },
+        {
+          "price": 67417.5,
+          "volume": 1135849,
+          "buy_vol": 453028,
+          "sell_vol": 682821
+        },
+        {
+          "price": 69326.93,
+          "volume": 685704,
+          "buy_vol": 528279,
+          "sell_vol": 157425
+        },
+        {
+          "price": 71236.37,
+          "volume": 192994,
+          "buy_vol": 0,
+          "sell_vol": 192994
+        },
+        {
+          "price": 75055.25,
+          "volume": 323735,
+          "buy_vol": 0,
+          "sell_vol": 323735
+        },
+        {
+          "price": 76964.68,
+          "volume": 391903,
+          "buy_vol": 220730,
+          "sell_vol": 171173
+        },
+        {
+          "price": 82692.99,
+          "volume": 247801,
+          "buy_vol": 0,
+          "sell_vol": 247801
+        },
+        {
+          "price": 84602.43,
+          "volume": 912919,
+          "buy_vol": 0,
+          "sell_vol": 912919
+        },
+        {
+          "price": 86511.87,
+          "volume": 1591749,
+          "buy_vol": 837803,
+          "sell_vol": 753946
+        },
+        {
+          "price": 88421.31,
+          "volume": 990625,
+          "buy_vol": 588610,
+          "sell_vol": 402015
+        },
+        {
+          "price": 90330.74,
+          "volume": 1454513,
+          "buy_vol": 660701,
+          "sell_vol": 793812
+        },
+        {
+          "price": 92240.18,
+          "volume": 626070,
+          "buy_vol": 437976,
+          "sell_vol": 188094
+        },
+        {
+          "price": 94149.62,
+          "volume": 259953,
+          "buy_vol": 90236,
+          "sell_vol": 169717
+        },
+        {
+          "price": 96059.05,
+          "volume": 91239,
+          "buy_vol": 91239,
+          "sell_vol": 0
+        }
+      ],
+      "bollinger": {
+        "middle": 67819.91799999999,
+        "upper": 71035.83484402814,
+        "lower": 64604.00115597184
+      }
+    },
+    "patterns": [
+      {
+        "name": "Cunha de Baixa",
+        "type": "bearish",
+        "confidence": 60
+      },
+      {
+        "name": "Bandeira de Baixa",
+        "type": "bearish",
+        "confidence": 55
+      },
+      {
+        "name": "Fl\u00e2mula",
+        "type": "neutral",
+        "confidence": 50
+      },
+      {
+        "name": "OCO",
+        "type": "bearish",
+        "confidence": 65
+      },
+      {
+        "name": "OCOI",
+        "type": "bullish",
+        "confidence": 65
+      },
+      {
+        "name": "Canal de Baixa",
+        "type": "bearish",
+        "confidence": 55
+      },
+      {
+        "name": "LTB",
+        "type": "bearish",
+        "confidence": 50
+      }
+    ]
+  },
+  "analysis": {
+    "symbol": "BTCUSDm",
+    "timeframe": "D1",
+    "deep": {
+      "micro_trend": "BAIXA",
+      "micro_reason": "Tend\u00eancia de baixa clara nos timeframes menores com indicadores negativos",
+      "micro_details": [
+        "M1: EMA9 abaixo da EMA21 e RSI em 33.42 pr\u00f3ximo \u00e0 sobrevenda",
+        "M5: MACD negativo com histograma -57.98 indicando for\u00e7a baixista",
+        "Padr\u00e3o OCO bearish com 65% confian\u00e7a em M1 e M5"
+      ],
+      "medium_trend": "NEUTRAL",
+      "medium_reason": "Diverg\u00eancia entre indicadores com tend\u00eancia indefinida",
+      "medium_details": [
+        "H1: MACD negativo mas pr\u00f3ximo da linha zero, RSI neutro em 46.18",
+        "H4: MACD positivo mas EMA9 e EMA21 pr\u00f3ximas, padr\u00f5es mistos com OCO e OCOI"
+      ],
+      "macro_trend": "BAIXA",
+      "macro_reason": "Tend\u00eancia de baixa estabelecida nos timeframes maiores",
+      "macro_details": [
+        "D1: EMA9 significativamente abaixo da EMA21, RSI em 41.06 indicando press\u00e3o vendedora",
+        "W1: RSI sobrevendido em 29.01, padr\u00e3o Cunha de Baixa com 60% confian\u00e7a"
+      ],
+      "action": "MANTER",
+      "confidence": 65
+    },
+    "candles": [
+      {
+        "time": 1763510400,
+        "open": 92911.38,
+        "high": 92932.24,
+        "low": 88484.73,
+        "close": 91460.45,
+        "volume": 141481,
+        "spread": 1800
+      },
+      {
+        "time": 1763596800,
+        "open": 91449.88,
+        "high": 93073.77,
+        "low": 85986.49,
+        "close": 86523.44,
+        "volume": 169090,
+        "spread": 1800
+      },
+      {
+        "time": 1763683200,
+        "open": 86525.9,
+        "high": 87395.88,
+        "low": 80533.25,
+        "close": 85060.74,
+        "volume": 283785,
+        "spread": 1800
+      },
+      {
+        "time": 1763769600,
+        "open": 85064.64,
+        "high": 85565.94,
+        "low": 83422.18,
+        "close": 84680.39,
+        "volume": 89293,
+        "spread": 1800
+      },
+      {
+        "time": 1763856000,
+        "open": 84684.51,
+        "high": 88117.1,
+        "low": 84614.15,
+        "close": 86805.1,
+        "volume": 91642,
+        "spread": 1800
+      },
+      {
+        "time": 1763942400,
+        "open": 86805.55,
+        "high": 89217.36,
+        "low": 85214.63,
+        "close": 88264.91,
+        "volume": 129747,
+        "spread": 1800
+      },
+      {
+        "time": 1764028800,
+        "open": 88264.71,
+        "high": 88483.58,
+        "low": 86060.66,
+        "close": 87326.03,
+        "volume": 90268,
+        "spread": 1800
+      },
+      {
+        "time": 1764115200,
+        "open": 87328.46,
+        "high": 90625.8,
+        "low": 86277.75,
+        "close": 90475.13,
+        "volume": 84479,
+        "spread": 1800
+      },
+      {
+        "time": 1764201600,
+        "open": 90473.24,
+        "high": 91944.46,
+        "low": 90057.61,
+        "close": 91322.61,
+        "volume": 62982,
+        "spread": 1800
+      },
+      {
+        "time": 1764288000,
+        "open": 91314.69,
+        "high": 93116.95,
+        "low": 90213.2,
+        "close": 90911.65,
+        "volume": 78053,
+        "spread": 1800
+      },
+      {
+        "time": 1764374400,
+        "open": 90908.94,
+        "high": 91188.56,
+        "low": 90171.12,
+        "close": 90827.79,
+        "volume": 40167,
+        "spread": 1800
+      },
+      {
+        "time": 1764460800,
+        "open": 90827.85,
+        "high": 91972.24,
+        "low": 90349.24,
+        "close": 90371.36,
+        "volume": 43669,
+        "spread": 1800
+      },
+      {
+        "time": 1764547200,
+        "open": 90370.03,
+        "high": 90431.81,
+        "low": 83797.42,
+        "close": 86279.95,
+        "volume": 144802,
+        "spread": 1800
+      },
+      {
+        "time": 1764633600,
+        "open": 86278.73,
+        "high": 92336.98,
+        "low": 86181.22,
+        "close": 91309.12,
+        "volume": 112021,
+        "spread": 1800
+      },
+      {
+        "time": 1764720000,
+        "open": 91309.47,
+        "high": 94218.46,
+        "low": 91015.44,
+        "close": 93453.4,
+        "volume": 127830,
+        "spread": 1800
+      },
+      {
+        "time": 1764806400,
+        "open": 93450.66,
+        "high": 94089.29,
+        "low": 90886.5,
+        "close": 92092.61,
+        "volume": 100327,
+        "spread": 1800
+      },
+      {
+        "time": 1764892800,
+        "open": 92093.4,
+        "high": 92724.52,
+        "low": 88050.58,
+        "close": 89335.05,
+        "volume": 106132,
+        "spread": 1800
+      },
+      {
+        "time": 1764979200,
+        "open": 89335.23,
+        "high": 90313.39,
+        "low": 88914.91,
+        "close": 89234.66,
+        "volume": 45567,
+        "spread": 1800
+      },
+      {
+        "time": 1765065600,
+        "open": 89258.79,
+        "high": 91780.9,
+        "low": 87732.32,
+        "close": 90395.9,
+        "volume": 82013,
+        "spread": 1800
+      },
+      {
+        "time": 1765152000,
+        "open": 90394.55,
+        "high": 92306.96,
+        "low": 89600.61,
+        "close": 90663.31,
+        "volume": 103875,
+        "spread": 1800
+      },
+      {
+        "time": 1765238400,
+        "open": 90663.2,
+        "high": 94605.64,
+        "low": 89463.44,
+        "close": 92688.76,
+        "volume": 105648,
+        "spread": 1800
+      },
+      {
+        "time": 1765324800,
+        "open": 92688.84,
+        "high": 94506.43,
+        "low": 91565.29,
+        "close": 92031.06,
+        "volume": 114767,
+        "spread": 1800
+      },
+      {
+        "time": 1765411200,
+        "open": 92026.19,
+        "high": 93597.08,
+        "low": 89255.72,
+        "close": 92544.82,
+        "volume": 113536,
+        "spread": 1800
+      },
+      {
+        "time": 1765497600,
+        "open": 92541.54,
+        "high": 92782.18,
+        "low": 89471.64,
+        "close": 90280.7,
+        "volume": 91943,
+        "spread": 1800
+      },
+      {
+        "time": 1765584000,
+        "open": 90282.05,
+        "high": 90653.85,
+        "low": 89756.45,
+        "close": 90256.4,
+        "volume": 30470,
+        "spread": 1800
+      },
+      {
+        "time": 1765670400,
+        "open": 90242.82,
+        "high": 90495.75,
+        "low": 87559.34,
+        "close": 88173.21,
+        "volume": 62008,
+        "spread": 1800
+      },
+      {
+        "time": 1765756800,
+        "open": 88165.26,
+        "high": 90028.54,
+        "low": 85095.95,
+        "close": 86406.54,
+        "volume": 117744,
+        "spread": 1800
+      },
+      {
+        "time": 1765843200,
+        "open": 86416.47,
+        "high": 88145.47,
+        "low": 85244.17,
+        "close": 87842.13,
+        "volume": 109565,
+        "spread": 1800
+      },
+      {
+        "time": 1765929600,
+        "open": 87838.75,
+        "high": 90360.34,
+        "low": 85270.41,
+        "close": 86200.39,
+        "volume": 134776,
+        "spread": 1800
+      },
+      {
+        "time": 1766016000,
+        "open": 86199.62,
+        "high": 89437.03,
+        "low": 84393.35,
+        "close": 85442.62,
+        "volume": 142519,
+        "spread": 1800
+      },
+      {
+        "time": 1766102400,
+        "open": 85442.63,
+        "high": 89358.98,
+        "low": 85048.98,
+        "close": 88091.49,
+        "volume": 120555,
+        "spread": 1800
+      },
+      {
+        "time": 1766188800,
+        "open": 88092.02,
+        "high": 88545.88,
+        "low": 87753.01,
+        "close": 88316.14,
+        "volume": 36115,
+        "spread": 1800
+      },
+      {
+        "time": 1766275200,
+        "open": 88316.33,
+        "high": 89047.09,
+        "low": 87547.34,
+        "close": 88630.96,
+        "volume": 55562,
+        "spread": 1800
+      },
+      {
+        "time": 1766361600,
+        "open": 88638.51,
+        "high": 90571.38,
+        "low": 87858.85,
+        "close": 88559.82,
+        "volume": 104338,
+        "spread": 1800
+      },
+      {
+        "time": 1766448000,
+        "open": 88563.04,
+        "high": 88885.3,
+        "low": 86525.31,
+        "close": 87437.03,
+        "volume": 84514,
+        "spread": 1800
+      },
+      {
+        "time": 1766534400,
+        "open": 87437.78,
+        "high": 88002.87,
+        "low": 86355.53,
+        "close": 87610.26,
+        "volume": 60489,
+        "spread": 1800
+      },
+      {
+        "time": 1766620800,
+        "open": 87610.33,
+        "high": 88549.11,
+        "low": 86892.09,
+        "close": 87166.93,
+        "volume": 47376,
+        "spread": 1800
+      },
+      {
+        "time": 1766707200,
+        "open": 87164.76,
+        "high": 89506.57,
+        "low": 86583.02,
+        "close": 87286.72,
+        "volume": 83089,
+        "spread": 1800
+      },
+      {
+        "time": 1766793600,
+        "open": 87283.58,
+        "high": 87930.38,
+        "low": 87156.98,
+        "close": 87798.76,
+        "volume": 29600,
+        "spread": 1800
+      },
+      {
+        "time": 1766880000,
+        "open": 87798.88,
+        "high": 88038.42,
+        "low": 87352.49,
+        "close": 87873.44,
+        "volume": 32180,
+        "spread": 1800
+      },
+      {
+        "time": 1766966400,
+        "open": 87870.04,
+        "high": 90321.29,
+        "low": 86681.38,
+        "close": 87107.53,
+        "volume": 83935,
+        "spread": 1800
+      },
+      {
+        "time": 1767052800,
+        "open": 87107.65,
+        "high": 89314.1,
+        "low": 86709.89,
+        "close": 88408.99,
+        "volume": 68143,
+        "spread": 1800
+      },
+      {
+        "time": 1767139200,
+        "open": 88408.89,
+        "high": 89123.33,
+        "low": 87080.33,
+        "close": 87507.73,
+        "volume": 56496,
+        "spread": 1800
+      },
+      {
+        "time": 1767225600,
+        "open": 87507.82,
+        "high": 88802.35,
+        "low": 87380.47,
+        "close": 88733.79,
+        "volume": 34239,
+        "spread": 1800
+      },
+      {
+        "time": 1767312000,
+        "open": 88733.95,
+        "high": 90942.72,
+        "low": 88254.48,
+        "close": 89955.22,
+        "volume": 86447,
+        "spread": 1800
+      },
+      {
+        "time": 1767398400,
+        "open": 89947.18,
+        "high": 90694.22,
+        "low": 89264.86,
+        "close": 90582.24,
+        "volume": 41790,
+        "spread": 1800
+      },
+      {
+        "time": 1767484800,
+        "open": 90581.29,
+        "high": 91779.69,
+        "low": 90581.29,
+        "close": 91487.78,
+        "volume": 54586,
+        "spread": 1800
+      },
+      {
+        "time": 1767571200,
+        "open": 91485.4,
+        "high": 94817.0,
+        "low": 91465.97,
+        "close": 93870.89,
+        "volume": 90962,
+        "spread": 1800
+      },
+      {
+        "time": 1767657600,
+        "open": 93872.83,
+        "high": 94432.76,
+        "low": 91197.99,
+        "close": 93713.27,
+        "volume": 85023,
+        "spread": 1800
+      },
+      {
+        "time": 1767744000,
+        "open": 93713.07,
+        "high": 93718.63,
+        "low": 90577.53,
+        "close": 91279.46,
+        "volume": 80795,
+        "spread": 1800
+      },
+      {
+        "time": 1767830400,
+        "open": 91284.8,
+        "high": 91601.38,
+        "low": 89174.25,
+        "close": 91025.25,
+        "volume": 84992,
+        "spread": 1800
+      },
+      {
+        "time": 1767916800,
+        "open": 91025.85,
+        "high": 91943.25,
+        "low": 89585.53,
+        "close": 90513.1,
+        "volume": 81177,
+        "spread": 1800
+      },
+      {
+        "time": 1768003200,
+        "open": 90509.14,
+        "high": 90711.8,
+        "low": 90267.52,
+        "close": 90388.59,
+        "volume": 28384,
+        "spread": 1800
+      },
+      {
+        "time": 1768089600,
+        "open": 90388.43,
+        "high": 91166.78,
+        "low": 90091.61,
+        "close": 90865.15,
+        "volume": 34874,
+        "spread": 1800
+      },
+      {
+        "time": 1768176000,
+        "open": 90867.21,
+        "high": 92399.79,
+        "low": 89998.18,
+        "close": 91193.84,
+        "volume": 84081,
+        "spread": 1800
+      },
+      {
+        "time": 1768262400,
+        "open": 91187.84,
+        "high": 96727.67,
+        "low": 90929.17,
+        "close": 95376.1,
+        "volume": 90236,
+        "spread": 1800
+      },
+      {
+        "time": 1768348800,
+        "open": 95376.05,
+        "high": 97968.49,
+        "low": 94428.56,
+        "close": 96955.27,
+        "volume": 91239,
+        "spread": 1800
+      },
+      {
+        "time": 1768435200,
+        "open": 96955.15,
+        "high": 97179.19,
+        "low": 95092.85,
+        "close": 95587.59,
+        "volume": 82900,
+        "spread": 1800
+      },
+      {
+        "time": 1768521600,
+        "open": 95590.0,
+        "high": 95834.54,
+        "low": 94230.1,
+        "close": 95504.6,
+        "volume": 58771,
+        "spread": 1800
+      },
+      {
+        "time": 1768608000,
+        "open": 95501.68,
+        "high": 95633.42,
+        "low": 94977.94,
+        "close": 95118.69,
+        "volume": 28046,
+        "spread": 1800
+      },
+      {
+        "time": 1768694400,
+        "open": 95118.55,
+        "high": 95496.35,
+        "low": 93565.6,
+        "close": 93639.75,
+        "volume": 37014,
+        "spread": 1800
+      },
+      {
+        "time": 1768780800,
+        "open": 93639.83,
+        "high": 93639.83,
+        "low": 91866.4,
+        "close": 92570.84,
+        "volume": 66057,
+        "spread": 1800
+      },
+      {
+        "time": 1768867200,
+        "open": 92562.82,
+        "high": 92808.96,
+        "low": 87696.18,
+        "close": 88322.47,
+        "volume": 96216,
+        "spread": 1800
+      },
+      {
+        "time": 1768953600,
+        "open": 88323.64,
+        "high": 90499.43,
+        "low": 87168.49,
+        "close": 89358.62,
+        "volume": 116298,
+        "spread": 1800
+      },
+      {
+        "time": 1769040000,
+        "open": 89358.71,
+        "high": 90272.3,
+        "low": 88410.38,
+        "close": 89469.87,
+        "volume": 74578,
+        "spread": 1800
+      },
+      {
+        "time": 1769126400,
+        "open": 89470.73,
+        "high": 91140.23,
+        "low": 88442.52,
+        "close": 89484.25,
+        "volume": 73894,
+        "spread": 1800
+      },
+      {
+        "time": 1769212800,
+        "open": 89486.07,
+        "high": 89796.66,
+        "low": 89015.14,
+        "close": 89092.8,
+        "volume": 23565,
+        "spread": 1800
+      },
+      {
+        "time": 1769299200,
+        "open": 89092.6,
+        "high": 89180.68,
+        "low": 85966.18,
+        "close": 86569.06,
+        "volume": 64043,
+        "spread": 1800
+      },
+      {
+        "time": 1769385600,
+        "open": 86568.12,
+        "high": 88780.42,
+        "low": 86401.16,
+        "close": 88241.15,
+        "volume": 76678,
+        "spread": 1800
+      },
+      {
+        "time": 1769472000,
+        "open": 88242.81,
+        "high": 89429.32,
+        "low": 87187.38,
+        "close": 89126.74,
+        "volume": 69585,
+        "spread": 1800
+      },
+      {
+        "time": 1769558400,
+        "open": 89126.3,
+        "high": 90496.15,
+        "low": 88707.08,
+        "close": 89160.22,
+        "volume": 78007,
+        "spread": 1800
+      },
+      {
+        "time": 1769644800,
+        "open": 89159.31,
+        "high": 89220.08,
+        "low": 83222.38,
+        "close": 84508.29,
+        "volume": 94928,
+        "spread": 1800
+      },
+      {
+        "time": 1769731200,
+        "open": 84504.92,
+        "high": 84604.22,
+        "low": 80933.72,
+        "close": 84106.72,
+        "volume": 152873,
+        "spread": 1800
+      },
+      {
+        "time": 1769817600,
+        "open": 84107.51,
+        "high": 84147.83,
+        "low": 75480.52,
+        "close": 78631.13,
+        "volume": 171173,
+        "spread": 1800
+      },
+      {
+        "time": 1769904000,
+        "open": 78654.77,
+        "high": 79349.55,
+        "low": 75613.06,
+        "close": 76899.29,
+        "volume": 146871,
+        "spread": 1800
+      },
+      {
+        "time": 1769990400,
+        "open": 76897.88,
+        "high": 79317.84,
+        "low": 74525.58,
+        "close": 78664.72,
+        "volume": 220730,
+        "spread": 1800
+      },
+      {
+        "time": 1770076800,
+        "open": 78662.85,
+        "high": 79132.69,
+        "low": 72846.76,
+        "close": 75658.95,
+        "volume": 176864,
+        "spread": 1800
+      },
+      {
+        "time": 1770163200,
+        "open": 75658.69,
+        "high": 76893.35,
+        "low": 71696.79,
+        "close": 72998.15,
+        "volume": 192994,
+        "spread": 1800
+      },
+      {
+        "time": 1770249600,
+        "open": 72995.89,
+        "high": 73180.92,
+        "low": 62111.7,
+        "close": 62790.37,
+        "volume": 412614,
+        "spread": 1800
+      },
+      {
+        "time": 1770336000,
+        "open": 62791.15,
+        "high": 71689.21,
+        "low": 59779.75,
+        "close": 70521.16,
+        "volume": 350252,
+        "spread": 1800
+      },
+      {
+        "time": 1770422400,
+        "open": 70521.24,
+        "high": 71656.92,
+        "low": 67273.12,
+        "close": 69240.95,
+        "volume": 174769,
+        "spread": 1800
+      },
+      {
+        "time": 1770508800,
+        "open": 69242.72,
+        "high": 72251.42,
+        "low": 68834.84,
+        "close": 70273.54,
+        "volume": 111800,
+        "spread": 1800
+      },
+      {
+        "time": 1770595200,
+        "open": 70271.0,
+        "high": 71389.27,
+        "low": 68230.95,
+        "close": 70102.59,
+        "volume": 157425,
+        "spread": 1800
+      },
+      {
+        "time": 1770681600,
+        "open": 70102.82,
+        "high": 70498.21,
+        "low": 67852.94,
+        "close": 68797.23,
+        "volume": 128028,
+        "spread": 1800
+      },
+      {
+        "time": 1770768000,
+        "open": 68795.63,
+        "high": 69247.79,
+        "low": 65704.73,
+        "close": 67019.76,
+        "volume": 170093,
+        "spread": 1800
+      },
+      {
+        "time": 1770854400,
+        "open": 67028.19,
+        "high": 68384.27,
+        "low": 65061.37,
+        "close": 66210.65,
+        "volume": 149007,
+        "spread": 1800
+      },
+      {
+        "time": 1770940800,
+        "open": 66210.59,
+        "high": 69439.47,
+        "low": 65795.87,
+        "close": 68806.83,
+        "volume": 128460,
+        "spread": 1800
+      },
+      {
+        "time": 1771027200,
+        "open": 68813.33,
+        "high": 70550.49,
+        "low": 68683.4,
+        "close": 69789.48,
+        "volume": 66227,
+        "spread": 1800
+      },
+      {
+        "time": 1771113600,
+        "open": 69790.09,
+        "high": 70937.11,
+        "low": 68028.18,
+        "close": 68789.08,
+        "volume": 85170,
+        "spread": 1800
+      },
+      {
+        "time": 1771200000,
+        "open": 68787.28,
+        "high": 70095.64,
+        "low": 67241.13,
+        "close": 68848.54,
+        "volume": 91610,
+        "spread": 1800
+      },
+      {
+        "time": 1771286400,
+        "open": 68848.88,
+        "high": 69212.21,
+        "low": 66562.01,
+        "close": 67468.0,
+        "volume": 107788,
+        "spread": 1800
+      },
+      {
+        "time": 1771372800,
+        "open": 67467.35,
+        "high": 68435.51,
+        "low": 65820.59,
+        "close": 66411.34,
+        "volume": 94410,
+        "spread": 1800
+      },
+      {
+        "time": 1771459200,
+        "open": 66410.38,
+        "high": 67294.2,
+        "low": 65602.62,
+        "close": 66973.53,
+        "volume": 86764,
+        "spread": 1800
+      },
+      {
+        "time": 1771545600,
+        "open": 66967.84,
+        "high": 68296.78,
+        "low": 66416.13,
+        "close": 67973.62,
+        "volume": 99627,
+        "spread": 1800
+      },
+      {
+        "time": 1771632000,
+        "open": 67978.22,
+        "high": 68691.02,
+        "low": 67493.77,
+        "close": 67951.79,
+        "volume": 40491,
+        "spread": 1800
+      },
+      {
+        "time": 1771718400,
+        "open": 67947.22,
+        "high": 68228.32,
+        "low": 67141.94,
+        "close": 67608.87,
+        "volume": 39520,
+        "spread": 1800
+      },
+      {
+        "time": 1771804800,
+        "open": 67614.61,
+        "high": 67647.69,
+        "low": 63854.86,
+        "close": 64622.98,
+        "volume": 115414,
+        "spread": 1800
+      },
+      {
+        "time": 1771891200,
+        "open": 64620.81,
+        "high": 64981.01,
+        "low": 62410.13,
+        "close": 64060.18,
+        "volume": 114215,
+        "spread": 1800
+      },
+      {
+        "time": 1771977600,
+        "open": 64061.76,
+        "high": 70049.54,
+        "low": 63895.95,
+        "close": 67989.97,
+        "volume": 133331,
+        "spread": 1800
+      },
+      {
+        "time": 1772064000,
+        "open": 67989.57,
+        "high": 68864.56,
+        "low": 66486.5,
+        "close": 67214.53,
+        "volume": 106253,
+        "spread": 1800
+      }
+    ],
+    "indicators": {
+      "rsi": {
+        "value": 41.06,
+        "overbought": false,
+        "oversold": false
+      },
+      "macd": {
+        "macd": -3270.02368,
+        "signal": -3921.09092,
+        "histogram": 651.06724
+      },
+      "ema9": 66995.42859735503,
+      "ema21": 69388.68233977033,
+      "atr": {
+        "value": 2663.61,
+        "percentage": 3.9628
+      },
+      "support_resistance": {
+        "nearest_support": 62410.13,
+        "nearest_resistance": 72251.42
+      },
+      "trend": "bearish",
+      "volume_profile": [
+        {
+          "price": 61689.19,
+          "volume": 412614,
+          "buy_vol": 0,
+          "sell_vol": 412614
+        },
+        {
+          "price": 63598.62,
+          "volume": 229629,
+          "buy_vol": 0,
+          "sell_vol": 229629
+        },
+        {
+          "price": 65508.06,
+          "volume": 606527,
+          "buy_vol": 86764,
+          "sell_vol": 519763
+        },
+        {
+          "price": 67417.5,
+          "volume": 1028794,
+          "buy_vol": 453028,
+          "sell_vol": 575766
+        },
+        {
+          "price": 69326.93,
+          "volume": 685704,
+          "buy_vol": 528279,
+          "sell_vol": 157425
+        },
+        {
+          "price": 71236.37,
+          "volume": 192994,
+          "buy_vol": 0,
+          "sell_vol": 192994
+        },
+        {
+          "price": 75055.25,
+          "volume": 323735,
+          "buy_vol": 0,
+          "sell_vol": 323735
+        },
+        {
+          "price": 76964.68,
+          "volume": 391903,
+          "buy_vol": 220730,
+          "sell_vol": 171173
+        },
+        {
+          "price": 82692.99,
+          "volume": 247801,
+          "buy_vol": 0,
+          "sell_vol": 247801
+        },
+        {
+          "price": 84602.43,
+          "volume": 912919,
+          "buy_vol": 0,
+          "sell_vol": 912919
+        },
+        {
+          "price": 86511.87,
+          "volume": 1591749,
+          "buy_vol": 837803,
+          "sell_vol": 753946
+        },
+        {
+          "price": 88421.31,
+          "volume": 990625,
+          "buy_vol": 588610,
+          "sell_vol": 402015
+        },
+        {
+          "price": 90330.74,
+          "volume": 1454513,
+          "buy_vol": 660701,
+          "sell_vol": 793812
+        },
+        {
+          "price": 92240.18,
+          "volume": 626070,
+          "buy_vol": 437976,
+          "sell_vol": 188094
+        },
+        {
+          "price": 94149.62,
+          "volume": 259953,
+          "buy_vol": 90236,
+          "sell_vol": 169717
+        },
+        {
+          "price": 96059.05,
+          "volume": 91239,
+          "buy_vol": 91239,
+          "sell_vol": 0
+        }
+      ],
+      "bollinger": {
+        "middle": 67807.673,
+        "upper": 71030.84379815575,
+        "lower": 64584.50220184425
+      }
+    },
+    "patterns": [
+      {
+        "name": "Cunha de Baixa",
+        "type": "bearish",
+        "confidence": 60
+      },
+      {
+        "name": "Bandeira de Baixa",
+        "type": "bearish",
+        "confidence": 55
+      },
+      {
+        "name": "Fl\u00e2mula",
+        "type": "neutral",
+        "confidence": 50
+      },
+      {
+        "name": "OCO",
+        "type": "bearish",
+        "confidence": 65
+      },
+      {
+        "name": "OCOI",
+        "type": "bullish",
+        "confidence": 65
+      },
+      {
+        "name": "Canal de Baixa",
+        "type": "bearish",
+        "confidence": 55
+      },
+      {
+        "name": "LTB",
+        "type": "bearish",
+        "confidence": 50
+      }
+    ],
+    "pattern_drawings": [
+      {
+        "type": "line",
+        "points": [
+          {
+            "x": 88,
+            "y": 70937.11
+          },
+          {
+            "x": 94,
+            "y": 68691.02
+          }
+        ],
+        "color": "rgba(255,165,2,0.6)",
+        "border_color": "#ffa502"
+      },
+      {
+        "type": "line",
+        "points": [
+          {
+            "x": 92,
+            "y": 65602.62
+          },
+          {
+            "x": 97,
+            "y": 62410.13
+          }
+        ],
+        "color": "rgba(255,165,2,0.6)",
+        "border_color": "#ffa502"
+      },
+      {
+        "type": "triangle",
+        "points": [
+          {
+            "x": 86,
+            "y": 69439.47
+          },
+          {
+            "x": 88,
+            "y": 70937.11
+          },
+          {
+            "x": 90,
+            "y": 69212.21
+          },
+          {
+            "x": 86,
+            "y": 69439.47
+          }
+        ],
+        "color": "rgba(255, 71, 87, 0.15)",
+        "border_color": "#ff4757"
+      },
+      {
+        "type": "triangle",
+        "points": [
+          {
+            "x": 83,
+            "y": 67852.94
+          },
+          {
+            "x": 85,
+            "y": 65061.37
+          },
+          {
+            "x": 87,
+            "y": 68683.4
+          },
+          {
+            "x": 83,
+            "y": 67852.94
+          }
+        ],
+        "color": "rgba(0, 255, 136, 0.15)",
+        "border_color": "#00ff88"
+      },
+      {
+        "type": "channel",
+        "lines": [
+          [
+            {
+              "x": 40,
+              "y": 99065.90662841525
+            },
+            {
+              "x": 99,
+              "y": 66278.7550382514
+            }
+          ],
+          [
+            {
+              "x": 40,
+              "y": 96543.7434207651
+            },
+            {
+              "x": 99,
+              "y": 62356.17991256828
+            }
+          ]
+        ],
+        "color": "rgba(255,71,87,0.5)",
+        "border_color": "#ff4757"
+      },
+      {
+        "type": "line",
+        "points": [
+          {
+            "x": 92,
+            "y": 65602.62
+          },
+          {
+            "x": 97,
+            "y": 62410.13
+          }
+        ],
+        "color": "rgba(0,255,136,0.6)",
+        "border_color": "#00ff88"
+      },
+      {
+        "type": "line",
+        "points": [
+          {
+            "x": 88,
+            "y": 70937.11
+          },
+          {
+            "x": 94,
+            "y": 68691.02
+          }
+        ],
+        "color": "rgba(255,165,2,0.6)",
+        "border_color": "#ffa502"
+      }
+    ],
+    "predictions": {
+      "indicator": [
+        {
+          "bar": 1,
+          "open": 67214.53,
+          "high": 68034.1,
+          "low": 66343.75,
+          "close": 67163.32,
+          "confidence": 78,
+          "direction": "bearish"
+        },
+        {
+          "bar": 2,
+          "open": 67163.32,
+          "high": 69294.18,
+          "low": 61703.02,
+          "close": 63833.88,
+          "confidence": 74,
+          "direction": "bearish"
+        },
+        {
+          "bar": 3,
+          "open": 63833.88,
+          "high": 64650.68,
+          "low": 62972.78,
+          "close": 63789.58,
+          "confidence": 70,
+          "direction": "bearish"
+        },
+        {
+          "bar": 4,
+          "open": 63789.58,
+          "high": 66451.95,
+          "low": 56469.01,
+          "close": 59131.37,
+          "confidence": 66,
+          "direction": "bearish"
+        },
+        {
+          "bar": 5,
+          "open": 59131.37,
+          "high": 60025.88,
+          "low": 57998.31,
+          "close": 58892.82,
+          "confidence": 62,
+          "direction": "bearish"
+        }
+      ],
+      "pattern": [
+        {
+          "bar": 1,
+          "open": 67214.53,
+          "high": 72189.49,
+          "low": 65412.6,
+          "close": 70387.55,
+          "confidence": 70,
+          "direction": "bullish"
+        },
+        {
+          "bar": 2,
+          "open": 70387.55,
+          "high": 71445.6,
+          "low": 68016.2,
+          "close": 69074.24,
+          "confidence": 70,
+          "direction": "bearish"
+        },
+        {
+          "bar": 3,
+          "open": 69074.24,
+          "high": 73525.71,
+          "low": 67421.88,
+          "close": 71873.35,
+          "confidence": 70,
+          "direction": "bullish"
+        },
+        {
+          "bar": 4,
+          "open": 71873.35,
+          "high": 72630.74,
+          "low": 70554.28,
+          "close": 71311.67,
+          "confidence": 70,
+          "direction": "bearish"
+        },
+        {
+          "bar": 5,
+          "open": 71311.67,
+          "high": 75279.62,
+          "low": 69797.46,
+          "close": 73765.4,
+          "confidence": 70,
+          "direction": "bullish"
+        }
+      ],
+      "ai": [
+        {
+          "bar": 1,
+          "open": 67214.53,
+          "high": 67800.03,
+          "low": 66097.73,
+          "close": 66683.23,
+          "confidence": 65,
+          "direction": "bearish"
+        },
+        {
+          "bar": 2,
+          "open": 66683.23,
+          "high": 67864.11,
+          "low": 63269.95,
+          "close": 64450.83,
+          "confidence": 65,
+          "direction": "bearish"
+        },
+        {
+          "bar": 3,
+          "open": 64450.83,
+          "high": 65312.21,
+          "low": 63931.55,
+          "close": 64792.93,
+          "confidence": 65,
+          "direction": "bullish"
+        },
+        {
+          "bar": 4,
+          "open": 64792.93,
+          "high": 66074.31,
+          "low": 60992.01,
+          "close": 62273.39,
+          "confidence": 65,
+          "direction": "bearish"
+        },
+        {
+          "bar": 5,
+          "open": 62273.39,
+          "high": 62699.01,
+          "low": 61773.25,
+          "close": 62198.87,
+          "confidence": 65,
+          "direction": "bearish"
+        }
+      ],
+      "news": [
+        {
+          "bar": 1,
+          "open": 67214.53,
+          "high": 67248.16,
+          "low": 67203.32,
+          "close": 67236.95,
+          "confidence": 30,
+          "direction": "bullish"
+        },
+        {
+          "bar": 2,
+          "open": 67236.95,
+          "high": 67256.74,
+          "low": 67230.36,
+          "close": 67250.15,
+          "confidence": 30,
+          "direction": "bullish"
+        },
+        {
+          "bar": 3,
+          "open": 67250.15,
+          "high": 67265.27,
+          "low": 67245.1,
+          "close": 67260.23,
+          "confidence": 30,
+          "direction": "bullish"
+        },
+        {
+          "bar": 4,
+          "open": 67260.23,
+          "high": 67278.18,
+          "low": 67254.24,
+          "close": 67272.2,
+          "confidence": 30,
+          "direction": "bullish"
+        },
+        {
+          "bar": 5,
+          "open": 67272.2,
+          "high": 67334.81,
+          "low": 67251.33,
+          "close": 67313.94,
+          "confidence": 30,
+          "direction": "bullish"
+        }
+      ]
+    },
+    "patterns_ai": [
+      {
+        "name": "OCO",
+        "signal": "BAIXA",
+        "type": "bearish",
+        "confidence": 65
+      }
+    ],
+    "ai_decision": {
+      "action": "HOLD",
+      "confidence": 60,
+      "reason": "Mercado em fase de consolida\u00e7\u00e3o ap\u00f3s queda severa, \u00faltimo candle mostra OCO de baixa sugerindo poss\u00edvel continua\u00e7\u00e3o da tend\u00eancia descendente"
+    },
+    "multi_tf": {
+      "M1": {
+        "indicators": {
+          "rsi": {
+            "value": 33.42,
+            "overbought": false,
+            "oversold": false
+          },
+          "macd": {
+            "macd": -55.12154,
+            "signal": -41.35805,
+            "histogram": -13.76349
+          },
+          "ema9": 67275.81735376114,
+          "ema21": 67331.72113729146,
+          "atr": {
+            "value": 66.66,
+            "percentage": 0.0992
+          },
+          "support_resistance": {
+            "nearest_support": 67141.18,
+            "nearest_resistance": 67454.16
+          },
+          "trend": "bearish",
+          "volume_profile": [
+            {
+              "price": 67175.17,
+              "volume": 65,
+              "buy_vol": 0,
+              "sell_vol": 65
+            },
+            {
+              "price": 67209.16,
+              "volume": 140,
+              "buy_vol": 108,
+              "sell_vol": 32
+            },
+            {
+              "price": 67243.16,
+              "volume": 156,
+              "buy_vol": 0,
+              "sell_vol": 156
+            },
+            {
+              "price": 67277.15,
+              "volume": 122,
+              "buy_vol": 0,
+              "sell_vol": 122
+            },
+            {
+              "price": 67311.14,
+              "volume": 192,
+              "buy_vol": 114,
+              "sell_vol": 78
+            },
+            {
+              "price": 67345.13,
+              "volume": 521,
+              "buy_vol": 169,
+              "sell_vol": 352
+            },
+            {
+              "price": 67379.13,
+              "volume": 239,
+              "buy_vol": 156,
+              "sell_vol": 83
+            },
+            {
+              "price": 67413.12,
+              "volume": 664,
+              "buy_vol": 165,
+              "sell_vol": 499
+            },
+            {
+              "price": 67447.11,
+              "volume": 319,
+              "buy_vol": 130,
+              "sell_vol": 189
+            },
+            {
+              "price": 67481.1,
+              "volume": 336,
+              "buy_vol": 160,
+              "sell_vol": 176
+            },
+            {
+              "price": 67515.1,
+              "volume": 533,
+              "buy_vol": 247,
+              "sell_vol": 286
+            },
+            {
+              "price": 67549.09,
+              "volume": 292,
+              "buy_vol": 178,
+              "sell_vol": 114
+            },
+            {
+              "price": 67583.08,
+              "volume": 408,
+              "buy_vol": 144,
+              "sell_vol": 264
+            },
+            {
+              "price": 67617.07,
+              "volume": 525,
+              "buy_vol": 373,
+              "sell_vol": 152
+            },
+            {
+              "price": 67651.07,
+              "volume": 179,
+              "buy_vol": 68,
+              "sell_vol": 111
+            },
+            {
+              "price": 67685.06,
+              "volume": 540,
+              "buy_vol": 285,
+              "sell_vol": 255
+            },
+            {
+              "price": 67719.05,
+              "volume": 232,
+              "buy_vol": 0,
+              "sell_vol": 232
+            },
+            {
+              "price": 67753.04,
+              "volume": 419,
+              "buy_vol": 186,
+              "sell_vol": 233
+            },
+            {
+              "price": 67787.04,
+              "volume": 159,
+              "buy_vol": 159,
+              "sell_vol": 0
+            }
+          ],
+          "bollinger": {
+            "middle": 67338.88800000002,
+            "upper": 67485.59624511255,
+            "lower": 67192.17975488749
+          }
+        },
+        "patterns": [
+          {
+            "name": "Bandeira de Baixa",
+            "type": "bearish",
+            "confidence": 55
+          },
+          {
+            "name": "OCO",
+            "type": "bearish",
+            "confidence": 65
+          },
+          {
+            "name": "OCOI",
+            "type": "bullish",
+            "confidence": 65
+          },
+          {
+            "name": "Canal de Baixa",
+            "type": "bearish",
+            "confidence": 55
+          },
+          {
+            "name": "LTA",
+            "type": "bullish",
+            "confidence": 50
+          }
+        ],
+        "last_close": 67214.53
+      },
+      "M5": {
+        "indicators": {
+          "rsi": {
+            "value": 41.45,
+            "overbought": false,
+            "oversold": false
+          },
+          "macd": {
+            "macd": -21.27447,
+            "signal": 36.71076,
+            "histogram": -57.98523
+          },
+          "ema9": 67369.66847059692,
+          "ema21": 67427.8320272346,
+          "atr": {
+            "value": 139.91,
+            "percentage": 0.2082
+          },
+          "support_resistance": {
+            "nearest_support": 67141.18,
+            "nearest_resistance": 67821.03
+          },
+          "trend": "bearish",
+          "volume_profile": [
+            {
+              "price": 66576.11,
+              "volume": 1878,
+              "buy_vol": 789,
+              "sell_vol": 1089
+            },
+            {
+              "price": 66665.72,
+              "volume": 1482,
+              "buy_vol": 0,
+              "sell_vol": 1482
+            },
+            {
+              "price": 66755.33,
+              "volume": 3945,
+              "buy_vol": 1398,
+              "sell_vol": 2547
+            },
+            {
+              "price": 66844.94,
+              "volume": 3506,
+              "buy_vol": 2669,
+              "sell_vol": 837
+            },
+            {
+              "price": 66934.54,
+              "volume": 5121,
+              "buy_vol": 2229,
+              "sell_vol": 2892
+            },
+            {
+              "price": 67024.15,
+              "volume": 2774,
+              "buy_vol": 0,
+              "sell_vol": 2774
+            },
+            {
+              "price": 67113.76,
+              "volume": 2354,
+              "buy_vol": 638,
+              "sell_vol": 1716
+            },
+            {
+              "price": 67203.37,
+              "volume": 3323,
+              "buy_vol": 2324,
+              "sell_vol": 999
+            },
+            {
+              "price": 67292.98,
+              "volume": 9481,
+              "buy_vol": 4091,
+              "sell_vol": 5390
+            },
+            {
+              "price": 67382.59,
+              "volume": 4898,
+              "buy_vol": 4025,
+              "sell_vol": 873
+            },
+            {
+              "price": 67472.2,
+              "volume": 3675,
+              "buy_vol": 954,
+              "sell_vol": 2721
+            },
+            {
+              "price": 67561.81,
+              "volume": 1279,
+              "buy_vol": 203,
+              "sell_vol": 1076
+            },
+            {
+              "price": 67651.42,
+              "volume": 3923,
+              "buy_vol": 2866,
+              "sell_vol": 1057
+            },
+            {
+              "price": 67741.03,
+              "volume": 2645,
+              "buy_vol": 754,
+              "sell_vol": 1891
+            },
+            {
+              "price": 67830.63,
+              "volume": 2250,
+              "buy_vol": 0,
+              "sell_vol": 2250
+            },
+            {
+              "price": 67920.24,
+              "volume": 915,
+              "buy_vol": 405,
+              "sell_vol": 510
+            },
+            {
+              "price": 68009.85,
+              "volume": 3326,
+              "buy_vol": 790,
+              "sell_vol": 2536
+            },
+            {
+              "price": 68099.46,
+              "volume": 1583,
+              "buy_vol": 838,
+              "sell_vol": 745
+            }
+          ],
+          "bollinger": {
+            "middle": 67510.041,
+            "upper": 67823.81489667721,
+            "lower": 67196.26710332278
+          }
+        },
+        "patterns": [
+          {
+            "name": "Cunha de Alta",
+            "type": "bullish",
+            "confidence": 60
+          },
+          {
+            "name": "Bandeira de Alta",
+            "type": "bullish",
+            "confidence": 55
+          },
+          {
+            "name": "Fl\u00e2mula",
+            "type": "neutral",
+            "confidence": 50
+          },
+          {
+            "name": "OCO",
+            "type": "bearish",
+            "confidence": 65
+          },
+          {
+            "name": "OCOI",
+            "type": "bullish",
+            "confidence": 65
+          },
+          {
+            "name": "Canal de Alta",
+            "type": "bullish",
+            "confidence": 55
+          },
+          {
+            "name": "LTB",
+            "type": "bearish",
+            "confidence": 50
+          }
+        ],
+        "last_close": 67214.53
+      },
+      "H1": {
+        "indicators": {
+          "rsi": {
+            "value": 46.18,
+            "overbought": false,
+            "oversold": false
+          },
+          "macd": {
+            "macd": -26.29415,
+            "signal": 130.58229,
+            "histogram": -156.87644
+          },
+          "ema9": 67417.90096526808,
+          "ema21": 67569.17066929444,
+          "atr": {
+            "value": 616.92,
+            "percentage": 0.9178
+          },
+          "support_resistance": {
+            "nearest_support": 66486.5,
+            "nearest_resistance": 68864.56
+          },
+          "trend": "bearish",
+          "volume_profile": [
+            {
+              "price": 62792.1,
+              "volume": 21163,
+              "buy_vol": 3821,
+              "sell_vol": 17342
+            },
+            {
+              "price": 63174.07,
+              "volume": 29008,
+              "buy_vol": 16424,
+              "sell_vol": 12584
+            },
+            {
+              "price": 63556.04,
+              "volume": 6652,
+              "buy_vol": 0,
+              "sell_vol": 6652
+            },
+            {
+              "price": 63938.01,
+              "volume": 51707,
+              "buy_vol": 21133,
+              "sell_vol": 30574
+            },
+            {
+              "price": 64319.98,
+              "volume": 46871,
+              "buy_vol": 21305,
+              "sell_vol": 25566
+            },
+            {
+              "price": 64701.95,
+              "volume": 33955,
+              "buy_vol": 19676,
+              "sell_vol": 14279
+            },
+            {
+              "price": 65083.92,
+              "volume": 18923,
+              "buy_vol": 5644,
+              "sell_vol": 13279
+            },
+            {
+              "price": 65465.89,
+              "volume": 19962,
+              "buy_vol": 9623,
+              "sell_vol": 10339
+            },
+            {
+              "price": 65847.86,
+              "volume": 44394,
+              "buy_vol": 25357,
+              "sell_vol": 19037
+            },
+            {
+              "price": 66229.83,
+              "volume": 10750,
+              "buy_vol": 7649,
+              "sell_vol": 3101
+            },
+            {
+              "price": 66611.81,
+              "volume": 28268,
+              "buy_vol": 15331,
+              "sell_vol": 12937
+            },
+            {
+              "price": 66993.78,
+              "volume": 7687,
+              "buy_vol": 5604,
+              "sell_vol": 2083
+            },
+            {
+              "price": 67375.75,
+              "volume": 51005,
+              "buy_vol": 20949,
+              "sell_vol": 30056
+            },
+            {
+              "price": 67757.72,
+              "volume": 18383,
+              "buy_vol": 3666,
+              "sell_vol": 14717
+            },
+            {
+              "price": 68139.69,
+              "volume": 45327,
+              "buy_vol": 17849,
+              "sell_vol": 27478
+            },
+            {
+              "price": 68521.66,
+              "volume": 16445,
+              "buy_vol": 16445,
+              "sell_vol": 0
+            },
+            {
+              "price": 68903.63,
+              "volume": 19484,
+              "buy_vol": 4949,
+              "sell_vol": 14535
+            },
+            {
+              "price": 69285.6,
+              "volume": 8483,
+              "buy_vol": 8483,
+              "sell_vol": 0
+            }
+          ],
+          "bollinger": {
+            "middle": 67823.831,
+            "upper": 68907.16817572877,
+            "lower": 66740.49382427124
+          }
+        },
+        "patterns": [
+          {
+            "name": "Cunha de Alta",
+            "type": "bullish",
+            "confidence": 60
+          },
+          {
+            "name": "Bandeira de Alta",
+            "type": "bullish",
+            "confidence": 55
+          },
+          {
+            "name": "Fl\u00e2mula",
+            "type": "neutral",
+            "confidence": 50
+          },
+          {
+            "name": "OCO",
+            "type": "bearish",
+            "confidence": 65
+          },
+          {
+            "name": "OCOI",
+            "type": "bullish",
+            "confidence": 65
+          },
+          {
+            "name": "Canal de Alta",
+            "type": "bullish",
+            "confidence": 55
+          },
+          {
+            "name": "LTB",
+            "type": "bearish",
+            "confidence": 50
+          }
+        ],
+        "last_close": 67214.53
+      },
+      "H4": {
+        "indicators": {
+          "rsi": {
+            "value": 53.25,
+            "overbought": false,
+            "oversold": false
+          },
+          "macd": {
+            "macd": 399.18097,
+            "signal": 152.71144,
+            "histogram": 246.46953
+          },
+          "ema9": 67298.1898453123,
+          "ema21": 66760.22754491014,
+          "atr": {
+            "value": 1393.32,
+            "percentage": 2.0729
+          },
+          "support_resistance": {
+            "nearest_support": 62410.13,
+            "nearest_resistance": 70049.54
+          },
+          "trend": "bullish",
+          "volume_profile": [
+            {
+              "price": 62836.48,
+              "volume": 31436,
+              "buy_vol": 11949,
+              "sell_vol": 19487
+            },
+            {
+              "price": 63262.83,
+              "volume": 24822,
+              "buy_vol": 0,
+              "sell_vol": 24822
+            },
+            {
+              "price": 63689.18,
+              "volume": 37910,
+              "buy_vol": 27658,
+              "sell_vol": 10252
+            },
+            {
+              "price": 64115.53,
+              "volume": 45467,
+              "buy_vol": 20047,
+              "sell_vol": 25420
+            },
+            {
+              "price": 64541.88,
+              "volume": 42832,
+              "buy_vol": 12860,
+              "sell_vol": 29972
+            },
+            {
+              "price": 64968.22,
+              "volume": 37595,
+              "buy_vol": 25116,
+              "sell_vol": 12479
+            },
+            {
+              "price": 65394.57,
+              "volume": 83299,
+              "buy_vol": 10468,
+              "sell_vol": 72831
+            },
+            {
+              "price": 65820.92,
+              "volume": 81626,
+              "buy_vol": 42758,
+              "sell_vol": 38868
+            },
+            {
+              "price": 66247.27,
+              "volume": 118092,
+              "buy_vol": 27042,
+              "sell_vol": 91050
+            },
+            {
+              "price": 66673.62,
+              "volume": 137963,
+              "buy_vol": 49256,
+              "sell_vol": 88707
+            },
+            {
+              "price": 67099.97,
+              "volume": 234399,
+              "buy_vol": 79096,
+              "sell_vol": 155303
+            },
+            {
+              "price": 67526.32,
+              "volume": 273002,
+              "buy_vol": 225157,
+              "sell_vol": 47845
+            },
+            {
+              "price": 67952.67,
+              "volume": 156663,
+              "buy_vol": 83519,
+              "sell_vol": 73144
+            },
+            {
+              "price": 68379.02,
+              "volume": 144704,
+              "buy_vol": 83238,
+              "sell_vol": 61466
+            },
+            {
+              "price": 68805.37,
+              "volume": 147271,
+              "buy_vol": 85846,
+              "sell_vol": 61425
+            },
+            {
+              "price": 69231.71,
+              "volume": 37899,
+              "buy_vol": 37899,
+              "sell_vol": 0
+            },
+            {
+              "price": 69658.06,
+              "volume": 50548,
+              "buy_vol": 24092,
+              "sell_vol": 26456
+            },
+            {
+              "price": 70084.41,
+              "volume": 25615,
+              "buy_vol": 14237,
+              "sell_vol": 11378
+            },
+            {
+              "price": 70510.76,
+              "volume": 12719,
+              "buy_vol": 12719,
+              "sell_vol": 0
+            }
+          ],
+          "bollinger": {
+            "middle": 65890.23700000001,
+            "upper": 69686.56195854137,
+            "lower": 62093.91204145866
+          }
+        },
+        "patterns": [
+          {
+            "name": "OCO",
+            "type": "bearish",
+            "confidence": 65
+          },
+          {
+            "name": "OCOI",
+            "type": "bullish",
+            "confidence": 65
+          }
+        ],
+        "last_close": 67214.53
+      },
+      "D1": {
+        "indicators": {
+          "rsi": {
+            "value": 41.06,
+            "overbought": false,
+            "oversold": false
+          },
+          "macd": {
+            "macd": -3270.02368,
+            "signal": -3921.09092,
+            "histogram": 651.06724
+          },
+          "ema9": 66995.42859735503,
+          "ema21": 69388.68233977033,
+          "atr": {
+            "value": 2663.61,
+            "percentage": 3.9628
+          },
+          "support_resistance": {
+            "nearest_support": 62410.13,
+            "nearest_resistance": 72251.42
+          },
+          "trend": "bearish",
+          "volume_profile": [
+            {
+              "price": 61689.19,
+              "volume": 412614,
+              "buy_vol": 0,
+              "sell_vol": 412614
+            },
+            {
+              "price": 63598.62,
+              "volume": 229629,
+              "buy_vol": 0,
+              "sell_vol": 229629
+            },
+            {
+              "price": 65508.06,
+              "volume": 606527,
+              "buy_vol": 86764,
+              "sell_vol": 519763
+            },
+            {
+              "price": 67417.5,
+              "volume": 1028794,
+              "buy_vol": 453028,
+              "sell_vol": 575766
+            },
+            {
+              "price": 69326.93,
+              "volume": 685704,
+              "buy_vol": 528279,
+              "sell_vol": 157425
+            },
+            {
+              "price": 71236.37,
+              "volume": 192994,
+              "buy_vol": 0,
+              "sell_vol": 192994
+            },
+            {
+              "price": 75055.25,
+              "volume": 323735,
+              "buy_vol": 0,
+              "sell_vol": 323735
+            },
+            {
+              "price": 76964.68,
+              "volume": 391903,
+              "buy_vol": 220730,
+              "sell_vol": 171173
+            },
+            {
+              "price": 82692.99,
+              "volume": 247801,
+              "buy_vol": 0,
+              "sell_vol": 247801
+            },
+            {
+              "price": 84602.43,
+              "volume": 912919,
+              "buy_vol": 0,
+              "sell_vol": 912919
+            },
+            {
+              "price": 86511.87,
+              "volume": 1591749,
+              "buy_vol": 837803,
+              "sell_vol": 753946
+            },
+            {
+              "price": 88421.31,
+              "volume": 990625,
+              "buy_vol": 588610,
+              "sell_vol": 402015
+            },
+            {
+              "price": 90330.74,
+              "volume": 1454513,
+              "buy_vol": 660701,
+              "sell_vol": 793812
+            },
+            {
+              "price": 92240.18,
+              "volume": 626070,
+              "buy_vol": 437976,
+              "sell_vol": 188094
+            },
+            {
+              "price": 94149.62,
+              "volume": 259953,
+              "buy_vol": 90236,
+              "sell_vol": 169717
+            },
+            {
+              "price": 96059.05,
+              "volume": 91239,
+              "buy_vol": 91239,
+              "sell_vol": 0
+            }
+          ],
+          "bollinger": {
+            "middle": 67807.673,
+            "upper": 71030.84379815575,
+            "lower": 64584.50220184425
+          }
+        },
+        "patterns": [
+          {
+            "name": "Cunha de Baixa",
+            "type": "bearish",
+            "confidence": 60
+          },
+          {
+            "name": "Bandeira de Baixa",
+            "type": "bearish",
+            "confidence": 55
+          },
+          {
+            "name": "Fl\u00e2mula",
+            "type": "neutral",
+            "confidence": 50
+          },
+          {
+            "name": "OCO",
+            "type": "bearish",
+            "confidence": 65
+          },
+          {
+            "name": "OCOI",
+            "type": "bullish",
+            "confidence": 65
+          },
+          {
+            "name": "Canal de Baixa",
+            "type": "bearish",
+            "confidence": 55
+          },
+          {
+            "name": "LTB",
+            "type": "bearish",
+            "confidence": 50
+          }
+        ],
+        "last_close": 67214.53
+      },
+      "W1": {
+        "indicators": {
+          "rsi": {
+            "value": 29.01,
+            "overbought": false,
+            "oversold": true
+          },
+          "macd": {
+            "macd": -8987.87171,
+            "signal": -6322.92348,
+            "histogram": -2664.94822
+          },
+          "ema9": 76978.24409912077,
+          "ema21": 86810.42810991795,
+          "atr": {
+            "value": 8361.93,
+            "percentage": 12.4407
+          },
+          "support_resistance": {
+            "nearest_support": 59779.75,
+            "nearest_resistance": 116411.9
+          },
+          "trend": "bearish",
+          "volume_profile": [
+            {
+              "price": 52809.54,
+              "volume": 1822247,
+              "buy_vol": 0,
+              "sell_vol": 1822247
+            },
+            {
+              "price": 56677.62,
+              "volume": 7792354,
+              "buy_vol": 2889107,
+              "sell_vol": 4903247
+            },
+            {
+              "price": 60545.7,
+              "volume": 16754609,
+              "buy_vol": 8754580,
+              "sell_vol": 8000029
+            },
+            {
+              "price": 64413.77,
+              "volume": 11424253,
+              "buy_vol": 6518903,
+              "sell_vol": 4905350
+            },
+            {
+              "price": 68281.85,
+              "volume": 9055509,
+              "buy_vol": 6172062,
+              "sell_vol": 2883447
+            },
+            {
+              "price": 76018.01,
+              "volume": 2837847,
+              "buy_vol": 2130560,
+              "sell_vol": 707287
+            },
+            {
+              "price": 79886.09,
+              "volume": 7527553,
+              "buy_vol": 3828414,
+              "sell_vol": 3699139
+            },
+            {
+              "price": 83754.17,
+              "volume": 24376683,
+              "buy_vol": 8131692,
+              "sell_vol": 16244991
+            },
+            {
+              "price": 87622.24,
+              "volume": 7357175,
+              "buy_vol": 4495036,
+              "sell_vol": 2862139
+            },
+            {
+              "price": 91490.32,
+              "volume": 8655463,
+              "buy_vol": 4188019,
+              "sell_vol": 4467444
+            },
+            {
+              "price": 95358.4,
+              "volume": 25103358,
+              "buy_vol": 11549599,
+              "sell_vol": 13553759
+            },
+            {
+              "price": 99226.48,
+              "volume": 12239981,
+              "buy_vol": 4515857,
+              "sell_vol": 7724124
+            },
+            {
+              "price": 103094.56,
+              "volume": 24068924,
+              "buy_vol": 12697597,
+              "sell_vol": 11371327
+            },
+            {
+              "price": 106962.64,
+              "volume": 23306191,
+              "buy_vol": 14614563,
+              "sell_vol": 8691628
+            },
+            {
+              "price": 110830.72,
+              "volume": 4449826,
+              "buy_vol": 543106,
+              "sell_vol": 3906720
+            },
+            {
+              "price": 114698.79,
+              "volume": 28056908,
+              "buy_vol": 22375691,
+              "sell_vol": 5681217
+            },
+            {
+              "price": 122434.95,
+              "volume": 2966408,
+              "buy_vol": 2966408,
+              "sell_vol": 0
+            }
+          ],
+          "bollinger": {
+            "middle": 88792.28800000002,
+            "upper": 114706.62673148734,
+            "lower": 62877.94926851269
+          }
+        },
+        "patterns": [
+          {
+            "name": "Bandeira de Baixa",
+            "type": "bearish",
+            "confidence": 55
+          },
+          {
+            "name": "OCO",
+            "type": "bearish",
+            "confidence": 65
+          },
+          {
+            "name": "Canal de Baixa",
+            "type": "bearish",
+            "confidence": 55
+          }
+        ],
+        "last_close": 67214.53
+      }
+    },
+    "fib": {
+      "timeframe": "D1",
+      "high": 126303.03,
+      "low": 59779.75,
+      "levels": [
+        {
+          "pct": 0.0,
+          "price": 59779.75
+        },
+        {
+          "pct": 23.6,
+          "price": 75479.24408
+        },
+        {
+          "pct": 38.2,
+          "price": 85191.64296
+        },
+        {
+          "pct": 50.0,
+          "price": 93041.39
+        },
+        {
+          "pct": 61.8,
+          "price": 100891.13704
+        },
+        {
+          "pct": 78.6,
+          "price": 112067.04808
+        },
+        {
+          "pct": 100.0,
+          "price": 126303.03
+        }
+      ],
+      "midlevels": [
+        {
+          "pct": 11.8,
+          "price": 67629.49704
+        },
+        {
+          "pct": 30.900000000000002,
+          "price": 80335.44352
+        },
+        {
+          "pct": 44.1,
+          "price": 89116.51647999999
+        },
+        {
+          "pct": 55.9,
+          "price": 96966.26352000001
+        },
+        {
+          "pct": 70.19999999999999,
+          "price": 106479.09255999999
+        },
+        {
+          "pct": 89.3,
+          "price": 119185.03904
+        }
+      ]
+    },
+    "metrics": {
+      "current_price": 67214.53,
+      "volatility_pct": 3.9628,
+      "rsi_value": 41.06,
+      "ema_cross": "BAIXA"
+    },
+    "open_orders": [],
+    "tf_profit": {
+      "M1": {
+        "start_close": 67543.35,
+        "end_close": 67230.57,
+        "change_pct": -0.4631
+      },
+      "M5": {
+        "start_close": 68206.21,
+        "end_close": 67230.57,
+        "change_pct": -1.4304
+      },
+      "M15": {
+        "start_close": 67067.55,
+        "end_close": 67230.57,
+        "change_pct": 0.2431
+      },
+      "M30": {
+        "start_close": 63233.92,
+        "end_close": 67230.57,
+        "change_pct": 6.3204
+      },
+      "H1": {
+        "start_close": 67949.88,
+        "end_close": 67230.57,
+        "change_pct": -1.0586
+      },
+      "H4": {
+        "start_close": 70877.9,
+        "end_close": 67230.57,
+        "change_pct": -5.1459
+      },
+      "D1": {
+        "start_close": 108294.84,
+        "end_close": 67230.57,
+        "change_pct": -37.919
+      },
+      "W1": {
+        "start_close": 36560.29,
+        "end_close": 67230.57,
+        "change_pct": 83.8896
+      },
+      "MN": {
+        "start_close": 61292.82,
+        "end_close": 67230.57,
+        "change_pct": 9.6875
+      }
+    }
+  },
+  "pattern_notes": {},
+  "fib": {
+    "timeframe": "D1",
+    "last_close": 67478.74,
+    "nearest_up": 75479.24408,
+    "nearest_down": 59779.75,
+    "dist_up_pct": 11.856332942790571,
+    "dist_down_pct": 11.409504682511862
+  },
+  "fib_predictions": {
+    "up": [
+      {
+        "open": 67478.74,
+        "close": 69078.84081600001,
+        "high": 69147.919656816,
+        "low": 67411.26126
+      },
+      {
+        "open": 69078.84081600001,
+        "close": 72279.04244800001,
+        "high": 72351.321490448,
+        "low": 69009.76197518401
+      },
+      {
+        "open": 72279.04244800001,
+        "close": 77079.34489600001,
+        "high": 77156.424240896,
+        "low": 72206.763405552
+      },
+      {
+        "open": 77079.34489600001,
+        "close": 83479.74816,
+        "high": 83563.22790816,
+        "low": 77002.265551104
+      },
+      {
+        "open": 83479.74816,
+        "close": 91480.25224,
+        "high": 91571.73249223999,
+        "low": 83396.26841184
+      }
+    ],
+    "down": [
+      {
+        "open": 67478.74,
+        "close": 65938.94200000001,
+        "high": 67546.21874,
+        "low": 65873.00305800002
+      },
+      {
+        "open": 65938.94200000001,
+        "close": 62859.346000000005,
+        "high": 66004.880942,
+        "low": 62796.48665400001
+      },
+      {
+        "open": 62859.346000000005,
+        "close": 58239.952000000005,
+        "high": 62922.205345999995,
+        "low": 58181.712048
+      },
+      {
+        "open": 58239.952000000005,
+        "close": 52080.76,
+        "high": 58298.191952,
+        "low": 52028.679240000005
+      },
+      {
+        "open": 52080.76,
+        "close": 44381.77,
+        "high": 52132.84076,
+        "low": 44337.38823
+      }
+    ]
+  },
+  "analysis_summary": {
+    "micro_trend": "BAIXA",
+    "medium_trend": "NEUTRAL",
+    "macro_trend": "BAIXA",
+    "action": "MANTER",
+    "confidence": 65,
+    "reason": "Pre\u00e7o abaixo das EMAs 9/21 (67K vs 69.4K), RSI neutro-baixo 41, padr\u00e3o OCO bearish ativo. Micro-trend negativa com RSI pr\u00f3ximo \u00e0 sobrevenda, macro-trend estabelecida em baixa ap\u00f3s queda severa"
+  },
+  "analysis_summary_text": "Pre\u00e7o atual: $67.294,03\nVolatilidade: 3,96%\nRSI: 41,21 (neutro-tendendo \u00e0 baixa)\nEMAs: EMA9 ($67.011) abaixo da EMA21 ($69.396) - cruzamento baixista\n\n**N\u00edveis de Fibonacci:**\n- Pr\u00f3ximo suporte (Fib 0%): $59.779,75\n- Pr\u00f3ximo resist\u00eancia (Fib 23,6%): $75.479,24\n- Pre\u00e7o atual est\u00e1 entre os n\u00edveis 0% e 23,6%\n\n**Padr\u00f5es Identificados:**\n- Cunha de Baixa (D1, 60% confian\u00e7a)\n- OCO bearish (M1/M5/D1, 65% confian\u00e7a)\n- Bandeira de Baixa (D1, 55% confian\u00e7a)\n\n**Panorama por Timeframe:**\n- M1/M5: Tend\u00eancia de baixa forte (RSI 33-41)\n- H1/H4: Tend\u00eancia neutra com padr\u00f5es mistos\n- D1/Semanal: Tend\u00eancia macro de baixa estabelecida\n\n**Performance Recente:**\n- H4: -5,15% (queda significativa)\n- D1: -37,92% (queda severa)\n- Semanal: +83,89% (recupera\u00e7\u00e3o parcial)\n\n**Ordens Abertas:** Nenhuma ordem aberta\n\n**CONCLUS\u00c3O: RECOMENDA\u00c7\u00c3O DE MANTER**\n\nJustificativa: Mercado em fase de consolida\u00e7\u00e3o ap\u00f3s queda severa, com indicadores mostrando press\u00e3o vendedora nas tend\u00eancias micro e macro. O pre\u00e7o abaixo das EMAs e o padr\u00e3o OCO bearish sugerem poss\u00edvel continua\u00e7\u00e3o da tend\u00eancia de baixa, por\u00e9m o RSI neutro indica que pode haver estabiliza\u00e7\u00e3o tempor\u00e1ria antes de novos movimentos."
+}

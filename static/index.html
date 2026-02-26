@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoVision Pro - Real System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0b0e; 
+            --bg-card: #111217; 
+            --bg-elevated: #191b20;
+            --bg-chart: #0f1014;
+            --fg: #d1d5db; 
+            --muted: #6b7280;
+            --accent: #22c55e; 
+            --danger: #ef4444; 
+            --warning: #f59e0b;
+            --info: #3b82f6; 
+            --purple: #a855f7; 
+            --cyan: #06b6d4;
+            --border: rgba(255,255,255,0.08);
+            --grid-color: rgba(255,255,255,0.03);
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background: var(--bg); 
+            color: var(--fg); 
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 6px; 
+        }
+        
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .status-on { background: var(--accent); box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
+        .status-off { background: var(--danger); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        .btn { 
+            padding: 6px 12px; 
+            border-radius: 4px; 
+            font-weight: 500; 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.15s ease; 
+            font-size: 11px; 
+            letter-spacing: 0.02em;
+        }
+        .btn-pri { background: var(--accent); color: #000; }
+        .btn-pri:hover { background: #16a34a; }
+        .btn-sec { background: rgba(255,255,255,0.05); color: var(--fg); border: 1px solid var(--border); }
+        .btn-sec:hover { background: rgba(255,255,255,0.08); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #dc2626; }
+        
+        .chip { 
+            padding: 3px 10px; 
+            border-radius: 3px; 
+            font-size: 10px; 
+            cursor: pointer; 
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            transition: all 0.15s ease;
+        }
+        .chip.active { 
+            background: rgba(34,197,94,0.15);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+        .chip:hover { background: rgba(255,255,255,0.05); }
+        
+        .toggle-switch { position: relative; width: 36px; height: 18px; background: #2a2d35; border-radius: 9px; cursor: pointer; transition: background 0.2s; }
+        .toggle-switch.active { background: var(--accent); }
+        .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: white; border-radius: 50%; transition: transform 0.2s; }
+        .ctrl-chip input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            position: relative;
+            margin-right: 2px;
+            display: inline-block;
+        }
+        .ctrl-chip input[type="checkbox"]:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        .ctrl-chip input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            width: 3px;
+            height: 6px;
+            border: solid black;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        canvas { display: block; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+        
+        .f-row { display: flex; flex-direction: column; gap: 2px; }
+        .f-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .f-input { 
+            background: #0a0a0d; 
+            border: 1px solid var(--border); 
+            color: var(--fg); 
+            padding: 5px 8px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            outline: none; 
+            width: 100%;
+            transition: border-color 0.15s;
+        }
+        .f-input:focus { border-color: var(--accent); }
+        
+        .modal-backdrop { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.7); 
+            backdrop-filter: blur(2px);
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 100; 
+        }
+        .modal-card { 
+            background: #0d0d10; 
+            border: 1px solid var(--border); 
+            width: 560px; 
+            max-width: 94vw; 
+            max-height: 85vh; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column;
+        }
+        .modal-header { 
+            padding: 10px 14px; 
+            border-bottom: 1px solid var(--border); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            font-weight: 600; 
+            font-size: 12px; 
+        }
+        .modal-body { padding: 12px; overflow-y: auto; font-size: 11px; line-height: 1.5; }
+        .modal-close { background: transparent; border: 1px solid var(--border); color: var(--fg); border-radius: 4px; padding: 4px 10px; cursor: pointer; font-size: 11px; }
+        
+        /* Timeframe selector */
+        .tf-btn {
+            padding: 5px 10px;
+            font-size: 10px;
+            font-weight: 500;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .tf-btn:hover { background: rgba(255,255,255,0.05); color: var(--fg); }
+        .tf-btn.active { 
+            background: rgba(34,197,94,0.12); 
+            color: var(--accent); 
+            border-color: rgba(34,197,94,0.3);
+        }
+        
+        /* Chart container */
+        .chart-container {
+            background: var(--bg-chart);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Indicator panels */
+        .indicator-panel {
+            background: var(--bg-chart);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        /* Responsive grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            height: calc(100vh - 52px);
+            padding: 8px;
+        }
+        
+        @media (min-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr 280px;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .main-grid {
+                grid-template-columns: 1fr 300px;
+            }
+        }
+        
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 0;
+            overflow: hidden;
+        }
+        
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        @media (max-width: 1023px) {
+            .right-col {
+                max-height: 300px;
+            }
+        }
+        
+        /* Price display */
+        .price-up { color: var(--accent); }
+        .price-down { color: var(--danger); }
+        
+        /* Chart overlay controls */
+        .chart-controls {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            max-width: calc(100% - 16px);
+        }
+        
+        .ctrl-chip {
+            padding: 3px 8px;
+            font-size: 9px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            background: rgba(0,0,0,0.6);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .ctrl-chip:hover { background: rgba(0,0,0,0.8); color: var(--fg); }
+        .ctrl-chip.active { 
+            background: rgba(34,197,94,0.15); 
+            color: var(--accent); 
+            border-color: rgba(34,197,94,0.4);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-in {
+            animation: fadeIn 0.2s ease-out;
+        }
+        
+        /* Hide scrollbar on small screens */
+        @media (max-width: 640px) {
+            ::-webkit-scrollbar { display: none; }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+    <!-- Modals -->
+    <div id="predModal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>Proximo Movimento do Mercado</span>
+                <button id="predClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="predContent" class="modal-body"></div>
+        </div>
+    </div>
+    <div id="aiStatusModal" class="modal-backdrop">
+        <div class="modal-card" style="width:480px">
+            <div class="modal-header">
+                <span>Status da Análise IA</span>
+                <button id="aiStatusClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="aiStatusBody" class="modal-body">
+                <div class="text-[11px]" id="aiStatusText">Aguardando início...</div>
+                <div class="mt-3">
+                    <div class="w-full h-2 bg-[#111] rounded overflow-hidden">
+                        <div id="aiStatusBar" class="h-2 bg-[#22c55e] w-0" style="transition:width 0.2s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="autoInfoModal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>Fatores de Abertura de Ordem</span>
+                <button id="autoInfoClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="autoInfoContent" class="modal-body"></div>
+        </div>
+    </div>
+    <div id="emaCfgModal" class="modal-backdrop">
+        <div class="modal-card" style="width:480px">
+            <div class="modal-header">
+                <span>Configuracao de EMAs</span>
+                <button id="emaCfgClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="emaCfgBody" class="modal-body"></div>
+        </div>
+    </div>
+    <div id="pineModal" class="modal-backdrop">
+        <div class="card border border-[#22c55e]/50 w-[96vw] max-w-[96vw] h-[92vh] rounded flex flex-col overflow-hidden">
+            <div class="px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                <div class="text-[11px] font-semibold text-[#06b6d4]">Pine Script</div>
+                <div class="flex items-center gap-2">
+                    <button id="pineNew" class="btn btn-sec px-2 py-1 rounded text-[10px]">Novo</button>
+                    <button id="pineSave" class="btn btn-sec px-2 py-1 rounded text-[10px]">Salvar</button>
+                    <button id="pineApply" class="btn btn-pri px-2 py-1 rounded text-[10px]">Aplicar ao grafico</button>
+                    <button id="pineClose" class="btn btn-sec px-2 py-1 rounded text-[10px]">Fechar</button>
+                </div>
+            </div>
+            <div class="flex-1 flex">
+                <div class="w-[20%] border-r border-white/10 flex flex-col">
+                    <div class="p-2"><input id="pineSearch" class="f-input w-full" placeholder="Pesquisar"></div>
+                    <div id="pineList" class="flex-1 overflow-y-auto text-[11px]"></div>
+                </div>
+                <div class="w-[80%] flex flex-col">
+                    <div class="p-2 border-b border-white/10 text-[11px] flex items-center gap-2">
+                        <span class="text-[#666]">Nome:</span>
+                        <input id="pineName" class="f-input w-64" placeholder="Sem titulo">
+                        <span id="pineStatus" class="text-[10px] text-[#666] ml-auto"></span>
+                    </div>
+                    <div class="flex-1 p-2">
+                        <textarea id="pineEditor" class="w-full h-full font-mono text-[11px] bg-[#0a0a0a] text-white border border-white/10 rounded p-2" spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="predFSModal" class="modal-backdrop">
+        <div class="card border border-[#22c55e]/50 w-[96vw] h-[94vh] rounded flex flex-col overflow-hidden">
+            <div class="px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                <div class="text-[11px] font-semibold text-[#3b82f6]">Linhas de Previsoes</div>
+                <div class="flex items-center gap-2">
+                    <div id="lineLegendFS" class="flex items-center gap-2 text-[10px]"></div>
+                    <button id="predFSClose" class="btn btn-sec px-2 py-1 rounded text-[10px]">Fechar</button>
+                </div>
+            </div>
+            <div id="lineChartFSWrap" class="relative flex-1">
+                <canvas id="lineChartFS"></canvas>
+                <div id="percBarFS" class="absolute top-2 right-2 bottom-2 w-8 flex flex-col items-center justify-between text-[9px] text-[#666] pointer-events-none">
+                    <span>100%</span>
+                    <div class="w-1 flex-1 bg-[#111] rounded relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-green-500 via-yellow-400 to-red-500 opacity-30"></div>
+                    </div>
+                    <span>0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fibCfgModal" class="modal-backdrop">
+        <div class="modal-card" style="width:380px">
+            <div class="modal-header">
+                <span>Configuracao de Fibonacci</span>
+                <button id="fibCfgClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="fibCfgBody" class="modal-body">
+                <div class="f-row">
+                    <label class="f-label">Quantidade de velas (lookback)</label>
+                    <input id="fibBarsInput" type="number" min="50" max="2000" value="200" class="f-input w-28">
+                </div>
+                <div class="text-[10px] text-[#666] mt-2">A Fibo usa o ultimo topo e o ultimo fundo dentro desse intervalo.</div>
+            </div>
+        </div>
+    </div>
+    <div id="bbCfgModal" class="modal-backdrop">
+        <div class="modal-card" style="width:380px">
+            <div class="modal-header">
+                <span>Bandas de Bollinger</span>
+                <button id="bbCfgClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="bbCfgBody" class="modal-body">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="f-row"><label class="f-label">Periodo</label><input id="bbPeriod" type="number" min="5" value="20" class="f-input"></div>
+                    <div class="f-row"><label class="f-label">Desvios</label><input id="bbMult" type="number" step="0.1" min="0.1" value="2" class="f-input"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 mt-3">
+                    <div class="f-row"><label class="f-label">Cor</label><input id="bbColor" type="color" value="#06b6d4" class="w-full h-7 rounded cursor-pointer"></div>
+                    <div class="f-row"><label class="f-label">Largura</label><input id="bbWidth" type="number" step="0.2" min="0.6" value="1.2" class="f-input"></div>
+                    <div class="f-row"><label class="f-label">Preenchimento</label><input id="bbFill" type="color" value="#0c4a6e" class="w-full h-7 rounded cursor-pointer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rsiCfgModal" class="modal-backdrop">
+        <div class="modal-card" style="width:380px">
+            <div class="modal-header">
+                <span>RSI</span>
+                <button id="rsiCfgClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="rsiCfgBody" class="modal-body">
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="f-row"><label class="f-label">Periodo</label><input id="rsiPeriod" type="number" min="2" value="14" class="f-input"></div>
+                    <div class="f-row"><label class="f-label">Sobrecompra</label><input id="rsiOb" type="number" min="50" max="100" value="70" class="f-input"></div>
+                    <div class="f-row"><label class="f-label">Sobrevenda</label><input id="rsiOs" type="number" min="0" max="50" value="30" class="f-input"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-3">
+                    <div class="f-row"><label class="f-label">Cor</label><input id="rsiColor" type="color" value="#06b6d4" class="w-full h-7 rounded cursor-pointer"></div>
+                    <div class="f-row"><label class="f-label">Largura</label><input id="rsiWidth" type="number" step="0.2" min="0.6" value="1.2" class="f-input"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="macdCfgModal" class="modal-backdrop">
+        <div class="modal-card" style="width:380px">
+            <div class="modal-header">
+                <span>MACD</span>
+                <button id="macdCfgClose" class="modal-close">Fechar</button>
+            </div>
+            <div id="macdCfgBody" class="modal-body">
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="f-row"><label class="f-label">Rapido</label><input id="macdFast" type="number" min="2" value="12" class="f-input"></div>
+                    <div class="f-row"><label class="f-label">Lento</label><input id="macdSlow" type="number" min="2" value="26" class="f-input"></div>
+                    <div class="f-row"><label class="f-label">Sinal</label><input id="macdSig" type="number" min="2" value="9" class="f-input"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 mt-3">
+                    <div class="f-row"><label class="f-label">Cor MACD</label><input id="macdColor" type="color" value="#84cc16" class="w-full h-7 rounded cursor-pointer"></div>
+                    <div class="f-row"><label class="f-label">Cor Sinal</label><input id="macdSigColor" type="color" value="#f59e0b" class="w-full h-7 rounded cursor-pointer"></div>
+                    <div class="f-row"><label class="f-label">Cor Hist -</label><input id="macdNeg" type="color" value="#ef4444" class="w-full h-7 rounded cursor-pointer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-[#08080a]/95 border-b border-white/5 px-3 py-2 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded border border-[#22c55e]/50 flex items-center justify-center">
+                <i data-lucide="trending-up" class="w-4 h-4 text-[#22c55e]"></i>
+            </div>
+            <h1 class="font-semibold text-sm">CryptoVision Pro</h1>
+            <div class="flex gap-3 text-[10px] ml-3">
+                <div class="flex items-center gap-1"><span class="status-dot" id="sWS"></span><span class="text-[#666]">WS</span></div>
+                <div class="flex items-center gap-1"><span class="status-dot" id="sMT5"></span><span class="text-[#666]">MT5</span></div>
+                <div class="flex items-center gap-1"><span class="status-dot" id="sOllama"></span><span class="text-[#666]">Ollama</span></div>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <button class="btn btn-pri" id="btnBuy">COMPRAR</button>
+            <button class="btn btn-danger" id="btnSell">VENDER</button>
+            <button class="btn btn-sec" id="btnAnalyze">ANALISAR</button>
+            <button class="btn btn-sec" id="btnShowLast">REEXIBIR</button>
+        </div>
+        <div class="text-right text-[10px] font-mono">
+            <div class="flex items-center justify-end gap-2 mb-1">
+                <div class="flex items-center gap-1 cursor-pointer" id="aiIndicator">
+                    <i data-lucide="bot" class="w-3 h-3"></i>
+                    <span class="status-dot" id="sAI"></span>
+                    <span class="text-[#666]">IA</span>
+                </div>
+            </div>
+            <div class="text-[#666]">Recomendacao: <span id="modelRec" class="font-bold">--</span></div>
+            <div class="text-[#666]">Saldo: <span id="accBal" class="text-white">$0</span></div>
+            <div class="text-[#666]">Lucro: <span id="accProf">$0</span></div>
+        </div>
+    </header>
+    
+    <!-- Main Grid -->
+    <main class="main-grid flex-1 overflow-hidden">
+        <!-- Left Col -->
+        <div class="left-col">
+            <!-- Top Config Bar -->
+            <div class="card p-2 flex gap-2 items-end flex-wrap">
+                <div class="flex flex-col"><label class="f-label">Simbolo</label><input id="cfgSym" value="BTCUSDc" class="f-input w-20"></div>
+                <div class="flex flex-col"><label class="f-label">Velas</label><input id="cfgBars" type="number" value="100" class="f-input w-14"></div>
+                <div class="flex flex-col"><label class="f-label">Prev.</label><input id="cfgPred" type="number" value="5" class="f-input w-12"></div>
+                <div class="flex flex-col"><label class="f-label">Gap Prev</label><input id="cfgPredGap" type="number" value="3" class="f-input w-14"></div>
+                <div class="flex flex-col"><label class="f-label">Padding Direita</label><input id="cfgRightPad" type="number" value="25" class="f-input w-14"></div>
+                <div class="flex flex-col"><label class="f-label">Padding Esquerda</label><input id="cfgLeftPad" type="number" value="10" class="f-input w-14"></div>
+                <div class="flex flex-col"><label class="f-label">Modelo IA</label><select id="cfgModel" class="f-input w-24"></select></div>
+                <button id="btnApply" class="btn btn-pri text-[10px] py-1">Aplicar</button>
+                
+                <div class="ml-auto flex flex-col items-end border-l border-white/10 pl-2">
+                    <div class="text-[9px] text-[#666]">Filtros de previsao</div>
+                    <div class="flex gap-1 items-center mt-1">
+                        <button class="chip active" id="fInd" style="border-color:#3b82f6;">Ind</button>
+                        <button class="chip active" id="fPat" style="border-color:#22c55e;">Pat</button>
+                        <button class="chip active" id="fAI" style="border-color:#f59e0b;">IA</button>
+                        <button class="chip active" id="fNews" style="border-color:#a855f7;">News</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeframe Selector -->
+            <div class="card p-2 flex items-center gap-1 flex-wrap">
+                <span class="text-[10px] text-[#666] mr-2">Timeframe:</span>
+                <button class="tf-btn" data-tf="M1">1m</button>
+                <button class="tf-btn" data-tf="M5">5m</button>
+                <button class="tf-btn" data-tf="M15">15m</button>
+                <button class="tf-btn" data-tf="M30">30m</button>
+                <button class="tf-btn active" data-tf="H1">1H</button>
+                <button class="tf-btn" data-tf="H4">4H</button>
+                <button class="tf-btn" data-tf="D1">1D</button>
+                <button class="tf-btn" data-tf="W1">1W</button>
+                <select id="cfgTF" class="f-input w-14 ml-2 hidden">
+                    <option>M1</option><option>M5</option><option>M15</option><option>H1</option><option>H4</option><option>D1</option>
+                </select>
+            </div>
+
+            <!-- Main Chart -->
+            <div class="chart-container flex-1 relative" id="chartBox" style="min-height: 200px;">
+                <canvas id="mainChart"></canvas>
+                <!-- Controls Overlay -->
+                <div class="chart-controls">
+                    <label class="ctrl-chip"><input type="checkbox" id="chkVol" checked> Vol</label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkEMA" checked> <span id="emaName" class="underline decoration-dotted cursor-pointer">EMA</span></label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkBB"> <span id="bbName" class="underline decoration-dotted cursor-pointer">BB</span></label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkRSIov"> <span id="rsiName" class="underline decoration-dotted cursor-pointer">RSI</span></label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkMACDov"> <span id="macdName" class="underline decoration-dotted cursor-pointer">MACD</span></label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkSR" checked> S/R</label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkPatterns" checked> Figuras</label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkPatternsLLM" checked> Figuras IA</label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkPerspective"> Perspectiva</label>
+                    <label class="ctrl-chip"><input type="checkbox" id="chkFib"> <span id="fibName" class="underline decoration-dotted cursor-pointer">Fibonnaci</span></label>
+                    <button id="btnPine" class="ctrl-chip">Pine</button>
+                </div>
+                <div id="pineActiveWrap" class="absolute left-2 top-12 z-10 bg-black/70 px-2 py-2 rounded border border-white/10 text-[10px] w-48 max-h-48 overflow-y-auto hidden">
+                    <div class="text-[#666] mb-1">Pines ativos</div>
+                    <div id="pineActiveList" class="flex flex-col gap-1"></div>
+                </div>
+                <div id="indLegend" class="absolute top-2 right-2 z-10 bg-black/60 px-2 py-1 rounded border border-white/10 text-[10px] flex items-center gap-2"></div>
+                <!-- Controls: Go to end and Auto-scroll -->
+                <div class="absolute bottom-10 right-2 z-20 flex flex-col gap-2">
+                    <button id="btnFollow" class="bg-black/70 hover:bg-black/90 text-white/70 p-2 rounded border border-white/10 transition-all shadow-lg" title="Auto-ajuste ao final">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                    </button>
+                    <button id="btnGoEnd" class="bg-black/70 hover:bg-black/90 text-white/70 p-2 rounded border border-white/10 transition-all shadow-lg" title="Ir para o final">
+                        <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- RSI Panel -->
+            <div id="rsiPanelWrap" class="indicator-panel relative" style="height: 80px; display: none;">
+                <div class="absolute top-1 left-2 text-[9px] text-[#666] z-10">RSI <span id="rsiPanelVal" class="text-[#06b6d4] font-mono">--</span></div>
+                <canvas id="rsiChart"></canvas>
+                <button id="rsiCfgBtn" class="absolute right-2 top-1 z-10 text-[9px] text-[#666] hover:text-white"></button>
+            </div>
+
+            <!-- MACD Panel -->
+            <div id="macdPanelWrap" class="indicator-panel relative" style="height: 100px; display: none;">
+                <div class="absolute top-1 left-2 text-[9px] text-[#666] z-10">MACD <span id="macdPanelVal" class="font-mono">--</span></div>
+                <canvas id="macdChart"></canvas>
+                <button id="macdCfgBtn" class="absolute right-2 top-1 z-10 text-[9px] text-[#666] hover:text-white"></button>
+            </div>
+
+            <!-- Middle Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div class="card p-2">
+                    <div class="text-[9px] text-[#666] justify-between flex"><span>RSI</span><span id="rsiV" class="font-mono">--</span></div>
+                    <div class="h-1 bg-[#111] rounded-full mt-1 overflow-hidden"><div id="rsiB" class="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500" style="width:50%"></div></div>
+                </div>
+                <div class="card p-2">
+                    <div class="text-[9px] text-[#666] justify-between flex"><span>MACD</span><span id="macdV" class="font-mono">--</span></div>
+                    <div id="macdH" class="text-[10px] font-mono mt-1">--</div>
+                </div>
+                <div class="card p-2">
+                    <div class="text-[9px] text-[#666] justify-between flex"><span>EMA Cross</span><span id="emaT" class="font-mono text-[10px]">--</span></div>
+                    <div class="flex gap-2 text-[9px] mt-1 font-mono"><span>9:<span id="ema9">--</span></span><span>21:<span id="ema21">--</span></span></div>
+                </div>
+                <div class="card p-2">
+                    <div class="text-[9px] text-[#666]">Volatilidade</div>
+                    <div id="volV" class="text-xs font-mono mt-1">--</div>
+                </div>
+            </div>
+
+            <!-- Analysis Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div id="predCard" class="card p-2 overflow-hidden relative">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="text-[10px] font-semibold text-[#3b82f6]">Linhas de Previsoes</div>
+                        <div class="flex items-center gap-2">
+                            <div id="lineLegend" class="flex items-center gap-2 text-[10px]"></div>
+                            <button id="predExpand" class="btn btn-sec px-1 py-0 rounded text-[9px]" title="Tela cheia">
+                                <i data-lucide="maximize-2" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="lineChartWrap" class="relative" style="height:100px;">
+                        <canvas id="lineChart" height="50" class="block w-full"></canvas>
+                        <div id="percBar" class="absolute top-1 right-1 bottom-1 w-6 flex flex-col items-center justify-between text-[8px] text-[#666] pointer-events-none">
+                            <span>100%</span>
+                            <div class="w-0.5 flex-1 bg-[#111] rounded relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-b from-green-500 via-yellow-400 to-red-500 opacity-30"></div>
+                            </div>
+                            <span>0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2">
+                    <div class="text-[10px] font-semibold text-[#f59e0b] mb-1">Probabilidade Figuras</div>
+                    <div id="patProb" class="text-[10px] space-y-1 max-h-20 overflow-y-auto"></div>
+                </div>
+            </div>
+
+            <!-- Bottom: Orders -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" style="min-height: 100px; max-height: 140px;">
+                <div class="card p-2 overflow-hidden flex flex-col">
+                    <div class="text-[10px] font-semibold mb-1">Ordens Abertas</div>
+                    <div class="flex-1 overflow-y-auto text-[10px]"><table class="w-full"><tbody id="tblOrders"></tbody></table></div>
+                </div>
+                <div class="card p-2 overflow-hidden flex flex-col">
+                    <div class="text-[10px] font-semibold mb-1">Historico</div>
+                    <div class="flex-1 overflow-y-auto text-[10px]"><table class="w-full"><tbody id="tblHist"></tbody></table></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Col: Sidebar -->
+        <div class="right-col">
+            <!-- Price Card -->
+            <div class="card p-3 text-center shrink-0">
+                <div class="text-[10px] text-[#666]" id="currSym">BTCUSDc</div>
+                <div id="currP" class="text-xl font-mono font-bold">$--</div>
+                <div id="currChg" class="text-[10px]">--</div>
+            </div>
+
+            <!-- CARD DE OPERACOES -->
+            <div class="card p-3 border border-[#22c55e]/30 shrink-0">
+                <h3 class="font-semibold text-xs flex items-center justify-between mb-2">
+                    <span class="flex items-center gap-1"><i data-lucide="bot" class="w-3 h-3"></i> AutoTrading</span>
+                    <div class="flex bg-black/40 border border-white/10 rounded overflow-hidden">
+                        <button id="segSys" class="px-2 py-1 text-[10px] chip active" style="border:none">Sistema</button>
+                        <button id="segIA" class="px-2 py-1 text-[10px] chip" style="border:none">IA</button>
+                    </div>
+                </h3>
+                
+                <div id="sysSection" class="space-y-2 text-[11px]">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="f-row"><label class="f-label">Estrategia</label>
+                            <select id="cfgStrat" class="f-input">
+                                <option value="scalping">Scalping</option>
+                                <option value="day_trade">DayTrade</option>
+                                <option value="swing_trade">SwingTrade</option>
+                                <option value="rsi">RSI</option>
+                                <option value="ai">IA</option>
+                            </select>
+                        </div>
+                        <div class="f-row"><label class="f-label">Modo</label>
+                            <select id="cfgMode" class="f-input">
+                                <option value="both">Ambos</option>
+                                <option value="buy_only">So Compra</option>
+                                <option value="sell_only">So Venda</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="f-row"><label class="f-label">Lote</label><input type="number" id="cfgLot" step="0.01" value="0.01" class="f-input"></div>
+                        <div class="f-row"><label class="f-label">RSI Periodo</label><input type="number" id="cfgRSI" value="4" class="f-input"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="f-row"><label class="f-label">TP Compra</label><input type="number" id="cfgTPBuy" value="0" class="f-input"></div>
+                        <div class="f-row"><label class="f-label">TP Venda</label><input type="number" id="cfgTPSell" value="0" class="f-input"></div>
+                        <div class="f-row"><label class="f-label">Tempo Analise</label>
+                            <select id="cfgTFA" class="f-input">
+                                <option value="M1">M1</option><option value="M5">M5</option><option value="M15">M15</option>
+                                <option value="M30">M30</option><option value="H1">H1</option><option value="H4">H4</option>
+                                <option value="D1">D1</option><option value="W1">W1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="f-row"><label class="f-label">Trailing Stop</label><input type="number" id="cfgTrailStop" value="0" class="f-input"></div>
+                        <div class="f-row"><label class="f-label">Trailing Step</label><input type="number" id="cfgTrailStep" value="0" class="f-input"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="f-row"><label class="f-label">Limite Lucro</label><input type="number" id="cfgProfLimit" value="0" class="f-input"></div>
+                        <div class="f-row"><label class="f-label">Limite Prejuizo</label><input type="number" id="cfgLossLimit" value="0" class="f-input"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="f-row"><label class="f-label">Max. Ordens</label><input type="number" id="cfgMaxOrd" value="1" class="f-input"></div>
+                        <div class="f-row"><label class="f-label">Tempo Ordens</label><input type="number" id="cfgTimeOrd" value="5" class="f-input"></div>
+                    </div>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span id="autoStatusLabel" class="text-[10px]">MANUAL</span>
+                        <div id="autoToggle" class="toggle-switch"></div>
+                    </div>
+                </div>
+                
+                <div id="aiSection" class="hidden text-[11px]">
+                    <div class="text-[10px] text-[#666] mb-2">Modo IA: configuracoes manuais ocultas.</div>
+                </div>
+
+                <div id="autoFooter" class="mt-2 pt-2 border-t border-white/10">
+                    <div class="flex gap-2">
+                        <button id="btnStartAuto" class="btn btn-pri flex-1 text-[10px] py-1">Iniciar</button>
+                        <button id="btnStopAuto" class="btn btn-danger flex-1 text-[10px] py-1 hidden">Parar</button>
+                    </div>
+                    <div class="text-center mt-1">
+                        <div class="text-[#666] text-[9px]">Prox. Analise em</div>
+                        <div id="autoTimer" class="font-mono text-base font-bold text-[#22c55e]">--:--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Analysis Card removido -->
+
+            <!-- Stats & Patterns -->
+            <div class="card p-3 flex-1 overflow-y-auto">
+                <h3 class="text-[10px] font-semibold mb-2">Padroes Detectados</h3>
+                <div id="patList" class="space-y-1 text-[10px]"></div>
+                <div class="mt-3 border-t border-white/10 pt-2">
+                    <div class="text-[10px] font-semibold mb-1">Notas Manuais</div>
+                    <div id="patForm" class="space-y-1"></div>
+                    <button id="btnSavePatterns" class="btn btn-pri w-full text-[10px] py-1 mt-2">Salvar</button>
+                    <div id="patSaveMsg" class="text-[10px] text-[#666] mt-1"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div id="imgCard" class="cursor-move fixed top-10 left-10 z-10 card border border-[#22c55e]/50 rounded overflow-hidden shadow-lg" style="width:10vh; height:10vh;">
+        <div id="imgCardHandle" style="display:none"></div>
+        <img src="/imagens/rosto-aberto.jpg" alt="" draggable="false" style="width:100%; height:100%; object-fit:cover; display:block; cursor:move;">
+    </div>
+    
+    <script>
+        lucide.createIcons();
+        // --- State ---
+        let ws = null;
+        let state = {
+            connected: {ws:false, mt5:false, ollama:false},
+            candles: [], inds: {}, 
+            preds: {ind:[], pat:[], ai:[], news:[]}, 
+            patterns: [], drawings: [], volProf: [],
+            orders: [], deep: {}, settings: {},
+            view: { bars: null, start: null, followEnd: true, predGap: 3, axisPadBars: 25, leftPadBars: 10, predSlots: 0, yZoom: 1.0, yOffset: 0.0 },
+            autoTrader: { running: false, remaining: 0 },
+            model: { dir: null, conf: 0, since: null },
+            fib: null,
+            fibBars: 200,
+            perspective: false,
+            emaCfg: { emas: [ {period:9,color:'#22c55e',width:1.2,visible:true}, {period:21,color:'#f59e0b',width:1.2,visible:true}, {period:100,color:'#a855f7',width:1.8,visible:true}, {period:200,color:'#3b82f6',width:1.8,visible:true} ] },
+            pineOverlays: [],
+            indCfg: {
+                bollinger: { period: 20, mult: 2.0, color: '#06b6d4', width: 1.0, fill: 'rgba(6,182,212,0.08)', visible: false },
+                rsi: { period: 14, ob: 70, os: 30, color: '#06b6d4', width: 1.2, visible: false },
+                macd: { fast: 12, slow: 26, signal: 9, color: '#84cc16', sigColor: '#f59e0b', histNeg: 'rgba(239,68,68,0.4)', visible: false }
+            },
+            ollamaFailCount: 0
+            , analysisProgress: { running: false, pct: 0, text: '' }
+        };
+        try { const m = JSON.parse(localStorage.getItem('modelColoring') || 'null'); if(m && typeof m === 'object'){ state.model = m; } } catch(e){}
+        
+        const $ = id => document.getElementById(id);
+        const mainCvs = $('mainChart'), mainCtx = mainCvs.getContext('2d');
+        const rsiCvs = $('rsiChart'), rsiCtx = rsiCvs.getContext('2d');
+        const macdCvs = $('macdChart'), macdCtx = macdCvs.getContext('2d');
+        const lineCvs = $('lineChart'), lineCtx = lineCvs.getContext('2d');
+        
+        // --- Utils ---
+        const fmt = n => n ? n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) : '--';
+        
+        function updateIndLegend(){
+            const el = document.getElementById('indLegend');
+            if(!el) return;
+            const items = [];
+            if(document.getElementById('chkEMA')?.checked){ 
+                const color = (state.emaCfg?.emas?.[0]?.color)||'#22c55e';
+                items.push({label:'EMA', color});
+            }
+            if(document.getElementById('chkBB')?.checked){
+                const color = state.indCfg?.bollinger?.color || '#06b6d4';
+                items.push({label:'BB', color});
+            }
+            if(document.getElementById('chkRSIov')?.checked){
+                const color = state.indCfg?.rsi?.color || '#06b6d4';
+                items.push({label:'RSI', color});
+            }
+            if(document.getElementById('chkMACDov')?.checked){
+                const color = state.indCfg?.macd?.color || '#84cc16';
+                items.push({label:'MACD', color});
+            }
+            el.innerHTML = items.length ? items.map(it => `<span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-sm" style="background:${it.color}"></span>${it.label}</span>`).join('<span class="mx-1 text-[#333]">|</span>') : '<span class="text-[#666]">—</span>';
+        }
+        
+        function parsePineConfig(code){
+            let length = 14, mult = 1.0, calcMethod = 'Atr', showExt = true, type = 'channel';
+            try{ const m = code.match(/input\.int\(\s*(\d+)/i); if(m) length = Math.max(2, parseInt(m[1])); }catch(e){}
+            try{ const m = code.match(/input\.float\(\s*([0-9.]+)/i); if(m) mult = Math.max(0, parseFloat(m[1])); }catch(e){}
+            try{ const m = code.match(/input\.string\(\s*'([^']+)'[^)]*options\s*=\s*\[([^\]]+)/i); if(m){ const v = m[1]; if(/atr/i.test(v)) calcMethod='Atr'; else if(/stdev/i.test(v)) calcMethod='Stdev'; else if(/linreg/i.test(v)) calcMethod='Linreg'; } }catch(e){}
+            try{ if(/input\s*\(\s*true/i.test(code)) showExt = true; if(/input\s*\(\s*false/i.test(code) && /Backpainting|Extended/i.test(code)) showExt = false; }catch(e){}
+            
+            // Detectar tipo de indicador
+            if(/ta\.cross|ta\.sma|ta\.ema/i.test(code)) {
+                type = 'macross';
+                // Tentar extrair períodos de médias
+                const periods = [];
+                const mAll = code.matchAll(/(\d+)\s*\)/g);
+                for(const match of mAll) {
+                    const p = parseInt(match[1]);
+                    if(p > 1 && p < 500) periods.push(p);
+                }
+                if(periods.length >= 2) {
+                    length = periods[0];
+                    mult = periods[1]; // Usar mult para guardar o segundo período no caso de macross
+                } else {
+                    length = 9; mult = 21;
+                }
+            }
+            
+            return { length, mult, calcMethod, showExt, type };
+        }
+        
+        const _pinePalette = [
+            {up:'#14b8a6', dn:'#ef4444'},
+            {up:'#06b6d4', dn:'#a855f7'},
+            {up:'#84cc16', dn:'#f97316'},
+            {up:'#eab308', dn:'#db2777'},
+            {up:'#38bdf8', dn:'#fb7185'}
+        ];
+        
+        function nextPineColors(idx){
+            const p = _pinePalette[idx % _pinePalette.length];
+            return {up:p.up, dn:p.dn};
+        }
+        
+        function pineOverlayData(candles, cfg){
+            const n = candles.length; if(n === 0) return null;
+            const type = cfg.type || 'channel';
+            
+            if(type === 'macross') {
+                const p1 = Math.max(2, cfg.length || 9);
+                const p2 = Math.max(2, cfg.mult || 21);
+                const closes = candles.map(c => c.close);
+                
+                const sma = (arr, p) => {
+                    const res = new Array(arr.length).fill(null);
+                    if(arr.length < p) return res;
+                    let sum = 0;
+                    for(let i=0; i<p; i++) sum += arr[i];
+                    res[p-1] = sum/p;
+                    for(let i=p; i<arr.length; i++) {
+                        sum = sum - arr[i-p] + arr[i];
+                        res[i] = sum/p;
+                    }
+                    return res;
+                };
+                
+                const s1 = sma(closes, p1);
+                const s2 = sma(closes, p2);
+                
+                const upBreak = [];
+                const dnBreak = [];
+                for(let i=1; i<n; i++) {
+                    if(s1[i] != null && s2[i] != null && s1[i-1] != null && s2[i-1] != null) {
+                        if(s1[i] > s2[i] && s1[i-1] <= s2[i-1]) upBreak.push({i, y: candles[i].low});
+                        if(s1[i] < s2[i] && s1[i-1] >= s2[i-1]) dnBreak.push({i, y: candles[i].high});
+                    }
+                }
+                
+                return { upper: s1, lower: s2, ph: null, pl: null, upBreak, dnBreak, type: 'macross' };
+            }
+            
+            // Lógica padrão: Channel
+            const len = Math.min(Math.max(2, cfg.length||14), Math.max(5, n-2));
+            const highs = candles.map(c=>c.high), lows = candles.map(c=>c.low), closes = candles.map(c=>c.close);
+            const tr = new Array(n).fill(0);
+            for(let i=0;i<n;i++){ const h=highs[i], l=lows[i], pc=i>0?closes[i-1]:closes[i]; tr[i]=Math.max(h-l, Math.abs(h-pc), Math.abs(l-pc)); }
+            const atr = new Array(n).fill(null);
+            for(let i=0;i<n;i++){ if(i>=len-1){ let s=0; for(let j=i-len+1;j<=i;j++) s+=tr[j]; atr[i]=s/len; } }
+            const stdev = new Array(n).fill(null);
+            for(let i=0;i<n;i++){ if(i>=len-1){ let s=0, ss=0; for(let j=i-len+1;j<=i;j++){ const v=closes[j]; s+=v; ss+=v*v; } const mu=s/len; stdev[i]=Math.sqrt(Math.max(0,(ss/len) - mu*mu)); } }
+            const slopeArr = new Array(n).fill(null);
+            for(let i=0;i<n;i++){
+                if(i>=len-1){
+                    const method = (cfg.calcMethod||'Atr');
+                    if(method==='Atr') slopeArr[i]=(atr[i]||0)/len*(cfg.mult||1);
+                    else if(method==='Stdev') slopeArr[i]=(stdev[i]||0)/len*(cfg.mult||1);
+                    else {
+                        const i0 = i-len+1;
+                        let s_n=0, s_s=0, s_ns=0, s_nn=0;
+                        for(let j=i0;j<=i;j++){
+                            const nn=j; const ss=closes[j];
+                            s_n += nn; s_s += ss; s_ns += nn*ss; s_nn += nn*nn;
+                        }
+                        const mN = s_n/len, mS = s_s/len;
+                        const cov = (s_ns/len) - mN*mS;
+                        const varN = (s_nn/len) - mN*mN;
+                        let val = 0;
+                        if(varN>0) val = Math.abs(cov)/varN/2 * (cfg.mult||1);
+                        slopeArr[i]=val;
+                    }
+                }
+            }
+            const ph = new Array(n).fill(null), pl = new Array(n).fill(null);
+            for(let i=len;i<n-len;i++){
+                let maxH = -Infinity, minL = Infinity;
+                for(let j=i-len;j<=i+len;j++){ if(highs[j]>maxH) maxH=highs[j]; if(lows[j]<minL) minL=lows[j]; }
+                if(highs[i]===maxH) ph[i]=highs[i];
+                if(lows[i]===minL) pl[i]=lows[i];
+            }
+            const upper = new Array(n).fill(null), lower = new Array(n).fill(null);
+            let lastSlopePH = 0, lastSlopePL = 0;
+            for(let i=0;i<n;i++){
+                if(ph[i]!=null){ lastSlopePH = slopeArr[i]||lastSlopePH; upper[i]=ph[i]; }
+                else if(i>0 && upper[i-1]!=null){ upper[i]=upper[i-1] - lastSlopePH; }
+                if(pl[i]!=null){ lastSlopePL = slopeArr[i]||lastSlopePL; lower[i]=pl[i]; }
+                else if(i>0 && lower[i-1]!=null){ lower[i]=lower[i-1] + lastSlopePL; }
+            }
+            const upBreak = [], dnBreak = [];
+            for(let i=1;i<n;i++){
+                if(upper[i]!=null && closes[i]>upper[i] && closes[i-1]<= (upper[i-1]??upper[i])) upBreak.push({i, y:lows[i]});
+                if(lower[i]!=null && closes[i]<lower[i] && closes[i-1]>= (lower[i-1]??lower[i])) dnBreak.push({i, y:highs[i]});
+            }
+            return { upper, lower, ph, pl, upBreak, dnBreak, type: 'channel' };
+        }
+        
+        // --- Network ---
+        function recalcPredSlots() {
+            const on = id => document.getElementById(id).classList.contains('active');
+            const lInd = on('fInd') ? (state.preds.ind?.length || 0) : 0;
+            const lPat = on('fPat') ? (state.preds.pat?.length || 0) : 0;
+            const lAI  = on('fAI')  ? (state.preds.ai?.length  || 0) : 0;
+            const lNews= on('fNews')? (state.preds.news?.length|| 0) : 0;
+            state.view.predSlots = Math.max(lInd, lPat, lAI, lNews, 0);
+            const anyActive = on('fInd') || on('fPat') || on('fAI') || on('fNews');
+            const card = document.getElementById('predCard');
+            if(card) card.style.display = anyActive ? '' : 'none';
+            const fs = document.getElementById('predFSModal');
+            if(!anyActive && fs && fs.style.display === 'flex') fs.style.display = 'none';
+        }
+        
+        function persistOverlays() {
+            const data = {
+                overlays: {
+                    vol: $('chkVol').checked,
+                    ema: $('chkEMA').checked,
+                    bb: $('chkBB')?.checked || false,
+                    rsi_overlay: $('chkRSIov')?.checked || false,
+                    macd_overlay: $('chkMACDov')?.checked || false,
+                    sr: $('chkSR').checked,
+                    patterns: $('chkPatterns').checked,
+                    patterns_llm: $('chkPatternsLLM').checked,
+                    fib: $('chkFib').checked
+                },
+                fib_tf: $('fibTF')?.value || 'D1',
+                fib_bars: state.fibBars || 200,
+                perspective: !!state.perspective
+            };
+            send({type:'frontend_state', data});
+        }
+        
+        function connect() {
+            const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+            ws = new WebSocket(`${proto}://${location.host}/ws`);
+            ws.onopen = () => { state.connected.ws = true; updateStatus(); };
+            ws.onclose = () => { state.connected.ws = false; updateStatus(); setTimeout(connect, 3000); };
+            ws.onmessage = e => {
+                const d = JSON.parse(e.data);
+                if(d.type === 'market_data') {
+                    state.candles = d.candles; state.inds = d.indicators;
+                    state.patterns = d.patterns || []; state.drawings = d.pattern_drawings || [];
+                    state.volProf = d.indicators.volume_profile || [];
+                    state.current_price = d.current_price || {};
+                    // Auto-scroll para ultima vela quando receber dados novos
+                    if(state.view.followEnd || state.view.start === null) {
+                        const b = state.view.bars ? state.view.bars : Math.min(100, state.candles.length);
+                        state.view.bars = b;
+                        // Ajusta start para mostrar a ultima vela com o padding da direita
+                        state.view.start = Math.max(-state.view.leftPadBars, state.candles.length - b);
+                    }
+                    updateUI(); resize(); drawMain();
+                }
+                if(d.type === 'fib_alert') {
+                    const msg = `Fib ${d.side} proximo: ${d.distance_pct.toFixed(2)}% ate $${fmt(d.target)}`;
+                    notifyPush(msg);
+                }
+                if(d.type === 'open_orders') { state.orders = d.orders; renderOrders(); drawMain(); }
+                if(d.type === 'account_info') { $('accBal').textContent=fmt(d.balance); $('accProf').textContent=fmt(d.profit); $('accProf').className=d.profit>=0?'text-green-400':'text-red-400'; }
+                if(d.type === 'status') { 
+                    state.connected.mt5=d.mt5; 
+                    state.connected.ollama=d.ollama; 
+                    updateStatus(); 
+                }
+                if(d.type === 'analysis_progress') {
+                    state.analysisProgress.running = true;
+                    state.analysisProgress.pct = d.pct|0;
+                    state.analysisProgress.text = d.text||'';
+                    const sAI = document.getElementById('sAI'); if(sAI) sAI.className = 'status-dot status-on';
+                    const body = document.getElementById('aiStatusBody');
+                    if(body) {
+                        document.getElementById('aiStatusText').textContent = d.text || '';
+                        document.getElementById('aiStatusBar').style.width = `${Math.max(0, Math.min(100, d.pct|0))}%`;
+                    }
+                    const modal = document.getElementById('aiStatusModal');
+                    if(modal && modal.style.display !== 'flex') modal.style.display = 'flex';
+                }
+                if(d.type === 'error') {
+                    const sp = document.getElementById('spin'); if(sp) sp.classList.add('hidden');
+                    document.getElementById('predContent').innerHTML = `<div class="p-4 text-center text-red-400 font-semibold">${d.message}</div>`;
+                }
+                if(d.type === 'autotrader_status') {
+                    state.autoTrader.running = d.is_running;
+                    state.autoTrader.remaining = d.remaining_time || 0;
+                    updateAutoTraderUI();
+                }
+                if(d.type === 'predictions_full') {
+                    const aim = document.getElementById('aiStatusModal'); if(aim) aim.style.display = 'none';
+                    state.preds.ind = d.indicator || []; 
+                    state.preds.pat = d.pattern || [];
+                    state.preds.ai = d.ai || []; 
+                    state.preds.news = d.news || [];
+                    state.deep = d.final_analysis || d.deep_analysis || {};
+                    state.final_text = d.final_analysis_text || '';
+                    state.patterns_ai = d.patterns_ai || [];
+                    state.ai_decision = d.ai_decision || {};
+                    state.drawings_ai = buildLLMDrawings(state.patterns_ai, state.candles);
+                    const a = ((state.ai_decision && state.ai_decision.action) || (state.deep && state.deep.action) || '').toString().toUpperCase();
+                    let dir = null;
+                    if(a === 'BUY' || a === 'UP' || a === 'COMPRA' || a === 'ALTA') dir = 'UP';
+                    else if(a === 'SELL' || a === 'DOWN' || a === 'VENDA' || a === 'BAIXA') dir = 'DOWN';
+                    else {
+                        const mt = (state.deep && state.deep.micro_trend) ? state.deep.micro_trend.toString().toUpperCase() : null;
+                        if(mt === 'ALTA' || mt === 'UP') dir = 'UP';
+                        else if(mt === 'BAIXA' || mt === 'DOWN') dir = 'DOWN';
+                    }
+                    const conf = ((state.ai_decision && state.ai_decision.confidence) || (state.deep && state.deep.confidence) || 0) | 0;
+                    const last = state.candles && state.candles.length ? state.candles[state.candles.length-1] : null;
+                    if(dir){ state.model = { dir, conf, since: last ? last.time : (state.model.since || null) }; try { localStorage.setItem('modelColoring', JSON.stringify(state.model)); } catch(e){} }
+                    updateModelRec(da.action || null);
+                    recalcPredSlots();
+                    $('spin').classList.add('hidden');
+                    updateDeepAnalysis();
+                    drawMain(); drawLineChart();
+                    const da = state.deep || {};
+                    const ai = state.preds.ai && state.preds.ai[0] ? state.preds.ai[0] : null;
+                    const parts = [];
+                    parts.push(`<div class="mb-2"><strong>Acao Sugerida:</strong> ${da.action || 'MANTER'} (${da.confidence || 0}%)</div>`);
+                    parts.push(`<div class="grid grid-cols-3 gap-2 text-[11px]">
+                        <div><div class="text-[#666]">Micro</div><div class="${(da.micro_trend==='UP'||da.micro_trend==='ALTA')?'text-green-400':'text-red-400'} font-bold">${da.micro_trend || '--'}</div></div>
+                        <div><div class="text-[#666]">Media</div><div class="${(da.medium_trend==='UP'||da.medium_trend==='ALTA')?'text-green-400':'text-red-400'} font-bold">${da.medium_trend || '--'}</div></div>
+                        <div><div class="text-[#666]">Macro</div><div class="${(da.macro_trend==='UP'||da.macro_trend==='ALTA')?'text-green-400':'text-red-400'} font-bold">${da.macro_trend || '--'}</div></div>
+                    </div>`);
+                    if(ai) parts.push(`<div class="mt-2"><strong>Proxima Barra (IA):</strong> O ${ai.open} -> C ${ai.close} ${ai.direction==='bullish'?'▲':'▼'}</div>`);
+                    if(state.final_text) parts.push(`<div class="mt-2"><strong>Resumo:</strong> <div class="text-[11px] whitespace-pre-wrap">${state.final_text}</div></div>`);
+                    if((state.patterns && state.patterns.length) || (state.patterns_ai && state.patterns_ai.length)) {
+                        const base = (state.patterns||[]).map(p=>`${p.name} (${p.confidence}%)`).join(', ');
+                        const llm = (state.patterns_ai||[]).map(p=>`${p.name} - ${p.signal || (p.type==='bullish'?'ALTA':p.type==='bearish'?'BAIXA':'CONT.') } (${p.confidence||0}%)`).join(', ');
+                        const both = [base, llm].filter(Boolean).join(' | ');
+                        parts.push(`<div class="mt-2"><strong>Padroes:</strong> ${both}</div>`);
+                    }
+                    if(state.ai_decision && state.ai_decision.action) {
+                        parts.push(`<div class="mt-2"><strong>Decisao IA:</strong> ${state.ai_decision.action} (${state.ai_decision.confidence||0}%) - ${state.ai_decision.reason||''}</div>`);
+                    }
+                    const rec = (da.action||'').toString().toUpperCase();
+                    if(rec === 'COMPRA' || rec === 'BUY') {
+                        parts.push(`<div class="mt-3 p-2 border border-green-500/40 bg-green-500/10 rounded text-[11px] font-semibold text-green-400">RECOMENDAÇÃO DE COMPRA</div>`);
+                    } else if(rec === 'VENDA' || rec === 'SELL') {
+                        parts.push(`<div class="mt-3 p-2 border border-red-500/40 bg-red-500/10 rounded text-[11px] font-semibold text-red-400">RECOMENDAÇÃO DE VENDA</div>`);
+                    } else {
+                        parts.push(`<div class="mt-3 p-2 border border-yellow-500/40 bg-yellow-500/10 rounded text-[11px] font-semibold text-yellow-400">MANTER</div>`);
+                    }
+                    parts.push(`<div class="flex gap-2 mt-4">
+                        <button id="btnReAnalyzeNew" class="btn btn-pri text-[10px] py-1">Analisar Novamente</button>
+                        <button id="btnModalCloseNew" class="btn btn-sec text-[10px] py-1">Fechar</button>
+                    </div>`);
+                    
+                    const html = parts.join('');
+                    document.getElementById('predContent').innerHTML = html;
+                    state.lastPredHTML = html;
+                    document.getElementById('predModal').style.display = 'flex';
+                    
+                    const reBtn = document.getElementById('btnReAnalyzeNew');
+                    if(reBtn) reBtn.onclick = () => { $('spin').classList.remove('hidden'); send({type:'analyze'}); };
+                    const clBtn = document.getElementById('btnModalCloseNew');
+                    if(clBtn) clBtn.onclick = () => { document.getElementById('predModal').style.display = 'none'; };
+                }
+                if(d.type === 'fib_response') {
+                    state.fib = d.fib || null;
+                    drawMain();
+                }
+                if(d.type === 'pattern_notes_saved') {
+                    const el = document.getElementById('patSaveMsg');
+                    if(el){ el.textContent = 'Salvo.'; setTimeout(()=>{ el.textContent=''; }, 1500); }
+                }
+            };
+        }
+
+        function updateStatus() {
+            $('sWS').className = 'status-dot ' + (state.connected.ws ? 'status-on' : 'status-off');
+            $('sMT5').className = 'status-dot ' + (state.connected.mt5 ? 'status-on' : 'status-off');
+            $('sOllama').className = 'status-dot ' + (state.connected.ollama ? 'status-on' : 'status-off');
+            const sAI = document.getElementById('sAI'); if(sAI) sAI.className = 'status-dot ' + (state.analysisProgress?.running ? 'status-on' : 'status-off');
+        }
+
+        function updateAutoTraderUI() {
+            const r = state.autoTrader.running;
+            $('btnStartAuto').classList.toggle('hidden', r);
+            $('btnStopAuto').classList.toggle('hidden', !r);
+            $('autoStatusLabel').textContent = r ? 'AUTO' : 'MANUAL';
+            $('autoToggle').classList.toggle('active', r);
+            
+            const m = Math.floor(state.autoTrader.remaining / 60);
+            const s = state.autoTrader.remaining % 60;
+            $('autoTimer').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        }
+
+        function send(m) { if(ws && ws.readyState===1) ws.send(JSON.stringify(m)); }
+
+        function updateModelRec(action) {
+            try {
+                const el = document.getElementById('modelRec');
+                const a = (action || (state.deep?.action) || '').toString().toUpperCase();
+                if(!el) return;
+                if(a === 'COMPRA' || a === 'BUY' || a === 'ALTA' || a === 'UP') {
+                    el.textContent = 'COMPRA ▲';
+                    el.className = 'font-bold text-green-400';
+                } else if(a === 'VENDA' || a === 'SELL' || a === 'BAIXA' || a === 'DOWN') {
+                    el.textContent = 'VENDA ▼';
+                    el.className = 'font-bold text-red-400';
+                } else {
+                    el.textContent = 'MANTER';
+                    el.className = 'font-bold text-yellow-400';
+                }
+            } catch(e){}
+        }
+
+        // --- UI Updates ---
+        function updateUI() {
+            const c = state.candles, i = state.inds;
+            if(!c.length) return;
+            const last = c[c.length-1];
+            $('currP').textContent = '$' + fmt(last.close);
+            $('currSym').textContent = $('cfgSym').value;
+            
+            $('rsiV').textContent = i.rsi ? i.rsi.value.toFixed(1) : '--';
+            $('rsiB').style.width = (i.rsi ? i.rsi.value : 50) + '%';
+            $('macdV').textContent = i.macd ? i.macd.macd.toFixed(2) : '--';
+            $('macdH').textContent = i.macd ? i.macd.histogram.toFixed(4) : '--';
+            $('macdH').className = i.macd && i.macd.histogram >= 0 ? 'text-green-400 font-mono text-[10px]' : 'text-red-400 font-mono text-[10px]';
+            $('ema9').textContent = fmt(i.ema9); $('ema21').textContent = fmt(i.ema21);
+            $('emaT').textContent = (i.ema9 > i.ema21) ? 'ALTA' : 'BAIXA';
+            $('volV').textContent = i.atr ? i.atr.percentage.toFixed(2)+'%' : '--';
+            
+            if(state.patterns.length) {
+                $('patList').innerHTML = state.patterns.map(p => `<div class="flex justify-between p-1 bg-[#0a0a0a] rounded"><span>${p.name}</span><span class="${p.type==='bullish'?'text-green-400':p.type==='bearish'?'text-red-400':'text-yellow-400'}">${p.confidence}%</span></div>`).join('');
+            } else { $('patList').innerHTML = '<span class="text-[#666]">Nenhum</span>'; }
+            if(state.patterns.length) {
+                $('patProb').innerHTML = state.patterns.map(p => `<div class="flex justify-between items-center bg-[#0a0a0a] px-2 py-1 rounded"><span>${p.name}</span><span class="font-mono">${p.confidence}%</span></div>`).join('');
+            } else {
+                $('patProb').innerHTML = '<div class="text-[#666]">Sem padroes</div>';
+            }
+            renderPatternInputs();
+        }
+
+        function updateDeepAnalysis() {
+            const d = state.deep;
+            if(!d.micro_trend) return;
+            $('aiDeep').innerHTML = `
+                <div class="space-y-2">
+                    <div class="flex justify-between"><span class="text-[#666]">Micro</span><span class="font-bold ${(d.micro_trend==='UP'||d.micro_trend==='ALTA')?'text-green-400':'text-red-400'}">${d.micro_trend}</span></div>
+                    <div class="flex justify-between"><span class="text-[#666]">Media</span><span class="font-bold ${(d.medium_trend==='UP'||d.medium_trend==='ALTA')?'text-green-400':'text-red-400'}">${d.medium_trend}</span></div>
+                    <div class="flex justify-between"><span class="text-[#666]">Macro</span><span class="font-bold ${(d.macro_trend==='UP'||d.macro_trend==='ALTA')?'text-green-400':'text-red-400'}">${d.macro_trend}</span></div>
+                    <div class="mt-2 pt-2 border-t border-white/10"><span class="text-[#666]">Acao:</span><span class="font-bold text-white ml-1">${d.action} (${d.confidence}%)</span></div>
+                </div>`;
+        }
+
+        function renderOrders() {
+            $('tblOrders').innerHTML = state.orders.length === 0 ? '<tr><td class="text-[#666] py-1">Nenhuma</td></tr>' :
+            state.orders.map(o => `<tr class="border-b border-white/5"><td class="py-1 ${o.type==='BUY'?'text-green-400':'text-red-400'}">${o.type} ${o.volume}</td><td class="text-right font-mono ${o.profit>=0?'text-green-400':'text-red-400'}">${fmt(o.profit)}</td><td class="text-right"><button class="btn btn-sec py-0 px-1 text-[8px]" onclick="send({type:'close_position',ticket:${o.ticket}})">X</button></td></tr>`).join('');
+        }
+
+        // --- Chart Drawing ---
+        function resize() { 
+            const box = $('chartBox'); 
+            if(!box) return;
+            const W = box.clientWidth; 
+            const H = box.clientHeight;
+            const rsiOn = $('chkRSIov')?.checked;
+            const macdOn = $('chkMACDov')?.checked;
+            
+            // RSI Panel
+            const rsiWrap = $('rsiPanelWrap');
+            if(rsiOn) {
+                rsiWrap.style.display = 'block';
+                rsiCvs.width = W;
+                rsiCvs.height = 80;
+            } else {
+                rsiWrap.style.display = 'none';
+            }
+            
+            // MACD Panel
+            const macdWrap = $('macdPanelWrap');
+            if(macdOn) {
+                macdWrap.style.display = 'block';
+                macdCvs.width = W;
+                macdCvs.height = 100;
+            } else {
+                macdWrap.style.display = 'none';
+            }
+            
+            // Main Chart - ocupa todo o espaco disponivel
+            mainCvs.width = W; 
+            mainCvs.height = H;
+            
+            drawMain(); 
+            if(rsiOn) drawRSI(); 
+            if(macdOn) drawMACD(); 
+            updateIndLegend();
+        }
+
+        function drawMain() {
+            const W = mainCvs.width, H = mainCvs.height;
+            const all = state.candles;
+            mainCtx.clearRect(0, 0, W, H);
+            
+            if(!all.length) return;
+            
+            // Configuracao de visualizacao
+            const bars = state.view.bars ? state.view.bars : Math.min(100, all.length);
+            const rightPad = Math.max(5, state.view.axisPadBars || 25);
+            const leftPad = Math.max(0, state.view.leftPadBars || 10);
+            
+            let start = state.view.start !== null ? state.view.start : Math.max(0, all.length - bars + Math.floor(rightPad / 2));
+            const maxStart = all.length - 1;
+            if(start > maxStart) start = maxStart;
+            if(start < -leftPad) start = -leftPad;
+            state.view.start = start;
+            
+            const visibleCount = bars;
+            const totalBars = visibleCount + rightPad;
+            
+            const c = all.slice(Math.max(0, start), Math.max(0, start) + visibleCount);
+            if(!c.length) return;
+
+            // Calcular range de precos focando primeiro nos candles visiveis
+            let minP = Infinity, maxP = -Infinity;
+            c.forEach(x => { minP = Math.min(minP, x.low); maxP = Math.max(maxP, x.high); });
+            
+            // Se nao houver candles (caso raro aqui), usa o preco atual
+            if(minP === Infinity) { minP = state.current_price?.last || 0; maxP = minP + 1; }
+
+            const addPreds = (arr, key) => { 
+                if(document.getElementById('f'+key)?.classList.contains('active') && arr && arr.length) { 
+                    arr.forEach(p => { minP = Math.min(minP, p.low); maxP = Math.max(maxP, p.high); }); 
+                } 
+            };
+            addPreds(state.preds.ind, 'Ind'); 
+            addPreds(state.preds.pat, 'Pat'); 
+            addPreds(state.preds.ai, 'AI'); 
+            addPreds(state.preds.news, 'News');
+            
+            // Adicionar margem vertical generosa (30%) para garantir centralizacao e evitar sobreposicao visual
+            let rawRng = (maxP - minP) || 1;
+            const midP = (maxP + minP) / 2;
+            const margin = 0.30; 
+            maxP = midP + (rawRng / 2) * (1 + margin * 2);
+            minP = midP - (rawRng / 2) * (1 + margin * 2);
+            const rng = maxP - minP;
+            
+            const pad = {l:8, r:70, t:24, b:28};
+            const chartW = W - pad.l - pad.r, chartH = H - pad.t - pad.b;
+
+            // Funcoes de escala
+            const barWidth = Math.max(2, chartW / totalBars);
+            const gapRatio = 0.25;
+            const candleW = Math.max(1, barWidth * (1 - gapRatio));
+            
+            const xScale = (i) => {
+                const idx = i + (start < 0 ? start : 0);
+                return pad.l + (idx + 0.5) * barWidth;
+            };
+            
+            const yScale = p => {
+                let t = (maxP - p) / rng;
+                t = ((t - 0.5) / (state.view?.yZoom || 1.0)) + 0.5 + (state.view?.yOffset || 0.0);
+                t = Math.max(0, Math.min(1, t));
+                return pad.t + t * chartH;
+            };
+
+            // Fundo com grade sutil
+            mainCtx.fillStyle = '#0f1014';
+            mainCtx.fillRect(0, 0, W, H);
+            
+            // Grade horizontal
+            mainCtx.strokeStyle = 'rgba(255,255,255,0.025)';
+            mainCtx.lineWidth = 1;
+            for(let i=0; i<=6; i++) { 
+                const y = pad.t + (chartH/6)*i; 
+                mainCtx.beginPath(); 
+                mainCtx.moveTo(pad.l, y); 
+                mainCtx.lineTo(W-pad.r, y); 
+                mainCtx.stroke(); 
+            }
+            
+            // Grade vertical
+            const vLines = 8;
+            for(let i=0; i<=vLines; i++) {
+                const x = pad.l + (chartW/vLines)*i;
+                mainCtx.beginPath();
+                mainCtx.moveTo(x, pad.t);
+                mainCtx.lineTo(x, pad.t + chartH);
+                mainCtx.stroke();
+            }
+
+            // Suporte/Resistencia
+            if($('chkSR')?.checked && state.inds?.support_resistance) {
+                const sr = state.inds.support_resistance;
+                mainCtx.setLineDash([4,4]);
+                if(sr.nearest_support) {
+                    const y = yScale(sr.nearest_support);
+                    mainCtx.strokeStyle = '#06b6d4';
+                    mainCtx.lineWidth = 1;
+                    mainCtx.beginPath(); 
+                    mainCtx.moveTo(pad.l, y); 
+                    mainCtx.lineTo(W-pad.r, y); 
+                    mainCtx.stroke();
+                }
+                if(sr.nearest_resistance) {
+                    const y = yScale(sr.nearest_resistance);
+                    mainCtx.strokeStyle = '#a855f7';
+                    mainCtx.beginPath(); 
+                    mainCtx.moveTo(pad.l, y); 
+                    mainCtx.lineTo(W-pad.r, y); 
+                    mainCtx.stroke();
+                }
+                mainCtx.setLineDash([]);
+            }
+
+            // Bollinger Bands
+            if($('chkBB')?.checked) {
+                const cfg = state.indCfg?.bollinger || {period:20, mult:2, color:'#06b6d4', width:1, fill:'rgba(6,182,212,0.08)'};
+                const p = Math.max(5, cfg.period||20);
+                if(all.length >= p){
+                    const closesAll = all.map(x=>x.close);
+                    const sma = (arr,i,len)=>{ let s=0; for(let k=i-len+1;k<=i;k++) s+=arr[k]; return s/len; };
+                    const sd = (arr,i,len,mean)=>{ let v=0; for(let k=i-len+1;k<=i;k++) v+=(arr[k]-mean)*(arr[k]-mean); return Math.sqrt(v/len); };
+                    const upPts=[], dnPts=[], midPts=[];
+                    
+                    for(let gi=p-1; gi<all.length; gi++){
+                        const m = sma(closesAll, gi, p);
+                        const s = sd(closesAll, gi, p, m);
+                        const upper = m + (cfg.mult||2)*s;
+                        const lower = m - (cfg.mult||2)*s;
+                        const vi = gi - Math.max(0, start);
+                        if(vi >= -leftPad && vi < visibleCount) {
+                            upPts.push({x:xScale(vi), y:yScale(upper)});
+                            dnPts.push({x:xScale(vi), y:yScale(lower)});
+                            midPts.push({x:xScale(vi), y:yScale(m)});
+                        }
+                    }
+                    
+                    if(upPts.length > 1){
+                        // Linhas
+                        mainCtx.strokeStyle = cfg.color||'#06b6d4';
+                        mainCtx.lineWidth = cfg.width||1;
+                        mainCtx.setLineDash([3,3]);
+                        
+                        mainCtx.beginPath();
+                        mainCtx.moveTo(upPts[0].x, upPts[0].y);
+                        upPts.forEach(pt => mainCtx.lineTo(pt.x, pt.y));
+                        mainCtx.stroke();
+                        
+                        mainCtx.beginPath();
+                        mainCtx.moveTo(dnPts[0].x, dnPts[0].y);
+                        dnPts.forEach(pt => mainCtx.lineTo(pt.x, pt.y));
+                        mainCtx.stroke();
+                        
+                        mainCtx.setLineDash([]);
+                        
+                        // Fill
+                        mainCtx.fillStyle = cfg.fill || 'rgba(6,182,212,0.08)';
+                        mainCtx.beginPath();
+                        upPts.forEach((pt,i) => { if(i===0) mainCtx.moveTo(pt.x,pt.y); else mainCtx.lineTo(pt.x,pt.y); });
+                        for(let i=dnPts.length-1;i>=0;i--) mainCtx.lineTo(dnPts[i].x,dnPts[i].y);
+                        mainCtx.closePath();
+                        mainCtx.fill();
+                    }
+                }
+            }
+
+            // EMAs
+            if($('chkEMA')?.checked) {
+                const closesAll = all.map(x=>x.close);
+                const calcEma = (data, period) => { 
+                    if(data.length < period) return []; 
+                    const k=2/(period+1); 
+                    let e=data.slice(0,period).reduce((a,b)=>a+b,0)/period; 
+                    const r=Array(period-1).fill(null); 
+                    data.slice(period).forEach(x=>{e=(x-e)*k+e; r.push(e);}); 
+                    return r; 
+                };
+                
+                const list = (state.emaCfg?.emas || []).filter(e=>e?.visible).sort((a,b)=>a.period-b.period);
+                list.forEach(ema => { 
+                    const arr = calcEma(closesAll, Math.max(2, ema.period||9)); 
+                    if(!arr.length) return;
+                    
+                    mainCtx.strokeStyle = ema.color || '#22c55e';
+                    mainCtx.lineWidth = ema.width || 1.2;
+                    mainCtx.beginPath();
+                    let started = false;
+                    
+                    for(let gi=0; gi<all.length; gi++){
+                        const v = arr[gi];
+                        if(v === null || v === undefined) continue;
+                        const vi = gi - Math.max(0, start);
+                        if(vi < -leftPad || vi >= visibleCount) continue;
+                        const x = xScale(vi);
+                        const y = yScale(v);
+                        if(!started){ mainCtx.moveTo(x,y); started=true; } 
+                        else mainCtx.lineTo(x,y);
+                    }
+                    if(started) mainCtx.stroke();
+                });
+            }
+
+            // Pine Overlays
+            if(state.pineOverlays?.length){
+                state.pineOverlays.forEach(ov => {
+                    if(!ov || ov.enabled === false) return;
+                    const d = pineOverlayData(all, ov.cfg||{length:14,mult:1.0,calcMethod:'Atr'});
+                    if(!d) return;
+                    
+                    const drawLine = (data, color) => {
+                        mainCtx.strokeStyle = color;
+                        mainCtx.lineWidth = 1.2;
+                        mainCtx.beginPath();
+                        let s = false;
+                        for(let gi=0; gi<all.length; gi++){
+                            const v = data[gi];
+                            if(v == null) continue;
+                            const vi = gi - Math.max(0, start);
+                            if(vi < -leftPad || vi >= visibleCount) continue;
+                            const x = xScale(vi), y = yScale(v);
+                            if(!s){ mainCtx.moveTo(x,y); s=true; } else mainCtx.lineTo(x,y);
+                        }
+                        if(s) mainCtx.stroke();
+                    };
+                    
+                    drawLine(d.upper, ov.colorUp||'#14b8a6');
+                    drawLine(d.lower, ov.colorDn||'#ef4444');
+                    
+                    // Desenhar sinais de compra/venda
+                    if(d.upBreak && d.upBreak.length){
+                        mainCtx.font = '12px serif';
+                        d.upBreak.forEach(b => {
+                            const vi = b.i - Math.max(0, start);
+                            if(vi >= -leftPad && vi < visibleCount){
+                                mainCtx.fillStyle = '#22c55e';
+                                mainCtx.textAlign = 'center';
+                                mainCtx.fillText('▲', xScale(vi), yScale(b.y) + 15);
+                            }
+                        });
+                    }
+                    if(d.dnBreak && d.dnBreak.length){
+                        mainCtx.font = '12px serif';
+                        d.dnBreak.forEach(b => {
+                            const vi = b.i - Math.max(0, start);
+                            if(vi >= -leftPad && vi < visibleCount){
+                                mainCtx.fillStyle = '#ef4444';
+                                mainCtx.textAlign = 'center';
+                                mainCtx.fillText('▼', xScale(vi), yScale(b.y) - 5);
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Candlesticks - estilo TradingView
+            c.forEach((bar, i) => {
+                const vi = i + (start < 0 ? start : 0);
+                const x = xScale(i);
+                
+                let color;
+                if(state.model?.dir && (state.model.since === null || bar.time >= state.model.since)) {
+                    color = state.model.dir === 'UP' ? '#22c55e' : '#ef4444';
+                } else {
+                    color = bar.close >= bar.open ? '#22c55e' : '#ef4444';
+                }
+                
+                const yHigh = yScale(bar.high);
+                const yLow = yScale(bar.low);
+                const yOpen = yScale(bar.open);
+                const yClose = yScale(bar.close);
+                
+                // Wick
+                mainCtx.strokeStyle = color;
+                mainCtx.lineWidth = 1;
+                mainCtx.beginPath();
+                mainCtx.moveTo(x, yHigh);
+                mainCtx.lineTo(x, yLow);
+                mainCtx.stroke();
+                
+                // Body
+                const bodyTop = Math.min(yOpen, yClose);
+                const bodyHeight = Math.max(1, Math.abs(yClose - yOpen));
+                
+                if(state.perspective && bar.close >= bar.open){
+                    // Perspectiva para velas de alta
+                    mainCtx.fillStyle = color;
+                    mainCtx.beginPath();
+                    mainCtx.moveTo(x - candleW/2, bodyTop);
+                    mainCtx.lineTo(x + candleW/2, bodyTop);
+                    mainCtx.lineTo(x + candleW/2 - 1, bodyTop + bodyHeight);
+                    mainCtx.lineTo(x - candleW/2 + 1, bodyTop + bodyHeight);
+                    mainCtx.closePath();
+                    mainCtx.fill();
+                } else {
+                    mainCtx.fillStyle = color;
+                    mainCtx.fillRect(x - candleW/2, bodyTop, candleW, bodyHeight);
+                }
+            });
+
+            // Fibonacci
+            if($('chkFib')?.checked) {
+                const lastClose = c.length ? c[c.length-1].close : state.current_price?.last;
+                mainCtx.save();
+                const lb = Math.max(50, Math.min(state.fibBars || 200, c.length));
+                const segFib = c.slice(-lb);
+                
+                let hi = -Infinity, lo = Infinity, hiIdx = -1, loIdx = -1;
+                segFib.forEach((bar, idx) => {
+                    if(bar.high >= hi){ hi = bar.high; hiIdx = idx; }
+                    if(bar.low <= lo){ lo = bar.low; loIdx = idx; }
+                });
+                
+                if(hiIdx !== -1 && loIdx !== -1){
+                    const recentIsHigh = hiIdx > loIdx;
+                    const p0 = recentIsHigh ? hi : lo;
+                    const p1 = recentIsHigh ? lo : hi;
+                    const levels = [1, 0.786, 0.618, 0.5, 0.382, 0.236, 0].map(frac => ({
+                        pct: frac*100,
+                        price: recentIsHigh ? (p1 + (p0 - p1)*frac) : (p0 + (p1 - p0)*frac)
+                    }));
+                    
+                    mainCtx.font = '10px JetBrains Mono';
+                    levels.forEach(lv => {
+                        const y = yScale(lv.price);
+                        mainCtx.strokeStyle = '#06b6d4';
+                        mainCtx.lineWidth = 1;
+                        mainCtx.setLineDash(lv.pct === 100 || lv.pct === 0 ? [] : [4,4]);
+                        mainCtx.beginPath();
+                        mainCtx.moveTo(pad.l, y);
+                        mainCtx.lineTo(W - pad.r, y);
+                        mainCtx.stroke();
+                        mainCtx.setLineDash([]);
+                        
+                        mainCtx.fillStyle = '#06b6d4';
+                        mainCtx.textAlign = 'right';
+                        mainCtx.fillText(`${lv.pct.toFixed(1)}%`, W - 8, y - 3);
+                    });
+                }
+                mainCtx.restore();
+            }
+
+            // Drawings - Patterns
+            if($('chkPatterns')?.checked && state.drawings) {
+                state.drawings.forEach(p => {
+                    if(p.type === 'triangle') {
+                        mainCtx.strokeStyle = p.border_color || '#f59e0b';
+                        mainCtx.fillStyle = p.color || 'rgba(245,158,11,0.08)';
+                        mainCtx.beginPath();
+                        p.points.forEach((pt, idx) => {
+                            const vi = pt.x - Math.max(0, start);
+                            const cx = xScale(vi);
+                            const cy = yScale(pt.y);
+                            if(idx===0) mainCtx.moveTo(cx, cy);
+                            else mainCtx.lineTo(cx, cy);
+                        });
+                        mainCtx.closePath();
+                        mainCtx.fill();
+                        mainCtx.stroke();
+                    } else if(p.type === 'line') {
+                        mainCtx.strokeStyle = p.border_color || p.color || '#f59e0b';
+                        mainCtx.lineWidth = 1.5;
+                        mainCtx.beginPath();
+                        const vi0 = p.points[0].x - Math.max(0, start);
+                        const vi1 = p.points[1].x - Math.max(0, start);
+                        mainCtx.moveTo(xScale(vi0), yScale(p.points[0].y));
+                        mainCtx.lineTo(xScale(vi1), yScale(p.points[1].y));
+                        mainCtx.stroke();
+                    }
+                });
+            }
+            
+            if($('chkPatternsLLM')?.checked && state.drawings_ai) {
+                state.drawings_ai.forEach(p => {
+                    if(p.type === 'line' && p.points) {
+                        mainCtx.strokeStyle = p.border_color || '#fbbf24';
+                        mainCtx.lineWidth = 1.2;
+                        mainCtx.beginPath();
+                        const vi0 = p.points[0].x - Math.max(0, start);
+                        const vi1 = p.points[1].x - Math.max(0, start);
+                        mainCtx.moveTo(xScale(vi0), yScale(p.points[0].y));
+                        mainCtx.lineTo(xScale(vi1), yScale(p.points[1].y));
+                        mainCtx.stroke();
+                    }
+                });
+            }
+
+            // Open Orders
+            state.orders.forEach(o => {
+                const y = yScale(o.price_open);
+                mainCtx.strokeStyle = o.type === 'BUY' ? '#22c55e' : '#ef4444';
+                mainCtx.setLineDash([4,4]);
+                mainCtx.beginPath();
+                mainCtx.moveTo(pad.l, y);
+                mainCtx.lineTo(W - pad.r, y);
+                mainCtx.stroke();
+                mainCtx.setLineDash([]);
+                
+                mainCtx.fillStyle = o.profit >= 0 ? '#22c55e' : '#ef4444';
+                mainCtx.font = 'bold 10px JetBrains Mono';
+                mainCtx.fillText(`${o.type} | ${fmt(o.profit)}`, pad.l + 5, y - 5);
+            });
+
+            // Price Axis
+            mainCtx.fillStyle = '#666';
+            mainCtx.font = '10px JetBrains Mono';
+            mainCtx.textAlign = 'right';
+            for(let i=0; i<=6; i++) {
+                const price = maxP - (rng/6)*i;
+                const y = pad.t + (chartH/6)*i;
+                mainCtx.fillText('$' + fmt(price), W - 6, y + 3);
+            }
+            
+            // Time Axis
+            mainCtx.textAlign = 'center';
+            mainCtx.fillStyle = '#555';
+            const ticks = Math.min(8, Math.floor(visibleCount / 5));
+            for(let i=0; i<=ticks; i++){
+                const idx = Math.floor((i/ticks) * (c.length-1));
+                if(idx < 0 || idx >= c.length) continue;
+                const bar = c[idx];
+                if(!bar) continue;
+                const dt = new Date(bar.time * 1000);
+                const label = `${dt.getDate().toString().padStart(2,'0')}/${(dt.getMonth()+1).toString().padStart(2,'0')} ${dt.getHours().toString().padStart(2,'0')}:${dt.getMinutes().toString().padStart(2,'0')}`;
+                mainCtx.fillText(label, xScale(idx), H - 8);
+            }
+            
+            // Current Price Marker
+            if(c.length) {
+                const lastBar = c[c.length-1];
+                const y = yScale(lastBar.close);
+                const priceColor = lastBar.close >= lastBar.open ? '#22c55e' : '#ef4444';
+                
+                mainCtx.fillStyle = priceColor;
+                mainCtx.beginPath();
+                mainCtx.moveTo(W - pad.r, y);
+                mainCtx.lineTo(W - pad.r + 8, y - 6);
+                mainCtx.lineTo(W - pad.r + 8, y + 6);
+                mainCtx.closePath();
+                mainCtx.fill();
+                
+                mainCtx.fillStyle = priceColor;
+                mainCtx.font = 'bold 10px JetBrains Mono';
+                mainCtx.textAlign = 'left';
+                mainCtx.fillText(fmt(lastBar.close), W - pad.r + 12, y + 3);
+            }
+        }
+
+        function drawLineChart() {
+            const wrap = document.getElementById('lineChartWrap') || lineCvs.parentElement;
+            if(!wrap) return;
+            const barW = (document.getElementById('percBar')?.offsetWidth || 20) + 4;
+            const W = lineCvs.width = wrap.clientWidth;
+            const H = Math.max(60, wrap.clientHeight || 60);
+            lineCvs.height = H;
+            lineCtx.clearRect(0,0,W,H);
+            const xPad = 4, yPad = 4, rPad = barW;
+            
+            lineCtx.save();
+            lineCtx.beginPath();
+            lineCtx.rect(xPad, 0, Math.max(1, W - xPad - rPad), H);
+            lineCtx.clip();
+
+            // Grade sutil
+            lineCtx.strokeStyle = 'rgba(255,255,255,0.03)';
+            lineCtx.lineWidth = 1;
+            for(let i=0; i<=6; i++){ 
+                const y = yPad + (i/6)*(H - 2*yPad);
+                lineCtx.beginPath();
+                lineCtx.moveTo(xPad, y);
+                lineCtx.lineTo(W - rPad, y);
+                lineCtx.stroke();
+            }
+
+            const series = [];
+            if($('fInd')?.classList.contains('active') && state.preds.ind?.length) 
+                series.push({data: state.preds.ind, color: '#3b82f6', fill: 'rgba(59,130,246,0.15)'});
+            if($('fPat')?.classList.contains('active') && state.preds.pat?.length) 
+                series.push({data: state.preds.pat, color: '#22c55e', fill: 'rgba(34,197,94,0.12)'});
+            if($('fAI')?.classList.contains('active') && state.preds.ai?.length) 
+                series.push({data: state.preds.ai, color: '#f59e0b', fill: 'rgba(245,158,11,0.12)'});
+            if($('fNews')?.classList.contains('active') && state.preds.news?.length) 
+                series.push({data: state.preds.news, color: '#a855f7', fill: 'rgba(168,85,247,0.12)'});
+            
+            if(series.length === 0) { lineCtx.restore(); return; }
+
+            const allVals = series.flatMap(s => s.data.map(p => p.close));
+            const min = Math.min(...allVals);
+            const max = Math.max(...allVals);
+            const rng = (max - min) || 1;
+            
+            const px = (i, n) => xPad + (i / Math.max(1, n - 1)) * (Math.max(1, W - xPad - rPad) - xPad);
+            const py = v => yPad + (H - 2*yPad) - ((v - min) / rng) * (H - 2*yPad);
+
+            const pathSmooth = (ctx, pts) => {
+                if(pts.length < 2) return;
+                ctx.moveTo(pts[0].x, pts[0].y);
+                for(let i=0; i<pts.length-1; i++){
+                    const p0 = i>0 ? pts[i-1] : pts[i];
+                    const p1 = pts[i];
+                    const p2 = pts[i+1];
+                    const p3 = i < pts.length-2 ? pts[i+2] : p2;
+                    const cp1x = p1.x + (p2.x - p0.x) * 0.1;
+                    const cp1y = p1.y + (p2.y - p0.y) * 0.1;
+                    const cp2x = p2.x - (p3.x - p1.x) * 0.1;
+                    const cp2y = p2.y - (p3.y - p1.y) * 0.1;
+                    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+                }
+            };
+
+            series.forEach(ser => {
+                const n = ser.data.length;
+                const pts = ser.data.map((p,i) => ({x: px(i, n), y: py(p.close)}));
+
+                // Area
+                const grd = lineCtx.createLinearGradient(0, yPad, 0, H - yPad);
+                grd.addColorStop(0, ser.fill);
+                grd.addColorStop(1, 'rgba(0,0,0,0)');
+                lineCtx.beginPath();
+                pathSmooth(lineCtx, pts);
+                lineCtx.lineTo(pts[pts.length-1].x, H - yPad);
+                lineCtx.lineTo(pts[0].x, H - yPad);
+                lineCtx.closePath();
+                lineCtx.fillStyle = grd;
+                lineCtx.fill();
+
+                // Line
+                lineCtx.beginPath();
+                pathSmooth(lineCtx, pts);
+                lineCtx.strokeStyle = ser.color;
+                lineCtx.lineWidth = 1.5;
+                lineCtx.stroke();
+            });
+            
+            lineCtx.restore();
+            
+            // Legend
+            const lg = document.getElementById('lineLegend');
+            if(lg){
+                const items = [
+                    {id:'fInd', label:'Ind', color:'#3b82f6', len: state.preds.ind?.length||0},
+                    {id:'fPat', label:'Pat', color:'#22c55e', len: state.preds.pat?.length||0},
+                    {id:'fAI', label:'IA', color:'#f59e0b', len: state.preds.ai?.length||0},
+                    {id:'fNews', label:'News', color:'#a855f7', len: state.preds.news?.length||0}
+                ];
+                lg.innerHTML = items.map(it => {
+                    const enabled = (document.getElementById(it.id)?.classList.contains('active') && it.len>0);
+                    const op = enabled ? '' : 'opacity-40';
+                    return `<span class="flex items-center gap-1 ${op}"><span class="inline-block w-2 h-2 rounded-sm" style="background:${it.color}"></span><span>${it.label}</span></span>`;
+                }).join('');
+            }
+        }
+        
+        function drawLineChartFS() {
+            const cvs = document.getElementById('lineChartFS');
+            if(!cvs) return;
+            const ctx = cvs.getContext('2d');
+            const wrap = document.getElementById('lineChartFSWrap') || cvs.parentElement;
+            const barW = (document.getElementById('percBarFS')?.offsetWidth || 20) + 6;
+            const W = cvs.width = wrap.clientWidth;
+            const H = Math.max(120, wrap.clientHeight || 120);
+            cvs.height = H;
+            ctx.clearRect(0,0,W,H);
+            const xPad = 8, yPad = 8, rPad = barW;
+            
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(xPad, 0, Math.max(1, W - xPad - rPad), H);
+            ctx.clip();
+
+            ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+            ctx.lineWidth = 1;
+            for(let i=0; i<=8; i++){ 
+                const y = yPad + (i/8)*(H - 2*yPad);
+                ctx.beginPath();
+                ctx.moveTo(xPad, y);
+                ctx.lineTo(W - rPad, y);
+                ctx.stroke();
+            }
+
+            const series = [];
+            if($('fInd')?.classList.contains('active') && state.preds.ind?.length) 
+                series.push({data: state.preds.ind, color: '#3b82f6', fill: 'rgba(59,130,246,0.15)'});
+            if($('fPat')?.classList.contains('active') && state.preds.pat?.length) 
+                series.push({data: state.preds.pat, color: '#22c55e', fill: 'rgba(34,197,94,0.12)'});
+            if($('fAI')?.classList.contains('active') && state.preds.ai?.length) 
+                series.push({data: state.preds.ai, color: '#f59e0b', fill: 'rgba(245,158,11,0.12)'});
+            if($('fNews')?.classList.contains('active') && state.preds.news?.length) 
+                series.push({data: state.preds.news, color: '#a855f7', fill: 'rgba(168,85,247,0.12)'});
+            
+            if(series.length === 0) { ctx.restore(); return; }
+
+            const allVals = series.flatMap(s => s.data.map(p => p.close));
+            const min = Math.min(...allVals);
+            const max = Math.max(...allVals);
+            const rng = (max - min) || 1;
+            
+            const px = (i, n) => xPad + (i / Math.max(1, n - 1)) * (Math.max(1, W - xPad - rPad) - xPad);
+            const py = v => yPad + (H - 2*yPad) - ((v - min) / rng) * (H - 2*yPad);
+
+            const pathSmooth = (ctx2, pts) => {
+                if(pts.length < 2) return;
+                ctx2.moveTo(pts[0].x, pts[0].y);
+                for(let i=0; i<pts.length-1; i++){
+                    const p0 = i>0 ? pts[i-1] : pts[i];
+                    const p1 = pts[i];
+                    const p2 = pts[i+1];
+                    const p3 = i < pts.length-2 ? pts[i+2] : p2;
+                    const cp1x = p1.x + (p2.x - p0.x) * 0.1;
+                    const cp1y = p1.y + (p2.y - p0.y) * 0.1;
+                    const cp2x = p2.x - (p3.x - p1.x) * 0.1;
+                    const cp2y = p2.y - (p3.y - p1.y) * 0.1;
+                    ctx2.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+                }
+            };
+
+            series.forEach(ser => {
+                const n = ser.data.length;
+                const pts = ser.data.map((p,i) => ({x: px(i, n), y: py(p.close)}));
+                const grd = ctx.createLinearGradient(0, yPad, 0, H - yPad);
+                grd.addColorStop(0, ser.fill);
+                grd.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.beginPath();
+                pathSmooth(ctx, pts);
+                ctx.lineTo(pts[pts.length-1].x, H - yPad);
+                ctx.lineTo(pts[0].x, H - yPad);
+                ctx.closePath();
+                ctx.fillStyle = grd;
+                ctx.fill();
+                ctx.beginPath();
+                pathSmooth(ctx, pts);
+                ctx.strokeStyle = ser.color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+            
+            ctx.restore();
+            
+            const lg = document.getElementById('lineLegendFS');
+            if(lg){
+                const items = [
+                    {id:'fInd', label:'Indicadores', color:'#3b82f6', len: state.preds.ind?.length||0},
+                    {id:'fPat', label:'Padroes', color:'#22c55e', len: state.preds.pat?.length||0},
+                    {id:'fAI', label:'IA', color:'#f59e0b', len: state.preds.ai?.length||0},
+                    {id:'fNews', label:'News', color:'#a855f7', len: state.preds.news?.length||0}
+                ];
+                lg.innerHTML = items.map(it => {
+                    const enabled = (document.getElementById(it.id)?.classList.contains('active') && it.len>0);
+                    const op = enabled ? '' : 'opacity-40';
+                    return `<span class="flex items-center gap-1 ${op}"><span class="inline-block w-2 h-2 rounded-sm" style="background:${it.color}"></span><span>${it.label}</span></span>`;
+                }).join('');
+            }
+        }
+
+        function rsiSeries(arr, period){
+            const out = new Array(arr.length).fill(null);
+            if(arr.length < period+1) return out;
+            const ch = [];
+            for(let i=1;i<arr.length;i++) ch.push(arr[i]-arr[i-1]);
+            let gains = 0, losses = 0;
+            for(let i=0;i<period;i++){ const c = ch[i]; gains += c>0?c:0; losses += c<0?-c:0; }
+            let avgGain = gains/period, avgLoss = losses/period;
+            for(let i=period;i<ch.length;i++){
+                avgGain = (avgGain*(period-1) + (ch[i]>0?ch[i]:0))/period;
+                avgLoss = (avgLoss*(period-1) + (ch[i]<0?-ch[i]:0))/period;
+                const rs = avgLoss===0 ? 1e6 : avgGain/avgLoss;
+                out[i+1] = 100 - 100/(1+rs);
+            }
+            return out;
+        }
+        
+        function emaArr(data, p){
+            const out = new Array(data.length).fill(null);
+            if(data.length < p) return out;
+            const m = 2/(p+1);
+            let e = 0;
+            for(let i=0;i<p;i++) e += data[i];
+            e = e/p;
+            out[p-1] = e;
+            for(let i=p;i<data.length;i++){ e = (data[i]-e)*m + e; out[i] = e; }
+            return out;
+        }
+        
+        function macdSeries(data, fast, slow, signal){
+            const fastE = emaArr(data, fast);
+            const slowE = emaArr(data, slow);
+            const macd = new Array(data.length).fill(null);
+            for(let i=0;i<data.length;i++){ if(fastE[i]!=null && slowE[i]!=null) macd[i] = fastE[i] - slowE[i]; }
+            const sig = emaArr(macd.map(v=>v==null?0:v), signal);
+            const hist = macd.map((v,i)=> (v==null||sig[i]==null)?null:(v - sig[i]));
+            return {macd, sig, hist};
+        }
+        
+        function drawRSI(){
+            const W = rsiCvs.width, H = rsiCvs.height;
+            rsiCtx.clearRect(0,0,W,H);
+            if(H <= 0) return;
+            
+            const all = state.candles||[];
+            if(all.length===0) return;
+            
+            // Fundo
+            rsiCtx.fillStyle = '#0f1014';
+            rsiCtx.fillRect(0, 0, W, H);
+            
+            const cfg = state.indCfg?.rsi || {period:14, ob:70, os:30, color:'#06b6d4', width:1.2};
+            const closes = all.map(x=>x.close);
+            const rs = rsiSeries(closes, Math.max(2, cfg.period||14));
+            
+            const start = Math.max(0, state.view.start || 0);
+            const bars = state.view.bars || 100;
+            
+            const padX = 8, padY = 6;
+            const x = i => {
+                const vi = i - start;
+                return padX + (vi/Math.max(1,bars-1)) * (W - padX*2 - 60);
+            };
+            
+            const y = v => padY + ((100-v)/100) * (H - padY*2);
+            
+            // Grade
+            rsiCtx.strokeStyle = 'rgba(255,255,255,0.03)';
+            rsiCtx.setLineDash([]);
+            
+            // Linhas OB/OS
+            rsiCtx.strokeStyle = 'rgba(255,255,255,0.06)';
+            rsiCtx.setLineDash([3,3]);
+            [cfg.ob||70, 50, cfg.os||30].forEach(lvl => {
+                const yy = y(lvl);
+                rsiCtx.beginPath();
+                rsiCtx.moveTo(padX, yy);
+                rsiCtx.lineTo(W - 60, yy);
+                rsiCtx.stroke();
+            });
+            rsiCtx.setLineDash([]);
+            
+            // RSI Line
+            rsiCtx.strokeStyle = cfg.color || '#06b6d4';
+            rsiCtx.lineWidth = cfg.width || 1.2;
+            rsiCtx.beginPath();
+            let started = false;
+            for(let i=start; i<all.length && i<start+bars; i++){
+                const v = rs[i];
+                if(v === null) continue;
+                const xx = x(i);
+                const yy = y(v);
+                if(!started){ rsiCtx.moveTo(xx, yy); started = true; }
+                else rsiCtx.lineTo(xx, yy);
+            }
+            if(started) rsiCtx.stroke();
+            
+            // Current RSI value
+            const lastRSI = rs[rs.length-1];
+            if(lastRSI !== null){
+                document.getElementById('rsiPanelVal').textContent = lastRSI.toFixed(1);
+            }
+            
+            // Axis labels
+            rsiCtx.fillStyle = '#666';
+            rsiCtx.font = '9px JetBrains Mono';
+            rsiCtx.textAlign = 'right';
+            [0, 30, 50, 70, 100].forEach(lvl => {
+                rsiCtx.fillText(lvl.toString(), W - 6, y(lvl) + 3);
+            });
+        }
+        
+        function drawMACD(){
+            const W = macdCvs.width, H = macdCvs.height;
+            macdCtx.clearRect(0,0,W,H);
+            if(H <= 0) return;
+            
+            const all = state.candles||[];
+            if(all.length===0) return;
+            
+            // Fundo
+            macdCtx.fillStyle = '#0f1014';
+            macdCtx.fillRect(0, 0, W, H);
+            
+            const cfg = state.indCfg?.macd || {fast:12, slow:26, signal:9, color:'#84cc16', sigColor:'#f59e0b', histNeg:'rgba(239,68,68,0.4)'};
+            const closes = all.map(x=>x.close);
+            const s = macdSeries(closes, cfg.fast||12, cfg.slow||26, cfg.signal||9);
+            
+            const start = Math.max(0, state.view.start || 0);
+            const bars = state.view.bars || 100;
+            const padX = 8, padY = 6;
+            
+            const visHist = s.hist.slice(start, start+bars).filter(v=>v!=null);
+            const mx = visHist.length ? Math.max(...visHist.map(v=>Math.abs(v))) : 1;
+            
+            const x = i => {
+                const vi = i - start;
+                return padX + (vi/Math.max(1,bars-1)) * (W - padX*2 - 60);
+            };
+            
+            const y0 = H/2;
+            const y = v => y0 - (v/mx) * (H/2 - padY);
+            
+            // Zero line
+            macdCtx.strokeStyle = 'rgba(255,255,255,0.06)';
+            macdCtx.beginPath();
+            macdCtx.moveTo(padX, y0);
+            macdCtx.lineTo(W - 60, y0);
+            macdCtx.stroke();
+            
+            // Histogram
+            for(let i=start; i<all.length && i<start+bars; i++){
+                const v = s.hist[i];
+                if(v == null) continue;
+                const xx = x(i);
+                const yy = y(v);
+                macdCtx.fillStyle = v >= 0 ? 'rgba(132,204,22,0.35)' : (cfg.histNeg || 'rgba(239,68,68,0.4)');
+                macdCtx.fillRect(xx-1, Math.min(yy, y0), 2, Math.abs(yy - y0));
+            }
+            
+            // MACD Line
+            macdCtx.strokeStyle = cfg.color || '#84cc16';
+            macdCtx.lineWidth = 1.2;
+            macdCtx.beginPath();
+            let started = false;
+            for(let i=start; i<all.length && i<start+bars; i++){
+                const v = s.macd[i];
+                if(v == null) continue;
+                const xx = x(i), yy = y(v);
+                if(!started){ macdCtx.moveTo(xx, yy); started = true; }
+                else macdCtx.lineTo(xx, yy);
+            }
+            if(started) macdCtx.stroke();
+            
+            // Signal Line
+            macdCtx.strokeStyle = cfg.sigColor || '#f59e0b';
+            macdCtx.lineWidth = 1;
+            macdCtx.beginPath();
+            started = false;
+            for(let i=start; i<all.length && i<start+bars; i++){
+                const v = s.sig[i];
+                if(v == null) continue;
+                const xx = x(i), yy = y(v);
+                if(!started){ macdCtx.moveTo(xx, yy); started = true; }
+                else macdCtx.lineTo(xx, yy);
+            }
+            if(started) macdCtx.stroke();
+            
+            // Current value
+            const lastMACD = s.macd[s.macd.length-1];
+            const lastHist = s.hist[s.hist.length-1];
+            if(lastMACD !== null && lastHist !== null){
+                document.getElementById('macdPanelVal').textContent = `${lastMACD.toFixed(2)} (${lastHist.toFixed(4)})`;
+                document.getElementById('macdPanelVal').className = lastHist >= 0 ? 'text-green-400' : 'text-red-400';
+            }
+        }
+
+        // --- Pine Script Logic ---
+        let currentPineId = null;
+        async function loadPineList(){
+            try {
+                const r = await fetch('/api/pine/list');
+                const d = await r.json();
+                const list = d.items || [];
+                const search = $('pineSearch').value.toLowerCase();
+                const filtered = list.filter(it => it.name.toLowerCase().includes(search));
+                $('pineList').innerHTML = filtered.map(it => `
+                    <div class="p-2 border-b border-white/5 cursor-pointer hover:bg-white/5 ${currentPineId === it.id ? 'bg-white/10 text-accent' : ''}" onclick="openPineScript('${it.id}')">
+                        <div class="font-semibold">${it.name}</div>
+                        <div class="text-[9px] text-muted">${new Date(it.updatedAt * 1000).toLocaleString()}</div>
+                    </div>
+                `).join('');
+            } catch(e) { console.error(e); }
+        }
+
+        async function openPineScript(id){
+            try {
+                const r = await fetch(`/api/pine/get?id=${id}`);
+                const d = await r.json();
+                if(d.error) return;
+                currentPineId = id;
+                $('pineName').value = d.name;
+                $('pineEditor').value = d.code;
+                $('pineStatus').textContent = 'Carregado';
+                loadPineList();
+            } catch(e) { console.error(e); }
+        }
+
+        async function savePineScript(){
+            const name = $('pineName').value || 'Sem titulo';
+            const code = $('pineEditor').value;
+            if(!code) return;
+            try {
+                const r = await fetch('/api/pine/save', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({id: currentPineId, name, code})
+                });
+                const d = await r.json();
+                if(d.ok) {
+                    currentPineId = d.id;
+                    $('pineStatus').textContent = 'Salvo';
+                    loadPineList();
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        function newPineScript(){
+            currentPineId = null;
+            $('pineName').value = '';
+            $('pineEditor').value = '//@version=5\nindicator("Novo Script", overlay=true)\n\n// Seu código aqui';
+            $('pineStatus').textContent = 'Novo';
+            loadPineList();
+        }
+
+        function applyPineScript(){
+            const code = $('pineEditor').value;
+            const name = $('pineName').value || 'Script';
+            if(!code) return;
+            const cfg = parsePineConfig(code);
+            const colors = nextPineColors(state.pineOverlays.length);
+            const overlay = {
+                id: currentPineId || Date.now().toString(),
+                name: name,
+                code: code,
+                cfg: cfg,
+                colorUp: colors.up,
+                colorDn: colors.dn,
+                enabled: true
+            };
+            // Se já existe um com o mesmo ID, substitui
+            const idx = state.pineOverlays.findIndex(ov => ov.id === overlay.id);
+            if(idx !== -1) state.pineOverlays[idx] = overlay;
+            else state.pineOverlays.push(overlay);
+            
+            renderPineActiveList();
+            drawMain();
+            $('pineStatus').textContent = 'Aplicado';
+        }
+
+        function renderPineActiveList(){
+            const el = $('pineActiveList');
+            if(!el) return;
+            const wrap = $('pineActiveWrap');
+            if(state.pineOverlays.length === 0){
+                wrap.classList.add('hidden');
+                return;
+            }
+            wrap.classList.remove('hidden');
+            el.innerHTML = state.pineOverlays.map((ov, idx) => `
+                <div class="flex items-center justify-between gap-2 p-1 bg-white/5 rounded">
+                    <div class="flex items-center gap-1 truncate">
+                        <span class="w-2 h-2 rounded-full" style="background:${ov.colorUp}"></span>
+                        <span class="truncate">${ov.name}</span>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <input type="checkbox" ${ov.enabled ? 'checked' : ''} onchange="togglePineOverlay(${idx}, this.checked)" class="w-3 h-3">
+                        <button onclick="removePineOverlay(${idx})" class="text-red-400 hover:text-red-300">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function togglePineOverlay(idx, enabled){
+            if(state.pineOverlays[idx]) {
+                state.pineOverlays[idx].enabled = enabled;
+                drawMain();
+            }
+        }
+
+        function removePineOverlay(idx){
+            state.pineOverlays.splice(idx, 1);
+            renderPineActiveList();
+            drawMain();
+        }
+
+        // --- Events ---
+        (function(){
+            const card = document.getElementById('imgCard');
+            if(!card) return;
+            let dragging = false, dx = 0, dy = 0;
+            const startDrag = (e) => {
+                e.preventDefault();
+                const r = card.getBoundingClientRect();
+                dx = e.clientX - r.left;
+                dy = e.clientY - r.top;
+                dragging = true;
+            };
+            card.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', (e) => {
+                if(!dragging) return;
+                let nx = e.clientX - dx;
+                let ny = e.clientY - dy;
+                nx = Math.max(0, Math.min(nx, window.innerWidth - card.offsetWidth));
+                ny = Math.max(0, Math.min(ny, window.innerHeight - card.offsetHeight));
+                card.style.left = nx + 'px';
+                card.style.top = ny + 'px';
+            });
+            window.addEventListener('mouseup', () => { dragging = false; });
+        })();
+        
+        function getAutoTraderConfig() {
+            return {
+                strategy: $('cfgStrat').value,
+                mode: $('cfgMode').value,
+                lot: parseFloat($('cfgLot').value),
+                rsi_period: parseInt($('cfgRSI').value),
+                tp_buy: parseFloat($('cfgTPBuy').value),
+                tp_sell: parseFloat($('cfgTPSell').value),
+                timeframe_analysis: $('cfgTFA').value,
+                trailing_stop: parseFloat($('cfgTrailStop').value),
+                trailing_step: parseFloat($('cfgTrailStep').value),
+                profit_limit: parseFloat($('cfgProfLimit').value),
+                loss_limit: parseFloat($('cfgLossLimit').value),
+                max_orders: parseInt($('cfgMaxOrd').value),
+                time_between_orders: parseInt($('cfgTimeOrd').value)
+            };
+        }
+
+        // Timeframe buttons
+        document.querySelectorAll('.tf-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const tf = this.getAttribute('data-tf');
+                $('cfgTF').value = tf;
+                
+                // Auto-scroll para ultima vela ao trocar timeframe
+                state.view.followEnd = true;
+                state.view.start = null;
+                
+                send({type: 'config_update', symbol: $('cfgSym').value, timeframe: tf, bars_count: parseInt($('cfgBars').value)});
+            });
+        });
+
+        $('btnApply').onclick = () => {
+            state.view.bars = parseInt($('cfgBars').value) || 100;
+            state.view.followEnd = true;
+            state.view.start = null;
+            send({
+                type: 'config_update', 
+                symbol: $('cfgSym').value, 
+                timeframe: $('cfgTF').value, 
+                bars_count: parseInt($('cfgBars').value), 
+                prediction_count: parseInt($('cfgPred').value),
+                ollama_model: $('cfgModel').value,
+                ui: { pred_gap: parseInt($('cfgPredGap').value), right_padding: parseInt($('cfgRightPad').value) },
+                autotrader: getAutoTraderConfig()
+            });
+            resize();
+        };
+        
+        $('btnAnalyze').onclick = () => {
+            state.analysisProgress = { running: true, pct: 0, text: 'Iniciando...' };
+            const sAI = document.getElementById('sAI'); if(sAI) sAI.className = 'status-dot status-on';
+            const modal = document.getElementById('aiStatusModal'); if(modal) modal.style.display = 'flex';
+            const txt = document.getElementById('aiStatusText'); if(txt) txt.textContent = 'Iniciando...';
+            const bar = document.getElementById('aiStatusBar'); if(bar) bar.style.width = '0%';
+            send({type:'analyze'});
+        };
+        
+        document.getElementById('btnShowLast').onclick = async () => {
+            try {
+                const r = await fetch('/api/analise');
+                const d = await r.json();
+                if(!d || d.error) throw new Error('no file');
+                const da = d.final_analysis || d.deep || {};
+                const ai = d.predictions?.ai?.[0];
+                const patsAI = d.patterns_ai || [];
+                const pats = d.patterns || [];
+                const finalText = d.final_text || '';
+                const aiDec = d.ai_decision || {};
+                const parts = [];
+                parts.push(`<div class="mb-2"><strong>Acao Sugerida:</strong> ${da.action || 'MANTER'} (${da.confidence || 0}%)</div>`);
+                parts.push(`<div class="grid grid-cols-3 gap-2 text-[11px]">
+                    <div><div class="text-[#666]">Micro</div><div class="${(da.micro_trend==='UP'||da.micro_trend==='ALTA')?'text-green-400':'text-red-400'} font-bold">${da.micro_trend || '--'}</div></div>
+                    <div><div class="text-[#666]">Media</div><div class="${(da.medium_trend==='UP'||da.medium_trend==='ALTA')?'text-green-400':'text-red-400'} font-bold">${da.medium_trend || '--'}</div></div>
+                    <div><div class="text-[#666]">Macro</div><div class="${(da.macro_trend==='UP'||da.macro_trend==='ALTA')?'text-green-400':'text-red-400'} font-bold">${da.macro_trend || '--'}</div></div>
+                </div>`);
+                if(ai) parts.push(`<div class="mt-2"><strong>Proxima Barra (IA):</strong> O ${ai.open} -> C ${ai.close} ${ai.direction==='bullish'?'▲':'▼'}</div>`);
+                if(finalText) parts.push(`<div class="mt-2"><strong>Resumo:</strong> <div class="text-[11px] whitespace-pre-wrap">${finalText}</div></div>`);
+                const rec = (da.action||'').toString().toUpperCase();
+                if(rec === 'COMPRA' || rec === 'BUY') {
+                    parts.push(`<div class="mt-3 p-2 border border-green-500/40 bg-green-500/10 rounded text-[11px] font-semibold text-green-400">RECOMENDAÇÃO DE COMPRA</div>`);
+                } else if(rec === 'VENDA' || rec === 'SELL') {
+                    parts.push(`<div class="mt-3 p-2 border border-red-500/40 bg-red-500/10 rounded text-[11px] font-semibold text-red-400">RECOMENDAÇÃO DE VENDA</div>`);
+                } else {
+                    parts.push(`<div class="mt-3 p-2 border border-yellow-500/40 bg-yellow-500/10 rounded text-[11px] font-semibold text-yellow-400">MANTER</div>`);
+                }
+                updateModelRec(rec);
+                if((pats && pats.length) || (patsAI && patsAI.length)) {
+                    const base = (pats||[]).map(p=>`${p.name} (${p.confidence}%)`).join(', ');
+                    const llm = (patsAI||[]).map(p=>`${p.name} - ${p.signal || (p.type==='bullish'?'ALTA':p.type==='bearish'?'BAIXA':'CONT.') } (${p.confidence||0}%)`).join(', ');
+                    const both = [base, llm].filter(Boolean).join(' | ');
+                    parts.push(`<div class="mt-2"><strong>Padroes:</strong> ${both}</div>`);
+                }
+                if(aiDec && aiDec.action) {
+                    parts.push(`<div class="mt-2"><strong>Decisao IA:</strong> ${aiDec.action} (${aiDec.confidence||0}%) - ${aiDec.reason||''}</div>`);
+                }
+                parts.push(`<div class="flex gap-2 mt-4">
+                        <button id="btnModalCloseLast" class="btn btn-sec text-[10px] py-1">Fechar</button>
+                    </div>`);
+                const html = parts.join('');
+                document.getElementById('predContent').innerHTML = html;
+                document.getElementById('predModal').style.display = 'flex';
+                const clBtn = document.getElementById('btnModalCloseLast');
+                if(clBtn) clBtn.onclick = () => { document.getElementById('predModal').style.display = 'none'; };
+            } catch(e) {
+                if(state.lastPredHTML) {
+                    document.getElementById('predContent').innerHTML = state.lastPredHTML;
+                    document.getElementById('predModal').style.display = 'flex';
+                }
+            }
+        };
+        
+        $('btnBuy').onclick = () => send({type:'manual_order', signal:'BUY', symbol:$('cfgSym').value});
+        $('btnSell').onclick = () => send({type:'manual_order', signal:'SELL', symbol:$('cfgSym').value});
+        $('btnStartAuto').onclick = () => send({type: 'autotrader_start'});
+        $('btnStopAuto').onclick = () => send({type: 'autotrader_stop'});
+        $('autoToggle').onclick = function() { 
+            const isStart = !this.classList.contains('active');
+            send({type: isStart ? 'autotrader_start' : 'autotrader_stop'});
+        };
+        
+        ['fInd', 'fPat', 'fAI', 'fNews'].forEach(id => {
+            $(id).onclick = function() { 
+                this.classList.toggle('active'); 
+                recalcPredSlots(); 
+                drawMain(); 
+                drawLineChart(); 
+                if(document.getElementById('predFSModal')?.style.display === 'flex') drawLineChartFS();
+            };
+        });
+        
+        function syncChipActive(id) {
+            const chk = document.getElementById(id);
+            if(chk) chk.parentElement.classList.toggle('active', chk.checked);
+        }
+        
+        $('chkVol').onchange = () => { syncChipActive('chkVol'); drawMain(); persistOverlays(); };
+        $('chkPatterns').onchange = () => { syncChipActive('chkPatterns'); drawMain(); persistOverlays(); };
+        $('chkEMA').onchange = () => { syncChipActive('chkEMA'); drawMain(); persistOverlays(); updateIndLegend(); };
+        $('chkSR').onchange = () => { syncChipActive('chkSR'); drawMain(); persistOverlays(); updateIndLegend(); };
+        
+        $('chkBB').onchange = () => { syncChipActive('chkBB'); drawMain(); persistOverlays(); updateIndLegend(); };
+        $('chkRSIov').onchange = () => { 
+            syncChipActive('chkRSIov');
+            resize(); 
+            persistOverlays(); 
+            updateIndLegend(); 
+            if($('chkRSIov').checked) drawRSI();
+        };
+        $('chkMACDov').onchange = () => { 
+            syncChipActive('chkMACDov');
+            resize(); 
+            persistOverlays(); 
+            updateIndLegend(); 
+            if($('chkMACDov').checked) drawMACD();
+        };
+        
+        $('chkPatternsLLM').onchange = () => { syncChipActive('chkPatternsLLM'); drawMain(); persistOverlays(); };
+        $('chkFib').onchange = () => {
+            syncChipActive('chkFib');
+            if($('chkFib').checked) {
+                send({type:'fib_request', timeframe: 'D1'});
+            }
+            drawMain();
+            persistOverlays();
+        };
+        $('chkPerspective').onchange = () => {
+            syncChipActive('chkPerspective');
+            state.perspective = $('chkPerspective').checked;
+            drawMain();
+            persistOverlays();
+        };
+
+        // --- Init ---
+        async function init() {
+            try {
+                const r = await fetch('/api/settings');
+                const s = await r.json();
+                state.settings = s;
+                $('cfgSym').value = s.symbol || 'BTCUSDc';
+                $('cfgTF').value = s.timeframe || 'H1';
+                $('cfgBars').value = s.bars_count || 100;
+                $('cfgPred').value = s.prediction_count || 5;
+                state.view.bars = parseInt($('cfgBars').value) || 100;
+                
+                // Atualiza botao de timeframe ativo
+                document.querySelectorAll('.tf-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-tf') === s.timeframe);
+                });
+                
+                if(s.ui) {
+                    state.view.predGap = Number.isFinite(s.ui.pred_gap) ? s.ui.pred_gap : state.view.predGap;
+                    state.view.axisPadBars = Number.isFinite(s.ui.right_padding) ? s.ui.right_padding : state.view.axisPadBars;
+                    if(Number.isFinite(s.ui.left_padding)) state.view.leftPadBars = s.ui.left_padding;
+                }
+                $('cfgPredGap').value = state.view.predGap;
+                $('cfgRightPad').value = state.view.axisPadBars;
+                $('cfgLeftPad').value = state.view.leftPadBars || 0;
+                
+                if(s.overlays) {
+                    if(typeof s.overlays.vol === 'boolean') $('chkVol').checked = s.overlays.vol;
+                    if(typeof s.overlays.ema === 'boolean') $('chkEMA').checked = s.overlays.ema;
+                    if(typeof s.overlays.sr === 'boolean') $('chkSR').checked = s.overlays.sr;
+                    if(typeof s.overlays.patterns === 'boolean') $('chkPatterns').checked = s.overlays.patterns;
+                    if(typeof s.overlays.patterns_llm === 'boolean') $('chkPatternsLLM').checked = s.overlays.patterns_llm;
+                    if(typeof s.overlays.fib === 'boolean') $('chkFib').checked = s.overlays.fib;
+                    if(typeof s.overlays.rsi_overlay === 'boolean') $('chkRSIov').checked = s.overlays.rsi_overlay;
+                    if(typeof s.overlays.macd_overlay === 'boolean') $('chkMACDov').checked = s.overlays.macd_overlay;
+                    
+                    // Sincroniza classes active dos labels
+                    ['chkVol', 'chkEMA', 'chkSR', 'chkPatterns', 'chkPatternsLLM', 'chkFib', 'chkRSIov', 'chkMACDov'].forEach(syncChipActive);
+                }
+                if(s.fib_bars) state.fibBars = parseInt(s.fib_bars) || 200;
+                if(s.perspective !== undefined) state.perspective = !!s.perspective;
+                $('chkPerspective').checked = !!state.perspective;
+                
+                if(s.autotrader) {
+                    $('cfgStrat').value = s.autotrader.strategy || 'rsi';
+                    $('cfgMode').value = s.autotrader.mode || 'both';
+                    $('cfgLot').value = s.autotrader.lot || 0.01;
+                    $('cfgRSI').value = s.autotrader.rsi_period || 4;
+                    $('cfgTPBuy').value = s.autotrader.tp_buy || 0;
+                    $('cfgTPSell').value = s.autotrader.tp_sell || 0;
+                    $('cfgTFA').value = s.autotrader.timeframe_analysis || 'M1';
+                    $('cfgTrailStop').value = s.autotrader.trailing_stop || 0;
+                    $('cfgTrailStep').value = s.autotrader.trailing_step || 0;
+                    $('cfgProfLimit').value = s.autotrader.profit_limit || 0;
+                    $('cfgLossLimit').value = s.autotrader.loss_limit || 0;
+                    $('cfgMaxOrd').value = s.autotrader.max_orders || 1;
+                    $('cfgTimeOrd').value = s.autotrader.time_between_orders || 5;
+                }
+            } catch(e) { console.error("Settings load failed", e); }
+
+            try {
+                const r = await fetch('/api/ollama/models');
+                const d = await r.json();
+                const models = d.models || [];
+                $('cfgModel').innerHTML = models.map(m => `<option value="${m}">${m}</option>`).join('');
+                const desired = (state.settings && state.settings.ollama_model) ? state.settings.ollama_model : null;
+                if(desired && models.includes(desired)) {
+                    $('cfgModel').value = desired;
+                }
+            } catch(e) { $('cfgModel').innerHTML = '<option>Error</option>'; }
+
+            try {
+                const r2 = await fetch('/api/indicadores', {cache:'no-store'});
+                const d2 = await r2.json();
+                if(d2?.emas && Array.isArray(d2.emas)) state.emaCfg = d2;
+                if(d2?.bollinger) state.indCfg.bollinger = Object.assign(state.indCfg.bollinger, d2.bollinger);
+                if(d2?.rsi_cfg) state.indCfg.rsi = Object.assign(state.indCfg.rsi, d2.rsi_cfg);
+                if(d2?.macd_cfg) state.indCfg.macd = Object.assign(state.indCfg.macd, d2.macd_cfg);
+            } catch(e) {}
+
+            connect();
+            window.addEventListener('resize', resize);
+            window.addEventListener('resize', () => { 
+                drawLineChart(); 
+                if(document.getElementById('predFSModal')?.style.display === 'flex') drawLineChartFS();
+            });
+        // Sincroniza classes active dos labels
+        ['chkVol', 'chkEMA', 'chkSR', 'chkPatterns', 'chkPatternsLLM', 'chkFib', 'chkRSIov', 'chkMACDov', 'chkPerspective'].forEach(syncChipActive);
+        
+        resize();
+            recalcPredSlots();
+            renderPineActiveList();
+            
+            // Sincroniza previsoes periodicamente
+            async function loadAnalise() {
+                try {
+                    const resp = await fetch('/api/analise', { cache: 'no-store' });
+                    const d = await resp.json();
+                    if(d && !d.error && d.predictions) {
+                        state.preds.ind = d.predictions.indicator || [];
+                        state.preds.pat = d.predictions.pattern || [];
+                        state.preds.ai = d.predictions.ai || [];
+                        state.preds.news = d.predictions.news || [];
+                        recalcPredSlots();
+                        drawLineChart();
+                        if(document.getElementById('predFSModal')?.style.display === 'flex') drawLineChartFS();
+                    }
+                } catch(e) {}
+            }
+            loadAnalise();
+            setInterval(loadAnalise, 5000);
+            
+            // Zoom e Pan
+            let zoomQueued = false, zoomEvt = null;
+            const applyZoom = () => {
+                if(!zoomEvt) { zoomQueued = false; return; }
+                const e = zoomEvt;
+                zoomEvt = null;
+                zoomQueued = false;
+                if(!state.candles?.length) return;
+                
+                const rect = mainCvs.getBoundingClientRect();
+                const W = mainCvs.width;
+                const pad = {l:8, r:70};
+                const chartW = W - pad.l - pad.r;
+                const x = e.clientX - rect.left;
+                const ratio = Math.max(0, Math.min(1, (x - pad.l) / chartW));
+                
+                const currentBars = state.view.bars || 100;
+                const currentStart = state.view.start || 0;
+                const pivotIndex = currentStart + ratio * currentBars;
+                
+                const factor = e.deltaY < 0 ? 0.85 : 1.18;
+                let nextBars = Math.round(currentBars * factor);
+                nextBars = Math.max(20, Math.min(nextBars, state.candles.length));
+                
+                // Zoom para tras - mantem pivot visivel
+                let nextStart = Math.round(pivotIndex - ratio * nextBars);
+                const maxStart = state.candles.length - 1;
+                nextStart = Math.max(-state.view.leftPadBars, Math.min(nextStart, maxStart));
+                
+                state.view.bars = nextBars;
+                state.view.start = nextStart;
+                state.view.followEnd = false;
+                drawMain();
+                if($('chkRSIov')?.checked) drawRSI();
+                if($('chkMACDov')?.checked) drawMACD();
+            };
+            
+            mainCvs.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                zoomEvt = e;
+                if(!zoomQueued) {
+                    zoomQueued = true;
+                    requestAnimationFrame(applyZoom);
+                }
+            }, { passive: false });
+            
+            let dragging = false, dragStartX = 0, dragStartY = 0, dragBaseStart = 0, baseYZoom = 1;
+            
+            mainCvs.addEventListener('mousedown', (e) => {
+                if(!state.candles?.length) return;
+                dragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                dragBaseStart = state.view.start || 0;
+                baseYZoom = state.view?.yZoom || 1;
+                state.view.followEnd = false;
+            });
+            
+            window.addEventListener('mousemove', (e) => {
+                if(!dragging) return;
+                const W = mainCvs.width;
+                const pad = {l:8, r:70};
+                const chartW = W - pad.l - pad.r;
+                const bars = state.view.bars || 100;
+                
+                const dx = e.clientX - dragStartX;
+                const dy = e.clientY - dragStartY;
+                
+                if(Math.abs(dy) > Math.abs(dx) * 1.5){
+                    // Zoom vertical
+                    const factor = Math.exp(-dy * 0.004);
+                    state.view.yZoom = Math.max(0.3, Math.min(4, baseYZoom * factor));
+                } else {
+                    // Pan horizontal
+                    const barsPerPixel = bars / Math.max(1, chartW);
+                    let nextStart = Math.round(dragBaseStart - dx * barsPerPixel);
+                    nextStart = Math.max(-state.view.leftPadBars, Math.min(nextStart, state.candles.length - 1));
+                    state.view.start = nextStart;
+                }
+                
+                drawMain();
+                if($('chkRSIov')?.checked) drawRSI();
+                if($('chkMACDov')?.checked) drawMACD();
+            });
+            
+            window.addEventListener('mouseup', () => { dragging = false; });
+            
+            document.getElementById('predClose').onclick = () => { document.getElementById('predModal').style.display = 'none'; };
+            
+            // Pine Script events
+            $('btnPine').onclick = () => {
+                $('pineModal').style.display = 'flex';
+                loadPineList();
+            };
+            $('pineClose').onclick = () => { $('pineModal').style.display = 'none'; };
+            $('pineSave').onclick = savePineScript;
+            $('pineApply').onclick = applyPineScript;
+            $('pineNew').onclick = newPineScript;
+            $('pineSearch').oninput = loadPineList;
+
+            // Go to end button click
+            document.getElementById('btnGoEnd').onclick = () => {
+                const b = state.view.bars || 100;
+                // Move o gráfico para mostrar as velas recentes com padding na direita
+                state.view.start = Math.max(-state.view.leftPadBars, state.candles.length - b);
+                drawMain();
+                if($('chkRSIov')?.checked) drawRSI();
+                if($('chkMACDov')?.checked) drawMACD();
+                
+                const btn = document.getElementById('btnGoEnd');
+                btn.classList.add('bg-[#22c55e]/30', 'border-[#22c55e]/50');
+                setTimeout(() => btn.classList.remove('bg-[#22c55e]/30', 'border-[#22c55e]/50'), 400);
+            };
+
+            // Follow mode button toggle
+            document.getElementById('btnFollow').onclick = () => {
+                state.view.followEnd = !state.view.followEnd;
+                const btn = document.getElementById('btnFollow');
+                btn.classList.toggle('text-[#22c55e]', state.view.followEnd);
+                btn.classList.toggle('border-[#22c55e]/40', state.view.followEnd);
+                if(state.view.followEnd){
+                    const b = state.view.bars || 100;
+                    state.view.start = Math.max(-state.view.leftPadBars, state.candles.length - b);
+                    drawMain();
+                }
+            };
+
+            // Sync initial state for follow button
+            const btnF = document.getElementById('btnFollow');
+            if(btnF) {
+                btnF.classList.toggle('text-[#22c55e]', !!state.view.followEnd);
+                btnF.classList.toggle('border-[#22c55e]/40', !!state.view.followEnd);
+            }
+
+            // Padding controls
+            const clampInt = (v, min, max, def) => {
+                v = parseInt(v);
+                if(!Number.isFinite(v)) v = def;
+                return Math.max(min, Math.min(max, v));
+            };
+            
+            $('cfgPredGap').oninput = () => {
+                state.view.predGap = clampInt($('cfgPredGap').value, 0, 50, 3);
+                drawMain();
+            };
+            $('cfgRightPad').oninput = () => {
+                state.view.axisPadBars = clampInt($('cfgRightPad').value, 5, 100, 25);
+                drawMain();
+            };
+            $('cfgLeftPad').oninput = () => {
+                state.view.leftPadBars = clampInt($('cfgLeftPad').value, 0, 200, 10);
+                drawMain();
+            };
+            
+            // Timer
+            setInterval(() => {
+                if(state.autoTrader.running && state.autoTrader.remaining > 0) {
+                    state.autoTrader.remaining--;
+                    updateAutoTraderUI();
+                }
+            }, 1000);
+            
+            function notifyPush(message) {
+                try {
+                    if('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('CryptoVision Pro', { body: message });
+                    }
+                } catch(e) {}
+            }
+            
+            function renderAutoInfo() {
+                const strat = $('cfgStrat').value;
+                const MAP = {
+                    scalping: `<div><strong>Scalping</strong>: EMA9 > EMA21 + vela de alta = BUY</div>`,
+                    day_trade: `<div><strong>DayTrade</strong>: MACD histograma > 0 = BUY</div>`,
+                    swing_trade: `<div><strong>SwingTrade</strong>: Preco perto de suporte/resistencia</div>`,
+                    rsi: `<div><strong>RSI</strong>: RSI <= 30 = BUY, RSI >= 70 = SELL</div>`,
+                    ai: `<div><strong>IA</strong>: Usa tendencia de EMAs</div>`
+                };
+                document.getElementById('autoInfoContent').innerHTML = MAP[strat] || '<div>Selecione uma estrategia.</div>';
+            }
+            
+            document.getElementById('cfgStrat').addEventListener('change', () => {
+                if(document.getElementById('autoInfoModal').style.display === 'flex') renderAutoInfo();
+            });
+            
+            // Fullscreen predictions
+            const predExpand = document.getElementById('predExpand');
+            const fsModal = document.getElementById('predFSModal');
+            if(predExpand){
+                predExpand.onclick = () => {
+                    if(fsModal){ fsModal.style.display = 'flex'; drawLineChartFS(); }
+                };
+            }
+            const fsClose = document.getElementById('predFSClose');
+            if(fsClose){
+                fsClose.onclick = () => { fsModal.style.display = 'none'; };
+            }
+            if(fsModal){
+                fsModal.addEventListener('click', (e) => { if(e.target === fsModal) fsModal.style.display = 'none'; });
+            }
+            
+            // AutoTrader sections
+            const segSys = document.getElementById('segSys');
+            const segIA = document.getElementById('segIA');
+            const sysSection = document.getElementById('sysSection');
+            const aiSection = document.getElementById('aiSection');
+            
+            function setAutoMode(mode){
+                const isIA = mode === 'ia';
+                segSys?.classList.toggle('active', !isIA);
+                segIA?.classList.toggle('active', isIA);
+                sysSection?.classList.toggle('hidden', isIA);
+                aiSection?.classList.toggle('hidden', !isIA);
+            }
+            segSys?.addEventListener('click', () => setAutoMode('sys'));
+            segIA?.addEventListener('click', () => setAutoMode('ia'));
+            
+            // Indicator config buttons
+            document.getElementById('emaName')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                renderEmaConfig();
+                document.getElementById('emaCfgModal').style.display = 'flex';
+            });
+            
+            document.getElementById('fibName')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const fb = document.getElementById('fibBarsInput');
+                if(fb) fb.value = state.fibBars;
+                document.getElementById('fibCfgModal').style.display = 'flex';
+            });
+            
+            document.getElementById('bbName')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const c = state.indCfg?.bollinger || {};
+                document.getElementById('bbPeriod').value = c.period||20;
+                document.getElementById('bbMult').value = c.mult||2;
+                document.getElementById('bbColor').value = c.color||'#06b6d4';
+                document.getElementById('bbWidth').value = c.width||1;
+                document.getElementById('bbCfgModal').style.display = 'flex';
+            });
+            
+            document.getElementById('rsiName')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const c = state.indCfg?.rsi || {};
+                document.getElementById('rsiPeriod').value = c.period||14;
+                document.getElementById('rsiOb').value = c.ob||70;
+                document.getElementById('rsiOs').value = c.os||30;
+                document.getElementById('rsiColor').value = c.color||'#06b6d4';
+                document.getElementById('rsiWidth').value = c.width||1.2;
+                document.getElementById('rsiCfgModal').style.display = 'flex';
+            });
+            
+            document.getElementById('macdName')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const c = state.indCfg?.macd || {};
+                document.getElementById('macdFast').value = c.fast||12;
+                document.getElementById('macdSlow').value = c.slow||26;
+                document.getElementById('macdSig').value = c.signal||9;
+                document.getElementById('macdColor').value = c.color||'#84cc16';
+                document.getElementById('macdSigColor').value = c.sigColor||'#f59e0b';
+                document.getElementById('macdNeg').value = '#ef4444';
+                document.getElementById('macdCfgModal').style.display = 'flex';
+            });
+            
+            // Modal close handlers
+            ['bbCfgModal', 'rsiCfgModal', 'macdCfgModal', 'fibCfgModal', 'emaCfgModal'].forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                modal?.addEventListener('click', (e) => {
+                    if(e.target === modal) {
+                        modal.style.display = 'none';
+                        drawMain();
+                        if($('chkRSIov')?.checked) drawRSI();
+                        if($('chkMACDov')?.checked) drawMACD();
+                    }
+                });
+            });
+            
+            document.getElementById('bbCfgClose').onclick = async () => {
+                const c = state.indCfg.bollinger;
+                c.period = Math.max(5, parseInt(document.getElementById('bbPeriod').value)||20);
+                c.mult = Math.max(0.1, parseFloat(document.getElementById('bbMult').value)||2);
+                c.color = document.getElementById('bbColor').value || '#06b6d4';
+                c.width = Math.max(0.5, parseFloat(document.getElementById('bbWidth').value)||1);
+                try{ await fetch('/api/indicadores', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ bollinger: c })}); }catch(_){}
+                document.getElementById('bbCfgModal').style.display = 'none';
+                drawMain();
+            };
+            
+            document.getElementById('rsiCfgClose').onclick = async () => {
+                const c = state.indCfg.rsi;
+                c.period = Math.max(2, parseInt(document.getElementById('rsiPeriod').value)||14);
+                c.ob = Math.max(50, Math.min(100, parseInt(document.getElementById('rsiOb').value)||70));
+                c.os = Math.max(0, Math.min(50, parseInt(document.getElementById('rsiOs').value)||30));
+                c.color = document.getElementById('rsiColor').value || '#06b6d4';
+                c.width = Math.max(0.5, parseFloat(document.getElementById('rsiWidth').value)||1.2);
+                try{ await fetch('/api/indicadores', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ rsi_cfg: c })}); }catch(_){}
+                document.getElementById('rsiCfgModal').style.display = 'none';
+                drawMain(); if($('chkRSIov')?.checked) drawRSI();
+            };
+            
+            document.getElementById('macdCfgClose').onclick = async () => {
+                const c = state.indCfg.macd;
+                c.fast = Math.max(2, parseInt(document.getElementById('macdFast').value)||12);
+                c.slow = Math.max(2, parseInt(document.getElementById('macdSlow').value)||26);
+                c.signal = Math.max(2, parseInt(document.getElementById('macdSig').value)||9);
+                c.color = document.getElementById('macdColor').value || '#84cc16';
+                c.sigColor = document.getElementById('macdSigColor').value || '#f59e0b';
+                c.histNeg = document.getElementById('macdNeg').value || 'rgba(239,68,68,0.4)';
+                try{ await fetch('/api/indicadores', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ macd: c })}); }catch(_){}
+                document.getElementById('macdCfgModal').style.display = 'none';
+                drawMain(); if($('chkMACDov')?.checked) drawMACD();
+            };
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => { init(); });
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

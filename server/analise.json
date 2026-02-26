@@ -1,0 +1,479 @@
+{
+  "timestamp": "2026-02-26T21:13:09.063903+00:00",
+  "symbol": "BTCUSDm",
+  "timeframe": "D1",
+  "bars_analyzed": 100,
+  "account": {
+    "balance": 778.83,
+    "equity": 778.83,
+    "profit": 0.0,
+    "free_margin": 778.83
+  },
+  "metrics": {
+    "current_price": 67214.53,
+    "volatility_pct": 3.9628,
+    "rsi_value": 41.06,
+    "ema_cross": "BAIXA"
+  },
+  "indicators": {
+    "rsi": {
+      "value": 41.06,
+      "overbought": false,
+      "oversold": false
+    },
+    "macd": {
+      "macd": -3270.02368,
+      "signal": -3921.09092,
+      "histogram": 651.06724
+    },
+    "ema9": 66995.42859735503,
+    "ema21": 69388.68233977033,
+    "atr": {
+      "value": 2663.61,
+      "percentage": 3.9628
+    },
+    "support_resistance": {
+      "nearest_support": 62410.13,
+      "nearest_resistance": 72251.42
+    },
+    "trend": "bearish",
+    "volume_profile": [
+      {
+        "price": 61689.19,
+        "volume": 412614,
+        "buy_vol": 0,
+        "sell_vol": 412614
+      },
+      {
+        "price": 63598.62,
+        "volume": 229629,
+        "buy_vol": 0,
+        "sell_vol": 229629
+      },
+      {
+        "price": 65508.06,
+        "volume": 606527,
+        "buy_vol": 86764,
+        "sell_vol": 519763
+      },
+      {
+        "price": 67417.5,
+        "volume": 1028794,
+        "buy_vol": 453028,
+        "sell_vol": 575766
+      },
+      {
+        "price": 69326.93,
+        "volume": 685704,
+        "buy_vol": 528279,
+        "sell_vol": 157425
+      },
+      {
+        "price": 71236.37,
+        "volume": 192994,
+        "buy_vol": 0,
+        "sell_vol": 192994
+      },
+      {
+        "price": 75055.25,
+        "volume": 323735,
+        "buy_vol": 0,
+        "sell_vol": 323735
+      },
+      {
+        "price": 76964.68,
+        "volume": 391903,
+        "buy_vol": 220730,
+        "sell_vol": 171173
+      },
+      {
+        "price": 82692.99,
+        "volume": 247801,
+        "buy_vol": 0,
+        "sell_vol": 247801
+      },
+      {
+        "price": 84602.43,
+        "volume": 912919,
+        "buy_vol": 0,
+        "sell_vol": 912919
+      },
+      {
+        "price": 86511.87,
+        "volume": 1591749,
+        "buy_vol": 837803,
+        "sell_vol": 753946
+      },
+      {
+        "price": 88421.31,
+        "volume": 990625,
+        "buy_vol": 588610,
+        "sell_vol": 402015
+      },
+      {
+        "price": 90330.74,
+        "volume": 1454513,
+        "buy_vol": 660701,
+        "sell_vol": 793812
+      },
+      {
+        "price": 92240.18,
+        "volume": 626070,
+        "buy_vol": 437976,
+        "sell_vol": 188094
+      },
+      {
+        "price": 94149.62,
+        "volume": 259953,
+        "buy_vol": 90236,
+        "sell_vol": 169717
+      },
+      {
+        "price": 96059.05,
+        "volume": 91239,
+        "buy_vol": 91239,
+        "sell_vol": 0
+      }
+    ],
+    "bollinger": {
+      "middle": 67807.673,
+      "upper": 71030.84379815575,
+      "lower": 64584.50220184425
+    }
+  },
+  "deep": {
+    "micro_trend": "BAIXA",
+    "micro_reason": "Tendência de baixa clara nos timeframes menores com indicadores negativos",
+    "micro_details": [
+      "M1: EMA9 abaixo da EMA21 e RSI em 33.42 próximo à sobrevenda",
+      "M5: MACD negativo com histograma -57.98 indicando força baixista",
+      "Padrão OCO bearish com 65% confiança em M1 e M5"
+    ],
+    "medium_trend": "NEUTRAL",
+    "medium_reason": "Divergência entre indicadores com tendência indefinida",
+    "medium_details": [
+      "H1: MACD negativo mas próximo da linha zero, RSI neutro em 46.18",
+      "H4: MACD positivo mas EMA9 e EMA21 próximas, padrões mistos com OCO e OCOI"
+    ],
+    "macro_trend": "BAIXA",
+    "macro_reason": "Tendência de baixa estabelecida nos timeframes maiores",
+    "macro_details": [
+      "D1: EMA9 significativamente abaixo da EMA21, RSI em 41.06 indicando pressão vendedora",
+      "W1: RSI sobrevendido em 29.01, padrão Cunha de Baixa com 60% confiança"
+    ],
+    "action": "MANTER",
+    "confidence": 65
+  },
+  "ai_decision": {
+    "action": "HOLD",
+    "confidence": 60,
+    "reason": "Mercado em fase de consolidação após queda severa, último candle mostra OCO de baixa sugerindo possível continuação da tendência descendente"
+  },
+  "final_analysis": {
+    "micro_trend": "BAIXA",
+    "medium_trend": "NEUTRAL",
+    "macro_trend": "BAIXA",
+    "action": "MANTER",
+    "confidence": 65,
+    "reason": "Preço abaixo das EMAs 9/21 (67K vs 69.4K), RSI neutro-baixo 41, padrão OCO bearish ativo. Micro-trend negativa com RSI próximo à sobrevenda, macro-trend estabelecida em baixa após queda severa"
+  },
+  "final_text": "Preço atual: $67.294,03\nVolatilidade: 3,96%\nRSI: 41,21 (neutro-tendendo à baixa)\nEMAs: EMA9 ($67.011) abaixo da EMA21 ($69.396) - cruzamento baixista\n\n**Níveis de Fibonacci:**\n- Próximo suporte (Fib 0%): $59.779,75\n- Próximo resistência (Fib 23,6%): $75.479,24\n- Preço atual está entre os níveis 0% e 23,6%\n\n**Padrões Identificados:**\n- Cunha de Baixa (D1, 60% confiança)\n- OCO bearish (M1/M5/D1, 65% confiança)\n- Bandeira de Baixa (D1, 55% confiança)\n\n**Panorama por Timeframe:**\n- M1/M5: Tendência de baixa forte (RSI 33-41)\n- H1/H4: Tendência neutra com padrões mistos\n- D1/Semanal: Tendência macro de baixa estabelecida\n\n**Performance Recente:**\n- H4: -5,15% (queda significativa)\n- D1: -37,92% (queda severa)\n- Semanal: +83,89% (recuperação parcial)\n\n**Ordens Abertas:** Nenhuma ordem aberta\n\n**CONCLUSÃO: RECOMENDAÇÃO DE MANTER**\n\nJustificativa: Mercado em fase de consolidação após queda severa, com indicadores mostrando pressão vendedora nas tendências micro e macro. O preço abaixo das EMAs e o padrão OCO bearish sugerem possível continuação da tendência de baixa, porém o RSI neutro indica que pode haver estabilização temporária antes de novos movimentos.",
+  "context": [
+    "RSI neutro-baixo (41.3) com EMA9 abaixo da EMA21 (67K vs 69.4K) indicando tendência baixista",
+    "Preço atual $67.341 entre Fibonacci 0% ($59.779) e 23.6% ($75.479), próximo ao suporte $62.410",
+    "Padrão OCO bearish ativo (65% confiança) com Cunha de Baixa e Bandeira de Baixa nos timeframes maiores",
+    "Micro-trend (M1/M5) fortemente baixista, macro-trend (D1/W1) estabelecida em baixa após queda severa de -37.92%",
+    "Performance H4: -5.15% recente, volatilidade elevada (3.96%), sem ordens abertas no momento"
+  ],
+  "action_plan": [
+    "Aguardar confirmação de rompimento abaixo do suporte $62.410 para entrada vendida",
+    "Considerar compra apenas se preço superar EMA21 ($69.400) com volume confirmatório",
+    "Stop-loss para vendas: $67.800 (acima da EMA9 atual), Take-profit: $62.000 (próximo suporte)",
+    "Monitorar formação de OCOI bullish (65% confiança) como possível sinal de reversão",
+    "Acompanhar RSI M1 (33.42) para possíveis condições de sobrevenda em timeframes menores"
+  ],
+  "patterns": [
+    {
+      "name": "Cunha de Baixa",
+      "type": "bearish",
+      "confidence": 60
+    },
+    {
+      "name": "Bandeira de Baixa",
+      "type": "bearish",
+      "confidence": 55
+    },
+    {
+      "name": "Flâmula",
+      "type": "neutral",
+      "confidence": 50
+    },
+    {
+      "name": "OCO",
+      "type": "bearish",
+      "confidence": 65
+    },
+    {
+      "name": "OCOI",
+      "type": "bullish",
+      "confidence": 65
+    },
+    {
+      "name": "Canal de Baixa",
+      "type": "bearish",
+      "confidence": 55
+    },
+    {
+      "name": "LTB",
+      "type": "bearish",
+      "confidence": 50
+    }
+  ],
+  "patterns_ai": [
+    {
+      "name": "OCO",
+      "signal": "BAIXA",
+      "type": "bearish",
+      "confidence": 65
+    }
+  ],
+  "open_orders": [],
+  "open_orders_count": 0,
+  "tf_profit": {
+    "M1": {
+      "start_close": 67543.35,
+      "end_close": 67230.57,
+      "change_pct": -0.4631
+    },
+    "M5": {
+      "start_close": 68206.21,
+      "end_close": 67230.57,
+      "change_pct": -1.4304
+    },
+    "M15": {
+      "start_close": 67067.55,
+      "end_close": 67230.57,
+      "change_pct": 0.2431
+    },
+    "M30": {
+      "start_close": 63233.92,
+      "end_close": 67230.57,
+      "change_pct": 6.3204
+    },
+    "H1": {
+      "start_close": 67949.88,
+      "end_close": 67230.57,
+      "change_pct": -1.0586
+    },
+    "H4": {
+      "start_close": 70877.9,
+      "end_close": 67230.57,
+      "change_pct": -5.1459
+    },
+    "D1": {
+      "start_close": 108294.84,
+      "end_close": 67230.57,
+      "change_pct": -37.919
+    },
+    "W1": {
+      "start_close": 36560.29,
+      "end_close": 67230.57,
+      "change_pct": 83.8896
+    },
+    "MN": {
+      "start_close": 61292.82,
+      "end_close": 67230.57,
+      "change_pct": 9.6875
+    }
+  },
+  "predictions": {
+    "indicator": [
+      {
+        "bar": 1,
+        "open": 67214.53,
+        "high": 68034.1,
+        "low": 66343.75,
+        "close": 67163.32,
+        "confidence": 78,
+        "direction": "bearish"
+      },
+      {
+        "bar": 2,
+        "open": 67163.32,
+        "high": 69294.18,
+        "low": 61703.02,
+        "close": 63833.88,
+        "confidence": 74,
+        "direction": "bearish"
+      },
+      {
+        "bar": 3,
+        "open": 63833.88,
+        "high": 64650.68,
+        "low": 62972.78,
+        "close": 63789.58,
+        "confidence": 70,
+        "direction": "bearish"
+      },
+      {
+        "bar": 4,
+        "open": 63789.58,
+        "high": 66451.95,
+        "low": 56469.01,
+        "close": 59131.37,
+        "confidence": 66,
+        "direction": "bearish"
+      },
+      {
+        "bar": 5,
+        "open": 59131.37,
+        "high": 60025.88,
+        "low": 57998.31,
+        "close": 58892.82,
+        "confidence": 62,
+        "direction": "bearish"
+      }
+    ],
+    "pattern": [
+      {
+        "bar": 1,
+        "open": 67214.53,
+        "high": 72189.49,
+        "low": 65412.6,
+        "close": 70387.55,
+        "confidence": 70,
+        "direction": "bullish"
+      },
+      {
+        "bar": 2,
+        "open": 70387.55,
+        "high": 71445.6,
+        "low": 68016.2,
+        "close": 69074.24,
+        "confidence": 70,
+        "direction": "bearish"
+      },
+      {
+        "bar": 3,
+        "open": 69074.24,
+        "high": 73525.71,
+        "low": 67421.88,
+        "close": 71873.35,
+        "confidence": 70,
+        "direction": "bullish"
+      },
+      {
+        "bar": 4,
+        "open": 71873.35,
+        "high": 72630.74,
+        "low": 70554.28,
+        "close": 71311.67,
+        "confidence": 70,
+        "direction": "bearish"
+      },
+      {
+        "bar": 5,
+        "open": 71311.67,
+        "high": 75279.62,
+        "low": 69797.46,
+        "close": 73765.4,
+        "confidence": 70,
+        "direction": "bullish"
+      }
+    ],
+    "ai": [
+      {
+        "bar": 1,
+        "open": 67214.53,
+        "high": 67800.03,
+        "low": 66097.73,
+        "close": 66683.23,
+        "confidence": 65,
+        "direction": "bearish"
+      },
+      {
+        "bar": 2,
+        "open": 66683.23,
+        "high": 67864.11,
+        "low": 63269.95,
+        "close": 64450.83,
+        "confidence": 65,
+        "direction": "bearish"
+      },
+      {
+        "bar": 3,
+        "open": 64450.83,
+        "high": 65312.21,
+        "low": 63931.55,
+        "close": 64792.93,
+        "confidence": 65,
+        "direction": "bullish"
+      },
+      {
+        "bar": 4,
+        "open": 64792.93,
+        "high": 66074.31,
+        "low": 60992.01,
+        "close": 62273.39,
+        "confidence": 65,
+        "direction": "bearish"
+      },
+      {
+        "bar": 5,
+        "open": 62273.39,
+        "high": 62699.01,
+        "low": 61773.25,
+        "close": 62198.87,
+        "confidence": 65,
+        "direction": "bearish"
+      }
+    ],
+    "news": [
+      {
+        "bar": 1,
+        "open": 67214.53,
+        "high": 67248.16,
+        "low": 67203.32,
+        "close": 67236.95,
+        "confidence": 30,
+        "direction": "bullish"
+      },
+      {
+        "bar": 2,
+        "open": 67236.95,
+        "high": 67256.74,
+        "low": 67230.36,
+        "close": 67250.15,
+        "confidence": 30,
+        "direction": "bullish"
+      },
+      {
+        "bar": 3,
+        "open": 67250.15,
+        "high": 67265.27,
+        "low": 67245.1,
+        "close": 67260.23,
+        "confidence": 30,
+        "direction": "bullish"
+      },
+      {
+        "bar": 4,
+        "open": 67260.23,
+        "high": 67278.18,
+        "low": 67254.24,
+        "close": 67272.2,
+        "confidence": 30,
+        "direction": "bullish"
+      },
+      {
+        "bar": 5,
+        "open": 67272.2,
+        "high": 67334.81,
+        "low": 67251.33,
+        "close": 67313.94,
+        "confidence": 30,
+        "direction": "bullish"
+      }
+    ]
+  }
+}

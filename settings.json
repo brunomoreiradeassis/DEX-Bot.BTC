@@ -1,0 +1,43 @@
+{
+    "symbol": "BTCUSDm",
+    "timeframe": "D1",
+    "bars_count": 100,
+    "prediction_count": 5,
+    "ollama_endpoint": "http://localhost:11434",
+    "ollama_model": "deepseek-v3.1:671b-cloud",
+    "ollama_autostart": true,
+    "mt5_autostart": true,
+    "mt5_terminal_path": "",
+    "ui": {
+        "pred_gap": 3,
+        "right_padding": 2
+    },
+    "autotrader": {
+        "enabled": false,
+        "strategy": "rsi",
+        "rsi_period": 4,
+        "lot": 0.01,
+        "tp_buy": 0,
+        "tp_sell": 0,
+        "mode": "both",
+        "timeframe_analysis": "M1",
+        "trailing_stop": 0,
+        "trailing_step": 0,
+        "profit_limit": 0,
+        "loss_limit": 0,
+        "max_orders": 1,
+        "time_between_orders": 5
+    },
+    "overlays": {
+        "vol": false,
+        "ema": true,
+        "bb": true,
+        "rsi_overlay": false,
+        "macd_overlay": false,
+        "sr": false,
+        "patterns": false,
+        "patterns_llm": false,
+        "fib": true
+    },
+    "fib_tf": "D1"
+}
